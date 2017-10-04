@@ -22,6 +22,7 @@
 extern uint8_t DEBOUNCE_TICK;
 
 uint8_t buf[4];
+int tick = 0, tick2 = 0;
 
 void app_main()
 {
@@ -76,9 +77,21 @@ void app_main()
         }
 
         DEBOUNCE_TICK = 0;
-        read_motion(buf);
-        if(buf[0] != 69)
-          ESP_LOGI(TAG, "%d", buf[0]);
+
+        if(tick++ > 10)
+        {
+          //restart_motion_device();
+          read_motion_reg(0x05);
+          read_motion_reg(0x0F);
+          write_motion_reg(0x05, 0x33);
+          if(tick2++ > 0x07)
+          {
+            restart_motion_device();
+            tick2 = 0;
+          }
+
+          tick = 0;
+        }
       }
 
     }

@@ -83,7 +83,11 @@ motion_controllers.o: \
  /home/ece453/Documents/ece453/esp-idf/components/driver/include/driver/spi_common.h \
  /home/ece453/Documents/ece453/esp-idf/components/soc/esp32/include/soc/spi_struct.h \
  /home/ece453/Documents/ece453/esp-idf/components/esp32/include/rom/lldesc.h \
- /home/ece453/Documents/ece453/esp-idf/components/esp32/include/rom/queue.h
+ /home/ece453/Documents/ece453/esp-idf/components/esp32/include/rom/queue.h \
+ /home/ece453/Documents/ece453/esp-idf/components/heap/include/esp_heap_caps.h \
+ /home/ece453/Documents/ece453/esp-idf/components/heap/include/multi_heap.h \
+ /home/ece453/Documents/ece453/esp-idf/components/log/include/esp_log.h \
+ /home/ece453/Documents/ece453/esp-idf/components/log/include/esp_log_internal.h
 
 /home/ece453/Documents/ece453/chuck-light/firmware/main/./lib/motion_controllers.h:
 
@@ -252,4 +256,12 @@ motion_controllers.o: \
 /home/ece453/Documents/ece453/esp-idf/components/esp32/include/rom/lldesc.h:
 
 /home/ece453/Documents/ece453/esp-idf/components/esp32/include/rom/queue.h:
+
+/home/ece453/Documents/ece453/esp-idf/components/heap/include/esp_heap_caps.h:
+
+/home/ece453/Documents/ece453/esp-idf/components/heap/include/multi_heap.h:
+
+/home/ece453/Documents/ece453/esp-idf/components/log/include/esp_log.h:
+
+/home/ece453/Documents/ece453/esp-idf/components/log/include/esp_log_internal.h:
 /home/ece453/Documents/ece453/chuck-light/firmware/main/./motion_controllers.c:

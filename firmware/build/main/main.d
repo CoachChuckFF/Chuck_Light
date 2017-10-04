@@ -132,6 +132,8 @@ main.o: /home/ece453/Documents/ece453/chuck-light/firmware/main/./main.c \
  /home/ece453/Documents/ece453/esp-idf/components/soc/esp32/include/soc/spi_struct.h \
  /home/ece453/Documents/ece453/esp-idf/components/esp32/include/rom/lldesc.h \
  /home/ece453/Documents/ece453/esp-idf/components/esp32/include/rom/queue.h \
+ /home/ece453/Documents/ece453/esp-idf/components/heap/include/esp_heap_caps.h \
+ /home/ece453/Documents/ece453/esp-idf/components/heap/include/multi_heap.h \
  /home/ece453/Documents/ece453/chuck-light/firmware/main/./lib/ps2_controller.h \
  /home/ece453/Documents/ece453/esp-idf/components/driver/include/driver/adc.h \
  /home/ece453/Documents/ece453/esp-idf/components/soc/esp32/include/soc/adc_channel.h \
@@ -410,6 +412,10 @@ main.o: /home/ece453/Documents/ece453/chuck-light/firmware/main/./main.c \
 /home/ece453/Documents/ece453/esp-idf/components/esp32/include/rom/lldesc.h:
 
 /home/ece453/Documents/ece453/esp-idf/components/esp32/include/rom/queue.h:
+
+/home/ece453/Documents/ece453/esp-idf/components/heap/include/esp_heap_caps.h:
+
+/home/ece453/Documents/ece453/esp-idf/components/heap/include/multi_heap.h:
 
 /home/ece453/Documents/ece453/chuck-light/firmware/main/./lib/ps2_controller.h:
 
