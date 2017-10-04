@@ -30,6 +30,7 @@
 ### ModelSim ###
 # ignore ModelSim generated files and directories (temp files and so on)
 [_@]*
+work/
 
 # ignore compilation output of ModelSim
 *.mti
