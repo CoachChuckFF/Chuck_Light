@@ -39,14 +39,14 @@ add_fileset QUARTUS_SYNTH QUARTUS_SYNTH "" ""
 set_fileset_property QUARTUS_SYNTH TOP_LEVEL ece453
 set_fileset_property QUARTUS_SYNTH ENABLE_RELATIVE_INCLUDE_PATHS false
 set_fileset_property QUARTUS_SYNTH ENABLE_FILE_OVERWRITE_MODE false
-add_fileset_file ece453.v VERILOG PATH ip/ece453/ece453.v TOP_LEVEL_FILE
+add_fileset_file ece453.sv SYSTEM_VERILOG PATH ip/ece453/ece453.sv TOP_LEVEL_FILE
 add_fileset_file ece453.vh OTHER PATH ip/ece453/ece453.vh
 
 add_fileset SIM_VERILOG SIM_VERILOG "" ""
 set_fileset_property SIM_VERILOG TOP_LEVEL ece453
 set_fileset_property SIM_VERILOG ENABLE_RELATIVE_INCLUDE_PATHS false
 set_fileset_property SIM_VERILOG ENABLE_FILE_OVERWRITE_MODE false
-add_fileset_file ece453.v VERILOG PATH ip/ece453/ece453.v
+add_fileset_file ece453.sv SYSTEM_VERILOG PATH ip/ece453/ece453.sv
 add_fileset_file ece453.vh OTHER PATH ip/ece453/ece453.vh
 
 
