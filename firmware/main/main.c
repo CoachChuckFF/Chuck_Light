@@ -16,6 +16,7 @@
 #include "lib/ps2_controller.h"
 #include "lib/serial_controller.h"
 #include "lib/timer_controller.h"
+#include "lib/konami.h"
 #include "lib/modes.h"
 
 #define TAG "Main"
@@ -108,7 +109,13 @@ void app_main()
           break;
         }
 
+
+        if(!(tick++ % 8))
+          print_xy();
+
+
         DEBOUNCE_TICK = 0;
+        konami_tick();
       }
 
       switch(MODE)
@@ -117,7 +124,19 @@ void app_main()
 
         break;
         case SELECTION_MODE:
-        
+
+          switch(check_konami(direction_event, button_event))
+          {
+            case 0:
+              //do nothing
+            break;
+            case KONAMI_COMPLETE:
+              ESP_LOGI(TAG, "KONAMI!!! -> Enter Party Mode");
+            break;
+            case REV_KONAMI_COMPLETE:
+              ESP_LOGI(TAG, "REVERSE-KONAMI!!! -> Enter Scary Mode")
+            break;
+          }
         break;
         case COLOR_WHEEL_MODE:
 
@@ -139,5 +158,7 @@ void app_main()
         break;
       }
 
+      direction_event = 0;
+      button_event = 0;
     }
 }

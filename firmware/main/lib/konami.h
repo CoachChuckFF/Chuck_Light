@@ -9,9 +9,13 @@
 #include "button_controllers.h"
 #include "ps2_controller.h"
 #include "modes.h"
+#include "esp_log.h"
+
+#define KONAMI_COMPLETE 1
+#define REV_KONAMI_COMPLETE 2
 
 void clear_konami(void);
-uint8_t check_konami(uint8_t, direction, uint8_t button);
 void konami_tick(void);
+uint8_t check_konami(uint8_t direction, uint8_t button);
 
-#ifndef
+#endif

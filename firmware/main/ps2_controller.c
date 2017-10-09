@@ -153,13 +153,6 @@ void read_xy(int *ret_val)
 
 }
 
-void read_rgb(uint8_t *ret_val)
-{
-  ret_val[0] = 255;
-  ret_val[1] = 0;
-  ret_val[2] = 0;
-}
-
 void print_xy()
 {
   ESP_LOGI(TAG, "(%d,%d)", adc1_get_raw(X_ADC)

@@ -1,4 +1,6 @@
-main.o: /home/ece453/Documents/ece453/chuck-light/firmware/main/./main.c \
+konami.o: \
+ /home/ece453/Documents/ece453/chuck-light/firmware/main/./konami.c \
+ /home/ece453/Documents/ece453/chuck-light/firmware/main/./lib/konami.h \
  /home/ece453/Documents/ece453/esp-idf/components/newlib/include/stdio.h \
  /home/ece453/Documents/ece453/esp-idf/components/newlib/include/_ansi.h \
  /home/ece453/Documents/ece453/esp-idf/components/newlib/include/newlib.h \
@@ -19,9 +21,12 @@ main.o: /home/ece453/Documents/ece453/chuck-light/firmware/main/./main.c \
  /home/ece453/Documents/ece453/esp-idf/components/newlib/include/sys/stdio.h \
  /home/ece453/Documents/ece453/esp-idf/components/newlib/include/string.h \
  /home/ece453/Documents/ece453/esp-idf/components/newlib/include/sys/string.h \
- /home/ece453/Documents/ece453/esp-idf/components/newlib/include/inttypes.h \
- /home/ece453/Documents/ece453/esp-idf/components/newlib/include/sys/_intsup.h \
+ /home/ece453/Documents/ece453/esp-idf/components/newlib/include/stdlib.h \
+ /home/ece453/Documents/ece453/esp-idf/components/newlib/include/machine/stdlib.h \
+ /home/ece453/Documents/ece453/esp-idf/components/newlib/include/alloca.h \
  /home/ece453/Documents/ece453/esp-idf/components/newlib/include/stdint.h \
+ /home/ece453/Documents/ece453/esp-idf/components/newlib/include/sys/_intsup.h \
+ /home/ece453/Documents/ece453/chuck-light/firmware/main/./lib/button_controllers.h \
  /home/ece453/Documents/ece453/esp-idf/components/freertos/include/freertos/FreeRTOS.h \
  /home/ece453/Documents/ece453/esp-idf/components/freertos/include/freertos/FreeRTOSConfig.h \
  /home/ece453/Documents/ece453/chuck-light/firmware/build/include/sdkconfig.h \
@@ -35,9 +40,6 @@ main.o: /home/ece453/Documents/ece453/chuck-light/firmware/main/./main.c \
  /home/ece453/Documents/ece453/esp-idf/components/freertos/include/freertos/xtensa_context.h \
  /home/ece453/Documents/ece453/esp-idf/components/esp32/include/xtensa/corebits.h \
  /home/ece453/Documents/ece453/esp-idf/components/esp32/include/xtensa/xtruntime-frames.h \
- /home/ece453/Documents/ece453/esp-idf/components/newlib/include/stdlib.h \
- /home/ece453/Documents/ece453/esp-idf/components/newlib/include/machine/stdlib.h \
- /home/ece453/Documents/ece453/esp-idf/components/newlib/include/alloca.h \
  /home/ece453/Documents/ece453/esp-idf/components/esp32/include/rom/ets_sys.h \
  /home/ece453/Documents/ece453/esp-idf/components/soc/esp32/include/soc/soc.h \
  /home/ece453/Documents/ece453/esp-idf/components/esp32/include/esp_assert.h \
@@ -76,81 +78,18 @@ main.o: /home/ece453/Documents/ece453/chuck-light/firmware/main/./main.c \
  /home/ece453/Documents/ece453/esp-idf/components/freertos/include/freertos/task.h \
  /home/ece453/Documents/ece453/esp-idf/components/newlib/include/limits.h \
  /home/ece453/Documents/ece453/esp-idf/components/freertos/include/freertos/list.h \
+ /home/ece453/Documents/ece453/esp-idf/components/freertos/include/freertos/queue.h \
+ /home/ece453/Documents/ece453/esp-idf/components/log/include/esp_log.h \
+ /home/ece453/Documents/ece453/esp-idf/components/log/include/esp_log_internal.h \
+ /home/ece453/Documents/ece453/chuck-light/firmware/main/./lib/ps2_controller.h \
  /home/ece453/Documents/ece453/esp-idf/components/freertos/include/freertos/event_groups.h \
  /home/ece453/Documents/ece453/esp-idf/components/freertos/include/freertos/timers.h \
  /home/ece453/Documents/ece453/esp-idf/components/freertos/include/freertos/task.h \
- /home/ece453/Documents/ece453/esp-idf/components/nvs_flash/include/nvs_flash.h \
- /home/ece453/Documents/ece453/esp-idf/components/nvs_flash/include/nvs.h \
- /home/ece453/Documents/ece453/esp-idf/components/log/include/esp_log.h \
- /home/ece453/Documents/ece453/esp-idf/components/log/include/esp_log_internal.h \
- /home/ece453/Documents/ece453/chuck-light/firmware/main/./lib/button_controllers.h \
- /home/ece453/Documents/ece453/esp-idf/components/freertos/include/freertos/queue.h \
- /home/ece453/Documents/ece453/chuck-light/firmware/main/./lib/connection_controller.h \
- /home/ece453/Documents/ece453/esp-idf/components/esp32/include/esp_wifi.h \
- /home/ece453/Documents/ece453/esp-idf/components/esp32/include/rom/queue.h \
- /home/ece453/Documents/ece453/esp-idf/components/esp32/include/esp_wifi_types.h \
- /home/ece453/Documents/ece453/esp-idf/components/esp32/include/esp_interface.h \
- /home/ece453/Documents/ece453/esp-idf/components/esp32/include/esp_wifi_crypto_types.h \
- /home/ece453/Documents/ece453/esp-idf/components/esp32/include/esp_event.h \
- /home/ece453/Documents/ece453/esp-idf/components/tcpip_adapter/include/tcpip_adapter.h \
- /home/ece453/Documents/ece453/esp-idf/components/esp32/include/rom/queue.h \
- /home/ece453/Documents/ece453/esp-idf/components/esp32/include/esp_wifi_types.h \
- /home/ece453/Documents/ece453/esp-idf/components/lwip/include/lwip/lwip/ip_addr.h \
- /home/ece453/Documents/ece453/esp-idf/components/lwip/include/lwip/lwip/opt.h \
- /home/ece453/Documents/ece453/esp-idf/components/lwip/include/lwip/port/lwipopts.h \
- /home/ece453/Documents/ece453/esp-idf/components/newlib/include/time.h \
- /home/ece453/Documents/ece453/esp-idf/components/newlib/include/machine/time.h \
- /home/ece453/Documents/ece453/esp-idf/components/newlib/include/sys/time.h \
- /home/ece453/Documents/ece453/esp-idf/components/newlib/include/sys/fcntl.h \
- /home/ece453/Documents/ece453/esp-idf/components/newlib/include/sys/_default_fcntl.h \
- /home/ece453/Documents/ece453/esp-idf/components/newlib/include/sys/stat.h \
- /home/ece453/Documents/ece453/esp-idf/components/esp32/include/esp_task.h \
- /home/ece453/Documents/ece453/esp-idf/components/lwip/include/lwip/lwip/debug.h \
- /home/ece453/Documents/ece453/esp-idf/components/lwip/include/lwip/lwip/arch.h \
- /home/ece453/Documents/ece453/esp-idf/components/lwip/include/lwip/port/arch/cc.h \
- /home/ece453/Documents/ece453/esp-idf/components/newlib/include/errno.h \
- /home/ece453/Documents/ece453/esp-idf/components/newlib/include/sys/errno.h \
- /home/ece453/Documents/ece453/esp-idf/components/lwip/include/lwip/port/arch/sys_arch.h \
- /home/ece453/Documents/ece453/esp-idf/components/freertos/include/freertos/semphr.h \
- /home/ece453/Documents/ece453/esp-idf/components/freertos/include/freertos/queue.h \
- /home/ece453/Documents/ece453/esp-idf/components/lwip/include/lwip/lwip/def.h \
- /home/ece453/Documents/ece453/esp-idf/components/lwip/include/lwip/lwip/ip4_addr.h \
- /home/ece453/Documents/ece453/esp-idf/components/lwip/include/lwip/lwip/ip6_addr.h \
- /home/ece453/Documents/ece453/esp-idf/components/lwip/include/lwip/apps/dhcpserver.h \
- /home/ece453/Documents/ece453/esp-idf/components/esp32/include/esp_event_loop.h \
- /home/ece453/Documents/ece453/esp-idf/components/lwip/include/lwip/lwip/err.h \
- /home/ece453/Documents/ece453/esp-idf/components/lwip/include/lwip/lwip/sockets.h \
- /home/ece453/Documents/ece453/esp-idf/components/lwip/include/lwip/lwip/inet.h \
- /home/ece453/Documents/ece453/esp-idf/components/lwip/include/lwip/lwip/sys.h \
- /home/ece453/Documents/ece453/esp-idf/components/lwip/include/lwip/lwip/netdb.h \
- /home/ece453/Documents/ece453/esp-idf/components/lwip/include/lwip/lwip/dns.h \
- /home/ece453/Documents/ece453/chuck-light/firmware/main/./lib/data_controller.h \
- /home/ece453/Documents/ece453/chuck-light/firmware/main/./lib/led_controller.h \
- /home/ece453/Documents/ece453/chuck-light/firmware/main/./lib/motion_controllers.h \
- /home/ece453/Documents/ece453/esp-idf/components/driver/include/driver/spi_master.h \
- /home/ece453/Documents/ece453/esp-idf/components/driver/include/driver/spi_common.h \
- /home/ece453/Documents/ece453/esp-idf/components/soc/esp32/include/soc/spi_struct.h \
- /home/ece453/Documents/ece453/esp-idf/components/esp32/include/rom/lldesc.h \
- /home/ece453/Documents/ece453/esp-idf/components/esp32/include/rom/queue.h \
- /home/ece453/Documents/ece453/esp-idf/components/heap/include/esp_heap_caps.h \
- /home/ece453/Documents/ece453/esp-idf/components/heap/include/multi_heap.h \
- /home/ece453/Documents/ece453/chuck-light/firmware/main/./lib/ps2_controller.h \
  /home/ece453/Documents/ece453/esp-idf/components/driver/include/driver/adc.h \
  /home/ece453/Documents/ece453/esp-idf/components/soc/esp32/include/soc/adc_channel.h \
- /home/ece453/Documents/ece453/chuck-light/firmware/main/./lib/serial_controller.h \
- /home/ece453/Documents/ece453/chuck-light/firmware/main/./lib/timer_controller.h \
- /home/ece453/Documents/ece453/esp-idf/components/soc/esp32/include/soc/timer_group_struct.h \
- /home/ece453/Documents/ece453/esp-idf/components/driver/include/driver/periph_ctrl.h \
- /home/ece453/Documents/ece453/esp-idf/components/soc/esp32/include/soc/dport_reg.h \
- /home/ece453/Documents/ece453/esp-idf/components/soc/esp32/include/soc/dport_access.h \
- /home/ece453/Documents/ece453/esp-idf/components/esp32/include/esp_dport_access.h \
- /home/ece453/Documents/ece453/esp-idf/components/driver/include/driver/timer.h \
- /home/ece453/Documents/ece453/esp-idf/components/soc/esp32/include/soc/timer_group_reg.h \
- /home/ece453/Documents/ece453/chuck-light/firmware/main/./lib/konami.h \
- /home/ece453/Documents/ece453/chuck-light/firmware/main/./lib/button_controllers.h \
- /home/ece453/Documents/ece453/chuck-light/firmware/main/./lib/ps2_controller.h \
- /home/ece453/Documents/ece453/chuck-light/firmware/main/./lib/modes.h \
  /home/ece453/Documents/ece453/chuck-light/firmware/main/./lib/modes.h
+
+/home/ece453/Documents/ece453/chuck-light/firmware/main/./lib/konami.h:
 
 /home/ece453/Documents/ece453/esp-idf/components/newlib/include/stdio.h:
 
@@ -192,11 +131,17 @@ main.o: /home/ece453/Documents/ece453/chuck-light/firmware/main/./main.c \
 
 /home/ece453/Documents/ece453/esp-idf/components/newlib/include/sys/string.h:
 
-/home/ece453/Documents/ece453/esp-idf/components/newlib/include/inttypes.h:
+/home/ece453/Documents/ece453/esp-idf/components/newlib/include/stdlib.h:
+
+/home/ece453/Documents/ece453/esp-idf/components/newlib/include/machine/stdlib.h:
+
+/home/ece453/Documents/ece453/esp-idf/components/newlib/include/alloca.h:
+
+/home/ece453/Documents/ece453/esp-idf/components/newlib/include/stdint.h:
 
 /home/ece453/Documents/ece453/esp-idf/components/newlib/include/sys/_intsup.h:
 
-/home/ece453/Documents/ece453/esp-idf/components/newlib/include/stdint.h:
+/home/ece453/Documents/ece453/chuck-light/firmware/main/./lib/button_controllers.h:
 
 /home/ece453/Documents/ece453/esp-idf/components/freertos/include/freertos/FreeRTOS.h:
 
@@ -223,12 +168,6 @@ main.o: /home/ece453/Documents/ece453/chuck-light/firmware/main/./main.c \
 /home/ece453/Documents/ece453/esp-idf/components/esp32/include/xtensa/corebits.h:
 
 /home/ece453/Documents/ece453/esp-idf/components/esp32/include/xtensa/xtruntime-frames.h:
-
-/home/ece453/Documents/ece453/esp-idf/components/newlib/include/stdlib.h:
-
-/home/ece453/Documents/ece453/esp-idf/components/newlib/include/machine/stdlib.h:
-
-/home/ece453/Documents/ece453/esp-idf/components/newlib/include/alloca.h:
 
 /home/ece453/Documents/ece453/esp-idf/components/esp32/include/rom/ets_sys.h:
 
@@ -306,153 +245,23 @@ main.o: /home/ece453/Documents/ece453/chuck-light/firmware/main/./main.c \
 
 /home/ece453/Documents/ece453/esp-idf/components/freertos/include/freertos/list.h:
 
+/home/ece453/Documents/ece453/esp-idf/components/freertos/include/freertos/queue.h:
+
+/home/ece453/Documents/ece453/esp-idf/components/log/include/esp_log.h:
+
+/home/ece453/Documents/ece453/esp-idf/components/log/include/esp_log_internal.h:
+
+/home/ece453/Documents/ece453/chuck-light/firmware/main/./lib/ps2_controller.h:
+
 /home/ece453/Documents/ece453/esp-idf/components/freertos/include/freertos/event_groups.h:
 
 /home/ece453/Documents/ece453/esp-idf/components/freertos/include/freertos/timers.h:
 
 /home/ece453/Documents/ece453/esp-idf/components/freertos/include/freertos/task.h:
 
-/home/ece453/Documents/ece453/esp-idf/components/nvs_flash/include/nvs_flash.h:
-
-/home/ece453/Documents/ece453/esp-idf/components/nvs_flash/include/nvs.h:
-
-/home/ece453/Documents/ece453/esp-idf/components/log/include/esp_log.h:
-
-/home/ece453/Documents/ece453/esp-idf/components/log/include/esp_log_internal.h:
-
-/home/ece453/Documents/ece453/chuck-light/firmware/main/./lib/button_controllers.h:
-
-/home/ece453/Documents/ece453/esp-idf/components/freertos/include/freertos/queue.h:
-
-/home/ece453/Documents/ece453/chuck-light/firmware/main/./lib/connection_controller.h:
-
-/home/ece453/Documents/ece453/esp-idf/components/esp32/include/esp_wifi.h:
-
-/home/ece453/Documents/ece453/esp-idf/components/esp32/include/rom/queue.h:
-
-/home/ece453/Documents/ece453/esp-idf/components/esp32/include/esp_wifi_types.h:
-
-/home/ece453/Documents/ece453/esp-idf/components/esp32/include/esp_interface.h:
-
-/home/ece453/Documents/ece453/esp-idf/components/esp32/include/esp_wifi_crypto_types.h:
-
-/home/ece453/Documents/ece453/esp-idf/components/esp32/include/esp_event.h:
-
-/home/ece453/Documents/ece453/esp-idf/components/tcpip_adapter/include/tcpip_adapter.h:
-
-/home/ece453/Documents/ece453/esp-idf/components/esp32/include/rom/queue.h:
-
-/home/ece453/Documents/ece453/esp-idf/components/esp32/include/esp_wifi_types.h:
-
-/home/ece453/Documents/ece453/esp-idf/components/lwip/include/lwip/lwip/ip_addr.h:
-
-/home/ece453/Documents/ece453/esp-idf/components/lwip/include/lwip/lwip/opt.h:
-
-/home/ece453/Documents/ece453/esp-idf/components/lwip/include/lwip/port/lwipopts.h:
-
-/home/ece453/Documents/ece453/esp-idf/components/newlib/include/time.h:
-
-/home/ece453/Documents/ece453/esp-idf/components/newlib/include/machine/time.h:
-
-/home/ece453/Documents/ece453/esp-idf/components/newlib/include/sys/time.h:
-
-/home/ece453/Documents/ece453/esp-idf/components/newlib/include/sys/fcntl.h:
-
-/home/ece453/Documents/ece453/esp-idf/components/newlib/include/sys/_default_fcntl.h:
-
-/home/ece453/Documents/ece453/esp-idf/components/newlib/include/sys/stat.h:
-
-/home/ece453/Documents/ece453/esp-idf/components/esp32/include/esp_task.h:
-
-/home/ece453/Documents/ece453/esp-idf/components/lwip/include/lwip/lwip/debug.h:
-
-/home/ece453/Documents/ece453/esp-idf/components/lwip/include/lwip/lwip/arch.h:
-
-/home/ece453/Documents/ece453/esp-idf/components/lwip/include/lwip/port/arch/cc.h:
-
-/home/ece453/Documents/ece453/esp-idf/components/newlib/include/errno.h:
-
-/home/ece453/Documents/ece453/esp-idf/components/newlib/include/sys/errno.h:
-
-/home/ece453/Documents/ece453/esp-idf/components/lwip/include/lwip/port/arch/sys_arch.h:
-
-/home/ece453/Documents/ece453/esp-idf/components/freertos/include/freertos/semphr.h:
-
-/home/ece453/Documents/ece453/esp-idf/components/freertos/include/freertos/queue.h:
-
-/home/ece453/Documents/ece453/esp-idf/components/lwip/include/lwip/lwip/def.h:
-
-/home/ece453/Documents/ece453/esp-idf/components/lwip/include/lwip/lwip/ip4_addr.h:
-
-/home/ece453/Documents/ece453/esp-idf/components/lwip/include/lwip/lwip/ip6_addr.h:
-
-/home/ece453/Documents/ece453/esp-idf/components/lwip/include/lwip/apps/dhcpserver.h:
-
-/home/ece453/Documents/ece453/esp-idf/components/esp32/include/esp_event_loop.h:
-
-/home/ece453/Documents/ece453/esp-idf/components/lwip/include/lwip/lwip/err.h:
-
-/home/ece453/Documents/ece453/esp-idf/components/lwip/include/lwip/lwip/sockets.h:
-
-/home/ece453/Documents/ece453/esp-idf/components/lwip/include/lwip/lwip/inet.h:
-
-/home/ece453/Documents/ece453/esp-idf/components/lwip/include/lwip/lwip/sys.h:
-
-/home/ece453/Documents/ece453/esp-idf/components/lwip/include/lwip/lwip/netdb.h:
-
-/home/ece453/Documents/ece453/esp-idf/components/lwip/include/lwip/lwip/dns.h:
-
-/home/ece453/Documents/ece453/chuck-light/firmware/main/./lib/data_controller.h:
-
-/home/ece453/Documents/ece453/chuck-light/firmware/main/./lib/led_controller.h:
-
-/home/ece453/Documents/ece453/chuck-light/firmware/main/./lib/motion_controllers.h:
-
-/home/ece453/Documents/ece453/esp-idf/components/driver/include/driver/spi_master.h:
-
-/home/ece453/Documents/ece453/esp-idf/components/driver/include/driver/spi_common.h:
-
-/home/ece453/Documents/ece453/esp-idf/components/soc/esp32/include/soc/spi_struct.h:
-
-/home/ece453/Documents/ece453/esp-idf/components/esp32/include/rom/lldesc.h:
-
-/home/ece453/Documents/ece453/esp-idf/components/esp32/include/rom/queue.h:
-
-/home/ece453/Documents/ece453/esp-idf/components/heap/include/esp_heap_caps.h:
-
-/home/ece453/Documents/ece453/esp-idf/components/heap/include/multi_heap.h:
-
-/home/ece453/Documents/ece453/chuck-light/firmware/main/./lib/ps2_controller.h:
-
 /home/ece453/Documents/ece453/esp-idf/components/driver/include/driver/adc.h:
 
 /home/ece453/Documents/ece453/esp-idf/components/soc/esp32/include/soc/adc_channel.h:
 
-/home/ece453/Documents/ece453/chuck-light/firmware/main/./lib/serial_controller.h:
-
-/home/ece453/Documents/ece453/chuck-light/firmware/main/./lib/timer_controller.h:
-
-/home/ece453/Documents/ece453/esp-idf/components/soc/esp32/include/soc/timer_group_struct.h:
-
-/home/ece453/Documents/ece453/esp-idf/components/driver/include/driver/periph_ctrl.h:
-
-/home/ece453/Documents/ece453/esp-idf/components/soc/esp32/include/soc/dport_reg.h:
-
-/home/ece453/Documents/ece453/esp-idf/components/soc/esp32/include/soc/dport_access.h:
-
-/home/ece453/Documents/ece453/esp-idf/components/esp32/include/esp_dport_access.h:
-
-/home/ece453/Documents/ece453/esp-idf/components/driver/include/driver/timer.h:
-
-/home/ece453/Documents/ece453/esp-idf/components/soc/esp32/include/soc/timer_group_reg.h:
-
-/home/ece453/Documents/ece453/chuck-light/firmware/main/./lib/konami.h:
-
-/home/ece453/Documents/ece453/chuck-light/firmware/main/./lib/button_controllers.h:
-
-/home/ece453/Documents/ece453/chuck-light/firmware/main/./lib/ps2_controller.h:
-
 /home/ece453/Documents/ece453/chuck-light/firmware/main/./lib/modes.h:
-
-/home/ece453/Documents/ece453/chuck-light/firmware/main/./lib/modes.h:
-/home/ece453/Documents/ece453/chuck-light/firmware/main/./main.c:
+/home/ece453/Documents/ece453/chuck-light/firmware/main/./konami.c:
