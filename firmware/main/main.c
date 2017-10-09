@@ -16,13 +16,19 @@
 #include "lib/ps2_controller.h"
 #include "lib/serial_controller.h"
 #include "lib/timer_controller.h"
+#include "lib/modes.h"
 
 #define TAG "Main"
 
 extern uint8_t DEBOUNCE_TICK;
+uint8_t MODE = SELECTION_MODE;
+
+uint8_t button_event = 0;
+uint8_t direction_event = 0;
+uint8_t motion_event = 0;
 
 uint8_t buf[4];
-int tick = 0, tick2 = 0;
+uint8_t tick = 0;
 
 void app_main()
 {
@@ -37,61 +43,100 @@ void app_main()
 
     //TODO UDP Listhener listens to modes
 
-
-
     /* ------------- Main Loop -------------------*/
     ESP_LOGI(TAG, "-... . . .--.");
     while(1)
     {
-
-
       //TODO add a serial terminal
       //printConnectionInfo();
       //TODO if(TIMER){ the button read
       if(DEBOUNCE_TICK)
       {
+
+        switch(read_direction(false)) //mode dependant
+        {
+          case CENTER:
+            //do nothing - no direction specified
+            //ESP_LOGI(TAG, "NOTHING");
+            direction_event = CENTER;
+          break;
+          case LEFT:
+            ESP_LOGI(TAG, "LEFT");
+            set_blue(HIGH);
+            direction_event = LEFT;
+          break;
+          case RIGHT:
+            ESP_LOGI(TAG, "RIGHT");
+            set_red(HIGH);
+            direction_event = RIGHT;
+          break;
+          case UP:
+            ESP_LOGI(TAG, "UP");
+            set_red(LOW);
+            set_green(LOW);
+            set_blue(LOW);
+            direction_event = UP;
+          break;
+          case DOWN:
+            ESP_LOGI(TAG, "DOWN");
+            set_green(HIGH);
+            direction_event = DOWN;
+          break;
+        }
+
         switch(read_button())
         {
           case 0:
             //do nothing - no button was pressed
-            //ESP_LOGI(TAG, "NOTHING");
+            button_event = 0;
           break;
           case B1:
             ESP_LOGI(TAG, "B1 Pressed");
-            set_red(HIGH);
+            button_event = B1;
           break;
           case B2:
             ESP_LOGI(TAG, "B2 Pressed");
-            set_green(HIGH);
+            button_event = B2;
           break;
-          case B1 + B2:
+          case B12:
             ESP_LOGI(TAG, "B1 + B2 Pressed");
-            set_red(LOW);
-            set_green(LOW);
-            set_blue(LOW);
+            button_event = B12;
           break;
           case PS2_B:
             ESP_LOGI(TAG, "PS2 Pressed");
-            set_blue(HIGH);
+            button_event = PS2_B;
           break;
         }
 
         DEBOUNCE_TICK = 0;
+      }
 
-        if(tick++ > 10)
-        {
-          //restart_motion_device();
-          read_motion_reg(0x05);
-          read_motion_reg(0x0F);
-          write_motion_reg(0x05, 0x33);
-          if(tick2++ > 0x07)
-          {
-            restart_motion_device();
-            tick2 = 0;
-          }
+      switch(MODE)
+      {
+        case IDLE_MODE:
 
-          tick = 0;
-        }
+        break;
+        case SELECTION_MODE:
+        
+        break;
+        case COLOR_WHEEL_MODE:
+
+        break;
+        case PRESET_MODE:
+
+        break;
+        case RECENT_MODE:
+
+        break;
+        case DMX_MODE:
+
+        break;
+        case PARTY_MODE:
+
+        break;
+        case SCARY_MODE:
+
+        break;
       }
 
     }

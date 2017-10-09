@@ -38,10 +38,10 @@ uint8_t read_button()
     if(b12_count == -1)
       return 0;
 
-    if(b12_count++ > DEBOUNCE_COUNT)
+    if(++b12_count > DEBOUNCE_COUNT)
     {
       b12_count = -1;
-      return B1 + B2;
+      return B12;
     }
     else
       return 0;
