@@ -21,11 +21,11 @@
 #define X_ADC ADC1_CHANNEL_7
 #define Y_ADC ADC1_CHANNEL_6
 
-#define CENTER  0
-#define UP      1
-#define DOWN    2
-#define LEFT    3
-#define RIGHT   4
+#define CENTER  0x00
+#define UP      0x11
+#define DOWN    0x12
+#define LEFT    0x13
+#define RIGHT   0x14
 
 void init_ps2_controller(void);
 
