@@ -1,10 +1,10 @@
-module ece453_tb();
+module dmx512_tb();
 	reg 		clk, rst;
 	reg	[9:0]	addr;
 	reg [7:0]	data;
 	reg			write;
 	wire		dmx;
-
+	
 	dmx512 DUT(
 		.clk(clk),			// Clock
 		.rst(rst),			// Asynchronous reset active high
@@ -13,6 +13,9 @@ module ece453_tb();
 		.write_en(write),	// signal to write a byte (can write one byte per cycle)
 		.dmx_signal(dmx)	// output dmx signal (continuous loop)
 	);
+	
+	wire done = DUT.curr_state == DUT.IDLE;
+	integer count = 0;
 
 	initial begin
 		clk = 1'b0;
@@ -21,6 +24,10 @@ module ece453_tb();
 		end
 	end // initial
 
+	always @(posedge dmx) begin
+		count = count + 1;
+	end
+	
 	initial begin
 		// initialize signals for test
 		rst = 1'b1;
@@ -40,9 +47,19 @@ module ece453_tb();
 		// write ff to last byte
 		addr = 10'd512;
 		data = 8'hff;
-		write = 1'b1;
+		write = 1'b0;
 		#20;
 		
+		// write ff to third last byte
+		addr = 10'd510;
+		data = 8'hff;
+		write = 1'b0;
+		#20;
+		
+		// write ff to last byte
+		write = 1'b0;
+		
+		@(posedge done);
 		$stop;
 	end
 
