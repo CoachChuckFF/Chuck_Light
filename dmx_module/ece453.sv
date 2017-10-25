@@ -1,5 +1,5 @@
 /*
- *  Author:	Joe Eichenhofer
+ *  Author:	Joe Eichenhofer (adapted from source by Joe Krachey)
  *  Date:	2017-10-23
  */
 
@@ -37,14 +37,9 @@ module ece453(
 	reg		[31:0]	irq_r;
 	reg		[31:0]	gpio_in_r;
 	reg		[31:0]	gpio_out_r;
-	reg		[31:0]	ws2812b_0_r;
-	reg		[31:0]	ws2812b_1_r;
-	reg		[31:0]	ws2812b_2_r;
-	reg		[31:0]	ws2812b_3_r;
-	reg		[31:0]	ws2812b_4_r;
-	reg		[31:0]	ws2812b_5_r;
-	reg		[31:0]	ws2812b_6_r;
-	reg		[31:0]	ws2812b_7_r;
+	reg		[31:0]	dmx_addr_r;
+	reg		[31:0]	dmx_data_r;
+	reg		[31:0]	dmx_size_r;
 
 
 	//*******************************************************************
@@ -56,17 +51,12 @@ module ece453(
 	reg		[31:0]	irq_in;
 	wire	[31:0]	gpio_in;
 	wire	[31:0]	gpio_out;
-	wire	[31:0]	ws2812b_0_in;
-	wire	[31:0]	ws2812b_1_in;
-	wire	[31:0]	ws2812b_2_in;
-	wire	[31:0]	ws2812b_3_in;
-	wire	[31:0]	ws2812b_4_in;
-	wire	[31:0]	ws2812b_5_in;
-	wire	[31:0]	ws2812b_6_in;
-	wire	[31:0]	ws2812b_7_in;
+	reg		[31:0]	dmx_addr_in;
+	reg		[31:0]	dmx_data_in;
+	reg		[31:0]	dmx_size_in;
 
-	wire			ws2812b_busy;
-	wire			neopixel_out;
+	reg				dmx_busy;
+	wire			dmx_out;
 
 	reg		[31:0]	gpio_in_irqs;
 
@@ -81,14 +71,10 @@ module ece453(
 							((slave_address == IRQ_ADDR )		&& slave_read)	? irq_r :
 							((slave_address == GPIO_IN_ADDR )	&& slave_read)	? gpio_in_r :
 							((slave_address == GPIO_OUT_ADDR )	&& slave_read)	? gpio_out_r :
-							((slave_address == UNUSED_ADDR )	&& slave_read)	? 32'h00000000 :
-							((slave_address == WS2818B_0_ADDR )	&& slave_read)	? ws2812b_0_r :
-							((slave_address == WS2818B_1_ADDR )	&& slave_read)	? ws2812b_1_r :
-							((slave_address == WS2818B_2_ADDR )	&& slave_read)	? ws2812b_2_r :
-							((slave_address == WS2818B_3_ADDR )	&& slave_read)	? ws2812b_3_r :
-							((slave_address == WS2818B_4_ADDR )	&& slave_read)	? ws2812b_4_r :
-							((slave_address == WS2818B_5_ADDR )	&& slave_read)	? ws2812b_5_r :
-							((slave_address == WS2818B_6_ADDR )	&& slave_read)	? ws2812b_6_r : ws2812b_7_r ;
+							((slave_address == DMX_ADDR_ADDR )	&& slave_read)	? dmx_addr_r :
+							((slave_address == DMX_DATA_ADDR )	&& slave_read)	? dmx_data_r :
+							((slave_address == DMX_SIZE_ADDR )	&& slave_read)	? dmx_size_r :
+							32'h00000000 ;
 
 
 	//*******************************************************************
@@ -97,7 +83,7 @@ module ece453(
 
 	// IRQ indicating that an interrupt is active
 	assign irq_out = | (im_r & irq_r);
-	assign gpio_outputs = {neopixel_out, gpio_out_r[30:0]};
+	assign gpio_outputs = {gpio_out_r[31:27], dmx_out, ~dmx_out, gpio_out_r[24:0]};
 
 	//*******************************************************************
 	// Register Input Equations
@@ -108,9 +94,9 @@ module ece453(
 		gpio_in_irqs = gpio_in_r ^ gpio_inputs;
 		irq_in = irq_r | gpio_in_irqs;
 
-		// WS2812B IRQ will get set to 1 only when ws2812b_busy changes from a 1 to a 0
-		if (status_r[STATUS_WS2812B_BUSY_BIT_NUM] && !ws2812b_busy) begin
-			irq_in = irq_in | IRQ_WS2812B_DONE_MASK;
+		// DMX IRQ will get set to 1 only when dmx_busy changes from a 1 to a 0
+		if (status_r[STATUS_DMX_BUSY_BIT_NUM] && !dmx_busy) begin
+			irq_in = irq_in | IRQ_DMX_DONE_MASK;
 		end
 
 		irq_in = irq_in & im_r;
@@ -124,26 +110,20 @@ module ece453(
 	end
 
 	// Input signals for registers
-	assign control_in	= ( (slave_address == CONTROL_ADDR )    && slave_write ) ? slave_writedata : (control_r & ~CONTROL_WS2812B_START_MASK);
-	assign status_in	= (status_r & ~STATUS_WS2812B_BUSY_MASK) | (ws2812b_busy << STATUS_WS2812B_BUSY_BIT_NUM);
+	assign control_in	= ( (slave_address == CONTROL_ADDR )    && slave_write ) ? slave_writedata : (control_r & ~CONTROL_DMX_START_MASK);
+	assign status_in	= (status_r & ~STATUS_DMX_BUSY_MASK) | (dmx_busy << STATUS_DMX_BUSY_BIT_NUM);
 	assign im_in		= ( (slave_address == IM_ADDR )			&& slave_write ) ? slave_writedata : im_r;
 	assign gpio_in		= gpio_inputs;
 	assign gpio_out		= ( (slave_address == GPIO_OUT_ADDR)	&& slave_write ) ? slave_writedata : gpio_out_r;
-	assign ws2812b_0_in	= ( (slave_address == WS2818B_0_ADDR)	&& slave_write ) ? slave_writedata : ws2812b_0_r;
-	assign ws2812b_1_in	= ( (slave_address == WS2818B_1_ADDR)	&& slave_write ) ? slave_writedata : ws2812b_1_r;
-	assign ws2812b_2_in	= ( (slave_address == WS2818B_2_ADDR)	&& slave_write ) ? slave_writedata : ws2812b_2_r;
-	assign ws2812b_3_in	= ( (slave_address == WS2818B_3_ADDR)	&& slave_write ) ? slave_writedata : ws2812b_3_r;
-	assign ws2812b_4_in	= ( (slave_address == WS2818B_4_ADDR)	&& slave_write ) ? slave_writedata : ws2812b_4_r;
-	assign ws2812b_5_in	= ( (slave_address == WS2818B_5_ADDR)	&& slave_write ) ? slave_writedata : ws2812b_5_r;
-	assign ws2812b_6_in	= ( (slave_address == WS2818B_6_ADDR)	&& slave_write ) ? slave_writedata : ws2812b_6_r;
-	assign ws2812b_7_in	= ( (slave_address == WS2818B_7_ADDR)	&& slave_write ) ? slave_writedata : ws2812b_7_r;
-
+	assign dmx_addr_in	= ( (slave_address == DMX_ADDR_ADDR)	&& slave_write ) ? slave_writedata : dmx_addr_r;
+	assign dmx_data_in	= ( (slave_address == DMX_DATA_ADDR)	&& slave_write ) ? slave_writedata : dmx_data_r;
+	assign dmx_size_in	= ( (slave_address == DMX_SIZE_ADDR)	&& slave_write ) ? slave_writedata : dmx_size_r;
 
 	//*******************************************************************
 	// Registers
 	//*******************************************************************
 	always_ff @ (posedge clk or posedge reset) begin
-		if (reset == 1) begin
+		if (reset) begin
 			dev_id_r	<= 32'hECE45300;
 			control_r	<= 32'h00000000;
 			status_r	<= 32'h00000000;
@@ -151,14 +131,9 @@ module ece453(
 			irq_r		<= 32'h00000000;
 			gpio_in_r	<= 32'h00000000;
 			gpio_out_r	<= 32'h00000000;
-			ws2812b_0_r	<= 32'h00000000;
-			ws2812b_1_r	<= 32'h00000000;
-			ws2812b_2_r	<= 32'h00000000;
-			ws2812b_3_r	<= 32'h00000000;
-			ws2812b_4_r	<= 32'h00000000;
-			ws2812b_5_r	<= 32'h00000000;
-			ws2812b_6_r	<= 32'h00000000;
-			ws2812b_7_r	<= 32'h00000000;
+			dmx_addr_r	<= 32'h00000000;
+			dmx_data_r	<= 32'h00000000;
+			dmx_size_r	<= 32'h00000000;
 		end else begin
 			dev_id_r	<= dev_id_r;
 			control_r	<= control_in;
@@ -167,34 +142,59 @@ module ece453(
 			irq_r		<= irq_in;
 			gpio_in_r	<= gpio_in;
 			gpio_out_r	<= gpio_out;
-			ws2812b_0_r	<= ws2812b_0_in;
-			ws2812b_1_r	<= ws2812b_1_in;
-			ws2812b_2_r	<= ws2812b_2_in;
-			ws2812b_3_r	<= ws2812b_3_in;
-			ws2812b_4_r	<= ws2812b_4_in;
-			ws2812b_5_r	<= ws2812b_5_in;
-			ws2812b_6_r	<= ws2812b_6_in;
-			ws2812b_7_r	<= ws2812b_7_in;
+			dmx_addr_r	<= dmx_addr_in;
+			dmx_data_r	<= dmx_data_in;
+			dmx_size_r	<= dmx_size_in;
 		end
 	end
 
+	/* DMX Module */
+	reg	[9:0]	curr_addr;
+	reg [7:0]	curr_data;
+	reg			dmx_write;
+	dmx512 dmx_mod(
+			.clk(clk),
+			.rst(reset),
+			.write_addr(curr_addr),
+			.write_data(curr_data),
+			.write_en(dmx_write),
+			.dmx_signal(dmx_out)
+		);
 
-	//*******************************************************************
-	// WS2812B Module
-	//*******************************************************************
-	neo_driver ece453_neopixels (
-		control_r[CONTROL_WS2812B_START_BIT_NUM],
-		clk,
-		reset,
-		ws2812b_0_r[23:0],
-		ws2812b_1_r[23:0],
-		ws2812b_2_r[23:0],
-		ws2812b_3_r[23:0],
-		ws2812b_4_r[23:0],
-		ws2812b_5_r[23:0],
-		ws2812b_6_r[23:0],
-		ws2812b_7_r[23:0],
-		neopixel_out,
-		ws2812b_busy
-	);
+	/* state register for buffer */
+	typedef enum state_t {IDLE, TRANSMIT};
+	state_t curr_state;
+	state_t next_state;
+	always_ff @(posedge clk or posedge reset) begin
+		if (reset) begin
+			curr_state <= IDLE;
+		end else begin
+			curr_state <= next_state;
+		end
+	end
+
+	/* latch for holding values from start of transmit */
+	reg latch_dmx;
+	reg [31:0] dmx_addr_l;
+	reg [31:0] dmx_data_l;
+	reg [31:0] dmx_size_l;
+	always_ff @(posedge clk or posedge reset) begin
+		if (reset) begin
+			dmx_addr_l <= 32'b0;
+			dmx_data_l <= 32'b0;
+			dmx_size_l <= 32'b0;
+		end else if (latch_dmx) begin
+			dmx_addr_l <= dmx_addr_r;
+			dmx_data_l <= dmx_data_r;
+			dmx_size_l <= dmx_data_r;
+		end
+	end
+
+	/* TODO: implement 4 byte buffer to write data into dmx module */
+	always_comb begin
+		dmx_busy = 1'b0;
+		curr_addr = 10'b0;
+		curr_data = 8'b0;
+		dmx_write = 1'b0;
+	end
 endmodule
