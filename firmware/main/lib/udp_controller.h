@@ -36,6 +36,7 @@
 #define GYRO_DATA 0x33
 
 //all incoming and outgoing packets will have the same preamble
+//10 bytes = sizeof(char[10]) = 10 jvm may have diffrent sizing
 typedef struct packetHeader {
   uint8_t _id[8];
   uint8_t _packet_type; //always Data_Packet
@@ -44,6 +45,7 @@ typedef struct packetHeader {
 
 //Controller to Basestation
 //This sends relevent controller information to the Basestation
+//10 + 7 bytes = sizeof(char[17]) = 17 jvm may have diffrent sizing
 typedef struct dataPacket {
   packetHeader _header;
   //depending on current mode one of the following
@@ -56,6 +58,7 @@ typedef struct dataPacket {
 
 //Basestation to Controller
 //This packet is usually sent in response of the dataPacklet
+//10 + 1 bytes = sizeof(char[11]) = 11 jvm may have diffrent sizing
 typedef struct commandPacket {
     packetHeader _header;
     //_header._mode will dictate what mode the controller is in
@@ -64,12 +67,14 @@ typedef struct commandPacket {
 
 //Basestation to Controller
 //Used as a heartbeat to make sure Controller is still connected
+//10 bytes = sizeof(char[10]) = 10 jvm may have diffrent sizing
 typedef struct pollPacket {
   packetHeader _header;
 }__attribute__((packed)) pollPacket;
 
 //Controller to Basestation
 //Controller heartbeat/used for debugging
+//10 + 4 + 2 + ? bytes = sizeof(char[16 + ?]) = 16 + ? jvm may have diffrent sizing - ? means is multi sized
 typedef struct pollReplyPacket {
   packetHeader _header;
   float _battery_level;
