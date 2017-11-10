@@ -405,9 +405,9 @@ soc_system u0 (
 		
 		.ece453_0_gpio_in_export					({18'h0, KEY, SW}),
 		.ece453_0_gpio_out_export            ({
-														GPIO_1[1],	// WS2812B Out
+														GPIO_1[1],	// DMX+
+														GPIO_1[3],  // DMX-
 														GPIO_1[17], // LCD Command
-														GPIO_1[3],  // LCD_back light
 														GPIO_1[19], // LCD Reset
 														GPIO_1[9],  // Cap Sense Reset
 														ece453_gpio_out_unused,

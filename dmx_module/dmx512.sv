@@ -33,7 +33,7 @@ module dmx512(
 	always_ff @(posedge clk or posedge rst) begin
 		if (rst) begin
 			/* reset all dmx values to zero */
-			for (int i = 0; i <= 512; i++) begin
+			for (reg [9:0] i = 0; i <= 512; i++) begin
 				DMX_data[i] <= 8'b0;
 			end
 		end else if (write_en && (write_addr != 10'b0)) begin
@@ -67,10 +67,10 @@ module dmx512(
 			shift_reg <= 11'b0;
 		end else if (shift_load) begin
 			/* load start bit (zero), data, and end bits (one one) into shift reg */
-			shift_reg <= {1'b0, DMX_data[frame_addr], 2'b11};
+			shift_reg <= {2'b11, DMX_data[frame_addr], 1'b0};
 		end else if (shift_bit) begin
 			/* shift reg to send next bit */
-			shift_reg <= shift_reg << 1;
+			shift_reg <= shift_reg >> 1;
 		end
 	end
 
@@ -140,7 +140,7 @@ module dmx512(
 				end
 			end
 			TRANSMIT: begin
-				dmx_signal = shift_reg[10];
+				dmx_signal = shift_reg[0];
 				next_state = TRANSMIT;
 				if (timer == BIT_TIME) begin
 					if (bit_count != 4'd10) begin

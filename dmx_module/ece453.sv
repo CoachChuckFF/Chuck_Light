@@ -83,7 +83,7 @@ module ece453(
 
 	// IRQ indicating that an interrupt is active
 	assign irq_out = | (im_r & irq_r);
-	assign gpio_outputs = {gpio_out_r[31:27], dmx_out, ~dmx_out, gpio_out_r[24:0]};
+	assign gpio_outputs = {dmx_out, ~dmx_out, gpio_out_r[29:0]};
 
 	//*******************************************************************
 	// Register Input Equations
@@ -162,7 +162,7 @@ module ece453(
 		);
 
 	/* state register for buffer */
-	typedef enum state_t {IDLE, TRANSMIT};
+	typedef enum {IDLE, TRANSMIT} state_t;
 	state_t curr_state;
 	state_t next_state;
 	always_ff @(posedge clk or posedge reset) begin
