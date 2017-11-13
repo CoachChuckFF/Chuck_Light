@@ -1,4 +1,6 @@
 module ece453_tb();
+	`include "ece453.vh"
+
 	reg 		clk, rst;
 	reg	[3:0]	addr, byte_addr;
 	reg			read_en, write_en;
@@ -46,62 +48,50 @@ module ece453_tb();
 		
 		#20;
 		
-		// write all 0x00ff_ffff to LED 0
-		write_data = 32'h00FF_FFFF;
-		addr = 4'h8;
+		// write 0xff to all four input bytes
+		write_data = 32'hffff_ffff;
+		addr = DMX_DATA_ADDR;
 		write_en = 1'b1;
 		#20;
-		// write all 1s to LED 1
-		write_data = 32'h0011_1111;
-		addr = 4'h9;
+		// set third to last byte as address (to write final three bytes)
+		write_data = 32'h0000_01fe;
+		addr = DMX_ADDR_ADDR;
 		write_en = 1'b1;
 		#20;
-		// write all 2s to LED 2
+		// set size to much greater than four to signal writing all bytes
 		write_data = 32'h0022_2222;
-		addr = 4'ha;
-		write_en = 1'b1;
-		#20;
-		// write all 3s to LED 3
-		write_data = 32'h0033_3333;
-		addr = 4'hb;
-		write_en = 1'b1;
-		#20;
-		// write all 4s to LED 4
-		write_data = 32'h0044_4444;
-		addr = 4'hc;
-		write_en = 1'b1;
-		#20;
-		// write all 5s to LED 5
-		write_data = 32'h0055_5555;
-		addr = 4'hd;
-		write_en = 1'b1;
-		#20;
-		// write all 6s to LED 6
-		write_data = 32'h0066_6666;
-		addr = 4'he;
-		write_en = 1'b1;
-		#20;
-		// write all 7s to LED 7
-		write_data = 32'h0077_7777;
-		addr = 4'hf;
+		addr = DMX_SIZE_ADDR;
 		write_en = 1'b1;
 		#20;
 		
 		// enable interrupts
 		write_data = 32'h0000_0001;
-		addr = 4'h3;
+		addr = IM_ADDR;
+		write_en = 1'b1;
 		#20;
 		
-		
-		// send out signals
-		write_data = 32'b1;
-		addr = 4'h1;
+		// commit byte changes
+		write_data = CONTROL_DMX_START_MASK;
+		addr = CONTROL_ADDR;
 		write_en = 1'b1;
 		#20;
 		write_en = 1'b0;
 		
-		@(posedge irq_out);
+		// read value of status right away
+		addr = STATUS_ADDR;
+		read_en = 1'b1;
+		#20;
 		
+		// read value of status again
+		addr = STATUS_ADDR;
+		read_en = 1'b1;
+		#20;
+
+		// read value of status again
+		addr = STATUS_ADDR;
+		read_en = 1'b1;
+		#20;
+
 		$stop;
 	end
 

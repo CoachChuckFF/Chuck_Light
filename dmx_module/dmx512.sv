@@ -3,7 +3,11 @@ module dmx512(
 	input			clk,		// Clock
 	input			rst,		// Asynchronous reset active high
 	input	[9:0]	write_addr,	// address to write byte (from 1 to 512)
-	input	[7:0]	write_data,	// byte to write into 512 array
+	input	[7:0]	write_data0,// byte(s) to write into 512 array
+	input	[7:0]	write_data1,
+	input	[7:0]	write_data2,
+	input	[7:0]	write_data3,
+	input	[2:0]	write_size, // number of bytes (0-4) to write
 	input			write_en,	// signal to write a byte (can write one byte per cycle)
 	output reg		dmx_signal	// output dmx signal (continuous loop)
 );
@@ -28,6 +32,13 @@ module dmx512(
 		end
 	end
 
+	/* offset addresses for four bytes to write (if overflow memory index of 512, then set zero) */
+	/* set zero for bytes not being written (according to write_size) */
+	wire [9:0] addr0, addr1, addr2, addr3;
+	assign addr0 = (write_size >= 2'h1 && write_addr <= 10'h200) ? write_addr			: 10'h0;
+	assign addr1 = (write_size >= 2'h2 && write_addr <= 10'h1ff) ? write_addr + 10'h1	: 10'h0;
+	assign addr2 = (write_size >= 2'h3 && write_addr <= 10'h1fe) ? write_addr + 10'h2	: 10'h0;
+	assign addr3 = (write_size >= 2'h4 && write_addr <= 10'h1fd) ? write_addr + 10'h3	: 10'h0;
 	/* 512 bytes of dmx data to continuously send */
 	reg [7:0] DMX_data [0:512];
 	always_ff @(posedge clk or posedge rst) begin
@@ -36,14 +47,25 @@ module dmx512(
 			for (reg [9:0] i = 0; i <= 512; i++) begin
 				DMX_data[i] <= 8'b0;
 			end
-		end else if (write_en && (write_addr != 10'b0)) begin
-			/* if writing, change only the current byte (start code is read only) */
-			DMX_data[write_addr] <= write_data;
+		end else if (write_en) begin
+			/* if writing, change only the current bytes (start code at index zero is read only) */
+			if (addr0 != 10'h0) begin
+				DMX_data[addr0] <= write_data0;
+			end
+			if (addr1 != 10'h0) begin
+				DMX_data[addr1] <= write_data1;
+			end
+			if (addr2 != 10'h0) begin
+				DMX_data[addr2] <= write_data2;
+			end
+			if (addr3 != 10'h0) begin
+				DMX_data[addr3] <= write_data3;
+			end
 		end
 		/* otherwise, no change (keep value) */
 	end
 
-	/* counter for current frame being sent (zero is start code, 512 is last) */
+	/* counter for current frame being sent (zero is start code, 512 is last dmx byte) */
 	reg [9:0] frame_addr;
 	reg first_frame;
 	reg next_frame;

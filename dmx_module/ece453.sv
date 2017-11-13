@@ -149,14 +149,16 @@ module ece453(
 	end
 
 	/* DMX Module */
-	reg	[9:0]	curr_addr;
-	reg [7:0]	curr_data;
 	reg			dmx_write;
 	dmx512 dmx_mod(
 			.clk(clk),
 			.rst(reset),
-			.write_addr(curr_addr),
-			.write_data(curr_data),
+			.write_addr(dmx_addr_r[9:0]),
+			.write_data0(dmx_data_r[7:0]),
+			.write_data1(dmx_data_r[15:8]),
+			.write_data2(dmx_data_r[23:16]),
+			.write_data3(dmx_data_r[31:24]),
+			.write_size((dmx_size_r > 32'h4) ? 3'h4 : dmx_size_r[2:0]),
 			.write_en(dmx_write),
 			.dmx_signal(dmx_out)
 		);
@@ -173,28 +175,24 @@ module ece453(
 		end
 	end
 
-	/* latch for holding values from start of transmit */
-	reg latch_dmx;
-	reg [31:0] dmx_addr_l;
-	reg [31:0] dmx_data_l;
-	reg [31:0] dmx_size_l;
-	always_ff @(posedge clk or posedge reset) begin
-		if (reset) begin
-			dmx_addr_l <= 32'b0;
-			dmx_data_l <= 32'b0;
-			dmx_size_l <= 32'b0;
-		end else if (latch_dmx) begin
-			dmx_addr_l <= dmx_addr_r;
-			dmx_data_l <= dmx_data_r;
-			dmx_size_l <= dmx_data_r;
-		end
-	end
-
-	/* TODO: implement 4 byte buffer to write data into dmx module */
 	always_comb begin
 		dmx_busy = 1'b0;
-		curr_addr = 10'b0;
-		curr_data = 8'b0;
 		dmx_write = 1'b0;
+		next_state = IDLE;
+		
+		case (curr_state)
+			IDLE: begin
+				if (control_r[CONTROL_DMX_START_BIT_NUM]) begin
+					dmx_busy = 1'b1;
+					dmx_write = 1'b1;
+					next_state = TRANSMIT;
+				end
+			end
+			TRANSMIT: begin
+				dmx_busy = 1'b1;
+				dmx_write = 1'b1;
+			end
+			
+		endcase
 	end
 endmodule

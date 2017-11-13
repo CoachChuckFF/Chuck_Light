@@ -24,9 +24,9 @@
 	localparam GPIO_IN_LCD_IRQ_MASK				= (32'h1 << GPIO_IN_LCD_IRQ_BIT_NUM);
 
 	/* DMX defines */
-	localparam GPIO_OUT_DMX_OUTP_BIT_NUM		= 26;
+	localparam GPIO_OUT_DMX_OUTP_BIT_NUM		= 31;
 	localparam GPIO_OUT_DMX_OUTP_MASK			= (32'h1 << GPIO_OUT_DMX_OUTP_BIT_NUM);
-	localparam GPIO_OUT_DMX_OUTN_BIT_NUM		= 25;
+	localparam GPIO_OUT_DMX_OUTN_BIT_NUM		= 30;
 	localparam GPIO_OUT_DMX_OUTN_MASK			= (32'h1 << GPIO_OUT_DMX_OUTN_BIT_NUM);
 	localparam STATUS_DMX_BUSY_BIT_NUM			= 0;
 	localparam STATUS_DMX_BUSY_MASK				= (32'h1 << STATUS_DMX_BUSY_BIT_NUM);
