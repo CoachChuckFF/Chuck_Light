@@ -76,19 +76,19 @@ uint8_t check_konami(uint8_t direction, uint8_t button)
   {
     konami_state++;
     konami_tick_count = 1;
-    return 0;
+    return KONAMI_SEMICOMPLETE;
   }
   else if(button == B2 && konami_state == 8)
   {
     konami_state++;
     konami_tick_count = 1;
-    return 0;
+    return KONAMI_SEMICOMPLETE;
   }
   else if(button == B1 && konami_state == 9)
   {
     konami_state++;
     konami_tick_count = 1;
-    return 0;
+    return KONAMI_SEMICOMPLETE;
   }
   else if(button == PS2_B && konami_state == 10)
   {
@@ -143,19 +143,19 @@ uint8_t check_konami(uint8_t direction, uint8_t button)
   {
     reverse_konami_state++;
     konami_tick_count = 1;
-    return 0;
+    return KONAMI_SEMICOMPLETE;
   }
   else if(button == PS2_B && reverse_konami_state == 8)
   {
     reverse_konami_state++;
     konami_tick_count = 1;
-    return 0;
+    return KONAMI_SEMICOMPLETE;
   }
   else if(button == B1 && reverse_konami_state == 9)
   {
     reverse_konami_state++;
     konami_tick_count = 1;
-    return 0;
+    return KONAMI_SEMICOMPLETE;
   }
   else if(button == B2 && reverse_konami_state == 10)
   {

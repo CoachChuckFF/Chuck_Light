@@ -13,6 +13,7 @@
 
 #define KONAMI_COMPLETE 1
 #define REV_KONAMI_COMPLETE 2
+#define KONAMI_SEMICOMPLETE 3
 
 void clear_konami(void);
 void konami_tick(void);

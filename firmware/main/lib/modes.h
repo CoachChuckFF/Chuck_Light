@@ -12,4 +12,7 @@
 
 extern uint8_t MODE;
 
+uint8_t get_mode(void);
+void set_mode(uint8_t mode);
+
 #endif

@@ -8,10 +8,10 @@
 
 #define X_LEFT 0.0
 #define Y_DOWN 0.0
-#define X_RIGHT 4095.0
-#define Y_UP 4095.0
-#define X_CENTER 1900.0
-#define Y_CENTER 7150.0
+#define X_RIGHT 4095//580.0
+#define Y_UP 4095//580.0
+#define X_CENTER 1920//450.0
+#define Y_CENTER 1750//410.0
 
 //TODO map color wheel
 //TODO set movement flags

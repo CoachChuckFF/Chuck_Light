@@ -110,8 +110,8 @@ void app_main()
         }
 
 
-        if(!(tick++ % 8))
-          print_xy();
+        /*if(!(tick++ % 8))
+          print_xy();*/
 
 
         DEBOUNCE_TICK = 0;
@@ -130,13 +130,25 @@ void app_main()
             case 0:
               //do nothing
             break;
+            case KONAMI_SEMICOMPLETE:
+              goto SKIP_USER_INPUT;
+            break;
             case KONAMI_COMPLETE:
               ESP_LOGI(TAG, "KONAMI!!! -> Enter Party Mode");
+              goto SKIP_USER_INPUT;
             break;
             case REV_KONAMI_COMPLETE:
-              ESP_LOGI(TAG, "REVERSE-KONAMI!!! -> Enter Scary Mode")
+              ESP_LOGI(TAG, "REVERSE-KONAMI!!! -> Enter Scary Mode");
+              goto SKIP_USER_INPUT;
             break;
           }
+
+          //TODO send info if event
+          //send_data_packet()
+
+SKIP_USER_INPUT:
+
+
         break;
         case COLOR_WHEEL_MODE:
 
@@ -161,4 +173,14 @@ void app_main()
       direction_event = 0;
       button_event = 0;
     }
+}
+
+uint8_t get_mode()
+{
+  return MODE;
+}
+
+void set_mode(uint8_t mode)
+{
+  MODE = mode;
 }
