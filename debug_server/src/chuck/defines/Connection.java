@@ -1,6 +1,8 @@
 package chuck.defines;
 
 public class Connection {
+	public static final int DMX_PORT = 6454;
+	
 	public static final byte[] ID = {'J', 'E', 0x10, 'M', 'K', 0x03, 'C', 'K'};
 	
 	public static final byte DATA_PACKET_ID = (byte) 0x33;

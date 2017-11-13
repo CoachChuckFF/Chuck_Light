@@ -1,3 +1,3 @@
 library/xmltok_ns.o: \
- /home/ece453/Documents/ece453/esp-idf/components/expat/library/xmltok_ns.c
-/home/ece453/Documents/ece453/esp-idf/components/expat/library/xmltok_ns.c:
+ /home/penguin/Documents/Blizzard/compiling_files/esp-idf/components/expat/library/xmltok_ns.c
+/home/penguin/Documents/Blizzard/compiling_files/esp-idf/components/expat/library/xmltok_ns.c:
