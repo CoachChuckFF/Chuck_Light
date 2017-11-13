@@ -181,109 +181,37 @@ static ssize_t ece453_read_gpio_out (
 
 /*****************************************************************************/
 /*****************************************************************************/
-static ssize_t ece453_read_unused ( 
+static ssize_t ece453_read_dmx_addr ( 
     struct kobject *kobj, 
     struct kobj_attribute *attr, 
     char *buf
     )
 {
-  int val = ioread32(base_addr + ECE453_UNUSED_OFFSET);
+  int val = ioread32(base_addr + ECE453_DMX_ADDR_OFFSET);
   return sprintf(buf, "%08x\n", val);
 }
 
 /*****************************************************************************/
 /*****************************************************************************/
-static ssize_t ece453_read_ws2812b_0 ( 
+static ssize_t ece453_read_dmx_data ( 
     struct kobject *kobj, 
     struct kobj_attribute *attr, 
     char *buf
     )
 {
-  int val = ioread32(base_addr + ECE453_WS2812B_0_OFFSET);
+  int val = ioread32(base_addr + ECE453_DMX_DATA_OFFSET);
   return sprintf(buf, "%08x\n", val);
 }
 
 /*****************************************************************************/
 /*****************************************************************************/
-static ssize_t ece453_read_ws2812b_1 ( 
+static ssize_t ece453_read_dmx_size ( 
     struct kobject *kobj, 
     struct kobj_attribute *attr, 
     char *buf
     )
 {
-  int val = ioread32(base_addr + ECE453_WS2812B_1_OFFSET);
-  return sprintf(buf, "%08x\n", val);
-}
-
-/*****************************************************************************/
-/*****************************************************************************/
-static ssize_t ece453_read_ws2812b_2 ( 
-    struct kobject *kobj, 
-    struct kobj_attribute *attr, 
-    char *buf
-    )
-{
-  int val = ioread32(base_addr + ECE453_WS2812B_2_OFFSET);
-  return sprintf(buf, "%08x\n", val);
-}
-
-/*****************************************************************************/
-/*****************************************************************************/
-static ssize_t ece453_read_ws2812b_3 ( 
-    struct kobject *kobj, 
-    struct kobj_attribute *attr, 
-    char *buf
-    )
-{
-  int val = ioread32(base_addr + ECE453_WS2812B_3_OFFSET);
-  return sprintf(buf, "%08x\n", val);
-}
-
-/*****************************************************************************/
-/*****************************************************************************/
-static ssize_t ece453_read_ws2812b_4 ( 
-    struct kobject *kobj, 
-    struct kobj_attribute *attr, 
-    char *buf
-    )
-{
-  int val = ioread32(base_addr + ECE453_WS2812B_4_OFFSET);
-  return sprintf(buf, "%08x\n", val);
-}
-
-/*****************************************************************************/
-/*****************************************************************************/
-static ssize_t ece453_read_ws2812b_5 ( 
-    struct kobject *kobj, 
-    struct kobj_attribute *attr, 
-    char *buf
-    )
-{
-  int val = ioread32(base_addr + ECE453_WS2812B_5_OFFSET);
-  return sprintf(buf, "%08x\n", val);
-}
-
-/*****************************************************************************/
-/*****************************************************************************/
-static ssize_t ece453_read_ws2812b_6 ( 
-    struct kobject *kobj, 
-    struct kobj_attribute *attr, 
-    char *buf
-    )
-{
-  int val = ioread32(base_addr + ECE453_WS2812B_6_OFFSET);
-  return sprintf(buf, "%08x\n", val);
-}
-
-/*****************************************************************************/
-/*****************************************************************************/
-static ssize_t ece453_read_ws2812b_7 ( 
-    struct kobject *kobj, 
-    struct kobj_attribute *attr, 
-    char *buf
-    )
-{
-  int val = ioread32(base_addr + ECE453_WS2812B_7_OFFSET);
+  int val = ioread32(base_addr + ECE453_DMX_SIZE_OFFSET);
   return sprintf(buf, "%08x\n", val);
 }
 
@@ -353,7 +281,7 @@ static ssize_t ece453_write_gpio_out (
 
 /*****************************************************************************/
 /*****************************************************************************/
-static ssize_t ece453_write_unused (
+static ssize_t ece453_write_dmx_addr (
     struct kobject *kobj, 
     struct kobj_attribute *attr, 
     const char *buf, 
@@ -362,13 +290,13 @@ static ssize_t ece453_write_unused (
 {
   int var;
   sscanf(buf, "%xu", &var);
-  iowrite32( var, base_addr + ECE453_UNUSED_OFFSET);
+  iowrite32( var, base_addr + ECE453_DMX_ADDR_OFFSET);
   return count;
 }
 
 /*****************************************************************************/
 /*****************************************************************************/
-static ssize_t ece453_write_ws2812b_0 (
+static ssize_t ece453_write_dmx_data (
     struct kobject *kobj, 
     struct kobj_attribute *attr, 
     const char *buf, 
@@ -377,13 +305,13 @@ static ssize_t ece453_write_ws2812b_0 (
 {
   int var;
   sscanf(buf, "%xu", &var);
-  iowrite32( var, base_addr + ECE453_WS2812B_0_OFFSET);
+  iowrite32( var, base_addr + ECE453_DMX_DATA_OFFSET);
   return count;
 }
 
 /*****************************************************************************/
 /*****************************************************************************/
-static ssize_t ece453_write_ws2812b_1 (
+static ssize_t ece453_write_dmx_size (
     struct kobject *kobj, 
     struct kobj_attribute *attr, 
     const char *buf, 
@@ -392,97 +320,7 @@ static ssize_t ece453_write_ws2812b_1 (
 {
   int var;
   sscanf(buf, "%xu", &var);
-  iowrite32( var, base_addr + ECE453_WS2812B_1_OFFSET);
-  return count;
-}
-
-/*****************************************************************************/
-/*****************************************************************************/
-static ssize_t ece453_write_ws2812b_2 (
-    struct kobject *kobj, 
-    struct kobj_attribute *attr, 
-    const char *buf, 
-    size_t count
-    )
-{
-  int var;
-  sscanf(buf, "%xu", &var);
-  iowrite32( var, base_addr + ECE453_WS2812B_2_OFFSET);
-  return count;
-}
-
-/*****************************************************************************/
-/*****************************************************************************/
-static ssize_t ece453_write_ws2812b_3 (
-    struct kobject *kobj, 
-    struct kobj_attribute *attr, 
-    const char *buf, 
-    size_t count
-    )
-{
-  int var;
-  sscanf(buf, "%xu", &var);
-  iowrite32( var, base_addr + ECE453_WS2812B_3_OFFSET);
-  return count;
-}
-
-/*****************************************************************************/
-/*****************************************************************************/
-static ssize_t ece453_write_ws2812b_4 (
-    struct kobject *kobj, 
-    struct kobj_attribute *attr, 
-    const char *buf, 
-    size_t count
-    )
-{
-  int var;
-  sscanf(buf, "%xu", &var);
-  iowrite32( var, base_addr + ECE453_WS2812B_4_OFFSET);
-  return count;
-}
-
-/*****************************************************************************/
-/*****************************************************************************/
-static ssize_t ece453_write_ws2812b_5 (
-    struct kobject *kobj, 
-    struct kobj_attribute *attr, 
-    const char *buf, 
-    size_t count
-    )
-{
-  int var;
-  sscanf(buf, "%xu", &var);
-  iowrite32( var, base_addr + ECE453_WS2812B_5_OFFSET);
-  return count;
-}
-
-/*****************************************************************************/
-/*****************************************************************************/
-static ssize_t ece453_write_ws2812b_6 (
-    struct kobject *kobj, 
-    struct kobj_attribute *attr, 
-    const char *buf, 
-    size_t count
-    )
-{
-  int var;
-  sscanf(buf, "%xu", &var);
-  iowrite32( var, base_addr + ECE453_WS2812B_6_OFFSET);
-  return count;
-}
-
-/*****************************************************************************/
-/*****************************************************************************/
-static ssize_t ece453_write_ws2812b_7 (
-    struct kobject *kobj, 
-    struct kobj_attribute *attr, 
-    const char *buf, 
-    size_t count
-    )
-{
-  int var;
-  sscanf(buf, "%xu", &var);
-  iowrite32( var, base_addr + ECE453_WS2812B_7_OFFSET);
+  iowrite32( var, base_addr + ECE453_DMX_SIZE_OFFSET);
   return count;
 }
 
@@ -524,25 +362,12 @@ static struct kobj_attribute gpio_in_attribute =
 static struct kobj_attribute gpio_out_attribute =
         __ATTR(gpio_out, 0664, ece453_read_gpio_out, ece453_write_gpio_out);
 
-static struct kobj_attribute unused_attribute =
-        __ATTR(unused, 0664, ece453_read_unused, ece453_write_unused);
-
-static struct kobj_attribute ws2812b0_attribute =
-        __ATTR(ws2812b0, 0664, ece453_read_ws2812b_0, ece453_write_ws2812b_0);
-static struct kobj_attribute ws2812b1_attribute =
-        __ATTR(ws2812b1, 0664, ece453_read_ws2812b_1, ece453_write_ws2812b_1);
-static struct kobj_attribute ws2812b2_attribute =
-        __ATTR(ws2812b2, 0664, ece453_read_ws2812b_2, ece453_write_ws2812b_2);
-static struct kobj_attribute ws2812b3_attribute =
-        __ATTR(ws2812b3, 0664, ece453_read_ws2812b_3, ece453_write_ws2812b_3);
-static struct kobj_attribute ws2812b4_attribute =
-        __ATTR(ws2812b4, 0664, ece453_read_ws2812b_4, ece453_write_ws2812b_4);
-static struct kobj_attribute ws2812b5_attribute =
-        __ATTR(ws2812b5, 0664, ece453_read_ws2812b_5, ece453_write_ws2812b_5);
-static struct kobj_attribute ws2812b6_attribute =
-        __ATTR(ws2812b6, 0664, ece453_read_ws2812b_6, ece453_write_ws2812b_6);
-static struct kobj_attribute ws2812b7_attribute =
-        __ATTR(ws2812b7, 0664, ece453_read_ws2812b_7, ece453_write_ws2812b_7);
+static struct kobj_attribute dmx_addr_attribute =
+        __ATTR(dmx_addr, 0664, ece453_read_dmx_addr, ece453_write_dmx_addr);
+static struct kobj_attribute dmx_data_attribute =
+        __ATTR(dmx_data, 0664, ece453_read_dmx_data, ece453_write_dmx_data);
+static struct kobj_attribute dmx_size_attribute =
+        __ATTR(dmx_size, 0664, ece453_read_dmx_size, ece453_write_dmx_size);
 
 static struct kobj_attribute pid_attribute =
         __ATTR(pid, 0220, NULL, ece453_write_pid);
@@ -559,15 +384,9 @@ static struct attribute *attrs[] = {
         &irq_attribute.attr,
         &gpio_in_attribute.attr,
         &gpio_out_attribute.attr,
-        &unused_attribute.attr,
-        &ws2812b0_attribute.attr,
-        &ws2812b1_attribute.attr,
-        &ws2812b2_attribute.attr,
-        &ws2812b3_attribute.attr,
-        &ws2812b4_attribute.attr,
-        &ws2812b5_attribute.attr,
-        &ws2812b6_attribute.attr,
-        &ws2812b7_attribute.attr,
+        &dmx_addr_attribute.attr,
+        &dmx_data_attribute.attr,
+        &dmx_size_attribute.attr,
         &pid_attribute.attr,
         NULL   /* need to NULL terminate the list of attributes */
 };

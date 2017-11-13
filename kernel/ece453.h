@@ -38,15 +38,15 @@
 #define ECE453_IRQ_OFFSET       4 
 #define ECE453_GPIO_IN_OFFSET   5 
 #define ECE453_GPIO_OUT_OFFSET  6 
-#define ECE453_UNUSED_OFFSET    7 
-#define ECE453_WS2812B_0_OFFSET 8 
-#define ECE453_WS2812B_1_OFFSET 9 
-#define ECE453_WS2812B_2_OFFSET 10 
-#define ECE453_WS2812B_3_OFFSET 11 
-#define ECE453_WS2812B_4_OFFSET 12 
-#define ECE453_WS2812B_5_OFFSET 13 
-#define ECE453_WS2812B_6_OFFSET 14 
-#define ECE453_WS2812B_7_OFFSET 15 
+#define ECE453_UNUSED0_OFFSET   7 
+#define ECE453_DMX_ADDR_OFFSET  8 
+#define ECE453_DMX_DATA_OFFSET  9 
+#define ECE453_DMX_SIZE_OFFSET  10 
+#define ECE453_UNUSED1_OFFSET   11 
+#define ECE453_UNUSED2_OFFSET   12 
+#define ECE453_UNUSED3_OFFSET   13 
+#define ECE453_UNUSED4_OFFSET   14 
+#define ECE453_UNUSED5_OFFSET   15 
 
 //*******************************************************************
 // Register Bit definitions
@@ -57,8 +57,6 @@
 #define GPIO_OUT_CAP_SEN_RST_MASK           (0x1 << GPIO_OUT_CAP_SEN_RST_BIT_NUM)
 #define GPIO_OUT_LCD_RST_BIT_NUM            28
 #define GPIO_OUT_LCD_RST_MASK               (0x1 << GPIO_OUT_LCD_RST_BIT_NUM)
-#define GPIO_OUT_LCD_BCK_LITE_BIT_NUM       29
-#define GPIO_OUT_LCD_BCK_LITE_MASK          (0x1 << GPIO_OUT_LCD_BCK_LITE_BIT_NUM)
 #define GPIO_OUT_LCD_CMD_BIT_NUM            30
 #define GPIO_OUT_LCD_CMD_MASK               (0x1 << GPIO_OUT_LCD_CMD_BIT_NUM)
 #define GPIO_OUT_WS2812B_OUT_BIT_NUM        31
@@ -73,18 +71,18 @@
 #define GPIO_IN_LCD_IRQ_BIT_NUM             15
 #define GPIO_IN_LCD_IRQ_MASK                (0x1 << GPIO_IN_LCD_IRQ_BIT_NUM)
 
-#define STATUS_WS2812B_BUSY_BIT_NUM         0
-#define STATUS_WS2812B_BUSY_MASK            (0x1 << STATUS_WS2812B_BUSY_BIT_NUM)
+/* DMX Defines */
+#define GPIO_OUT_DMX_OUTP_BIT_NUM           31
+#define GPIO_OUT_DMX_OUTP_MASK              (0x1 << GPIO_OUT_DMX_OUTP_BIT_NUM)
+#define GPIO_OUT_DMX_OUTN_BIT_NUM           29
+#define GPIO_OUT_DMX_OUTN_MASK              (0x1 << GPIO_OUT_DMX_OUTN_BIT_NUM)
 
-#define IRQ_WS2812B_DONE_BIT_NUM            0
-#define IRQ_WS2812B_DONE_MASK               (0x1 << IRQ_WS2812B_DONE_BIT_NUM)
-
-#define CONTROL_WS2812B_START_BIT_NUM       0
-#define CONTROL_WS2812B_START_MASK          (0x1 << CONTROL_WS2812B_START_BIT_NUM)
-
-
-
-
+#define STATUS_DMX_BUSY_BIT_NUM             0
+#define STATUS_DMX_BUSY_MASK                (0x1 << STATUS_DMX_BUSY_BIT_NUM)
+#define IRQ_DMX_DONE_BIT_NUM                0
+#define IRQ_DMX_DONE_MASK                   (0x1 << IRQ_DMX_DONE_BIT_NUM)
+#define CONTROL_DMX_START_BIT_NUM           0
+#define CONTROL_DMX_START_MASK              (0x1 << CONTROL_DMX_START_BIT_NUM)
 
 /* We'll use our own macros for printk */
 #define dbg(format, arg...) do { if (debug) pr_info(CLASS_NAME ": %s: " format , __FUNCTION__ , ## arg); } while (0)

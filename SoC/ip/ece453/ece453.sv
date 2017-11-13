@@ -149,14 +149,16 @@ module ece453(
 	end
 
 	/* DMX Module */
-	reg	[9:0]	curr_addr;
-	reg [7:0]	curr_data;
 	reg			dmx_write;
 	dmx512 dmx_mod(
 			.clk(clk),
 			.rst(reset),
-			.write_addr(curr_addr),
-			.write_data(curr_data),
+			.write_addr(dmx_addr_r[9:0]),
+			.write_data0(dmx_data_r[7:0]),
+			.write_data1(dmx_data_r[15:8]),
+			.write_data2(dmx_data_r[23:16]),
+			.write_data3(dmx_data_r[31:24]),
+			.write_size((dmx_size_r > 32'h4) ? 3'h4 : dmx_size_r[2:0]),
 			.write_en(dmx_write),
 			.dmx_signal(dmx_out)
 		);
@@ -173,38 +175,37 @@ module ece453(
 		end
 	end
 
-	/* latch for holding values from start of transmit */
-	reg latch_dmx;
-	reg [31:0] dmx_addr_l;
-	reg [31:0] dmx_data_l;
-	reg [31:0] dmx_size_l;
-	always_ff @(posedge clk or posedge reset) begin
-		if (reset) begin
-			dmx_addr_l <= 32'b0;
-			dmx_data_l <= 32'b0;
-			dmx_size_l <= 32'b0;
-		end else if (latch_dmx) begin
-			dmx_addr_l <= dmx_addr_r;
-			dmx_data_l <= dmx_data_r;
-			dmx_size_l <= dmx_data_r;
-		end
-	end
-
-	/* TODO: implement 4 byte buffer to write data into dmx module */
 	always_comb begin
 		dmx_busy = 1'b0;
-		curr_addr = 10'b0;
-		curr_data = 8'b0;
 		dmx_write = 1'b0;
+		next_state = IDLE;
+		
+		case (curr_state)
+			IDLE: begin
+				if (control_r[CONTROL_DMX_START_BIT_NUM]) begin
+					dmx_busy = 1'b1;
+					dmx_write = 1'b1;
+					next_state = TRANSMIT;
+				end
+			end
+			TRANSMIT: begin
+				dmx_busy = 1'b1;
+				dmx_write = 1'b1;
+			end
+			
+		endcase
 	end
 endmodule
-
 
 module dmx512(
 	input			clk,		// Clock
 	input			rst,		// Asynchronous reset active high
 	input	[9:0]	write_addr,	// address to write byte (from 1 to 512)
-	input	[7:0]	write_data,	// byte to write into 512 array
+	input	[7:0]	write_data0,// byte(s) to write into 512 array
+	input	[7:0]	write_data1,
+	input	[7:0]	write_data2,
+	input	[7:0]	write_data3,
+	input	[2:0]	write_size, // number of bytes (0-4) to write
 	input			write_en,	// signal to write a byte (can write one byte per cycle)
 	output reg		dmx_signal	// output dmx signal (continuous loop)
 );
@@ -229,6 +230,13 @@ module dmx512(
 		end
 	end
 
+	/* offset addresses for four bytes to write (if overflow memory index of 512, then set zero) */
+	/* set zero for bytes not being written (according to write_size) */
+	wire [9:0] addr0, addr1, addr2, addr3;
+	assign addr0 = (write_size >= 2'h1 && write_addr <= 10'h200) ? write_addr			: 10'h0;
+	assign addr1 = (write_size >= 2'h2 && write_addr <= 10'h1ff) ? write_addr + 10'h1	: 10'h0;
+	assign addr2 = (write_size >= 2'h3 && write_addr <= 10'h1fe) ? write_addr + 10'h2	: 10'h0;
+	assign addr3 = (write_size >= 2'h4 && write_addr <= 10'h1fd) ? write_addr + 10'h3	: 10'h0;
 	/* 512 bytes of dmx data to continuously send */
 	reg [7:0] DMX_data [0:512];
 	always_ff @(posedge clk or posedge rst) begin
@@ -237,14 +245,25 @@ module dmx512(
 			for (reg [9:0] i = 0; i <= 512; i++) begin
 				DMX_data[i] <= 8'b0;
 			end
-		end else if (write_en && (write_addr != 10'b0)) begin
-			/* if writing, change only the current byte (start code is read only) */
-			DMX_data[write_addr] <= write_data;
+		end else if (write_en) begin
+			/* if writing, change only the current bytes (start code at index zero is read only) */
+			if (addr0 != 10'h0) begin
+				DMX_data[addr0] <= write_data0;
+			end
+			if (addr1 != 10'h0) begin
+				DMX_data[addr1] <= write_data1;
+			end
+			if (addr2 != 10'h0) begin
+				DMX_data[addr2] <= write_data2;
+			end
+			if (addr3 != 10'h0) begin
+				DMX_data[addr3] <= write_data3;
+			end
 		end
 		/* otherwise, no change (keep value) */
 	end
 
-	/* counter for current frame being sent (zero is start code, 512 is last) */
+	/* counter for current frame being sent (zero is start code, 512 is last dmx byte) */
 	reg [9:0] frame_addr;
 	reg first_frame;
 	reg next_frame;

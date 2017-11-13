@@ -10,8 +10,6 @@
 	localparam GPIO_OUT_CAP_SEN_RST_MASK		= (32'h1 << GPIO_OUT_CAP_SEN_RST_BIT_NUM);
 	localparam GPIO_OUT_LCD_RST_BIT_NUM			= 28;
 	localparam GPIO_OUT_LCD_RST_MASK			= (32'h1 << GPIO_OUT_LCD_RST_BIT_NUM);
-	localparam GPIO_OUT_LCD_BCK_LITE_BIT_NUM	= 29;
-	localparam GPIO_OUT_LCD_BCK_LITE_MASK		= (32'h1 << GPIO_OUT_LCD_BCK_LITE_BIT_NUM);
 	localparam GPIO_OUT_LCD_CMD_BIT_NUM			= 30;
 	localparam GPIO_OUT_LCD_CMD_MASK			= (32'h1 << GPIO_OUT_LCD_CMD_BIT_NUM);
 	localparam GPIO_IN_SWITCHES_BIT_NUM			= 0;
@@ -24,9 +22,9 @@
 	localparam GPIO_IN_LCD_IRQ_MASK				= (32'h1 << GPIO_IN_LCD_IRQ_BIT_NUM);
 
 	/* DMX defines */
-	localparam GPIO_OUT_DMX_OUTP_BIT_NUM		= 26;
+	localparam GPIO_OUT_DMX_OUTP_BIT_NUM		= 31;
 	localparam GPIO_OUT_DMX_OUTP_MASK			= (32'h1 << GPIO_OUT_DMX_OUTP_BIT_NUM);
-	localparam GPIO_OUT_DMX_OUTN_BIT_NUM		= 25;
+	localparam GPIO_OUT_DMX_OUTN_BIT_NUM		= 29;
 	localparam GPIO_OUT_DMX_OUTN_MASK			= (32'h1 << GPIO_OUT_DMX_OUTN_BIT_NUM);
 	localparam STATUS_DMX_BUSY_BIT_NUM			= 0;
 	localparam STATUS_DMX_BUSY_MASK				= (32'h1 << STATUS_DMX_BUSY_BIT_NUM);
