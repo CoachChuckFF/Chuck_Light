@@ -16,6 +16,7 @@
 #include "lib/ps2_controller.h"
 #include "lib/serial_controller.h"
 #include "lib/timer_controller.h"
+#include "lib/udp_controller.h"
 #include "lib/konami.h"
 #include "lib/modes.h"
 
@@ -41,6 +42,7 @@ void app_main()
     init_motion_controllers();
     init_button_controllers();
     init_timer_controller();
+    init_udp_controller();
 
     //TODO UDP Listhener listens to modes
 

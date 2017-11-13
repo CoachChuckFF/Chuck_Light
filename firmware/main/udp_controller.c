@@ -2,13 +2,14 @@
 
 #define TAG "UDP Controller"
 
-#define UDP_PORT 7153
+#define UDP_PORT 6454
 
 const uint8_t ID[8] = {'J', 'E', 0x10, 'M', 'K', 0x03, 'C', 'K'};
 
 struct udp_pcb *UDP;
 ip_addr_t *IP;
 ip_addr_t *DEST_IP = NULL;
+ip_addr_t DEST_IP_DATA;
 uint16_t PORT;
 
 packetHeader HEADER;
@@ -80,8 +81,9 @@ void udp_recieve(void *arg,
 
     break;
     case POLL_PACKET_ID:
-      memcpy(DEST_IP, addr, sizeof(const ip_addr_t));
-      //TODO add in batter level
+      DEST_IP = &DEST_IP_DATA;
+      ip_addr_set(DEST_IP, addr);
+
       send_poll_reply_packet(get_mode(),
                               0.69,
                               0,
@@ -149,11 +151,36 @@ void send_poll_reply_packet(uint8_t mode,
                             uint8_t msg_len,
                             uint8_t *msg)
 {
+
+  struct pbuf *p;
+  int ret_val;
+  uint8_t i;
+
   if(DEST_IP == NULL)
   {
     ESP_LOGI(TAG, "No Address - Poll Reply");
     return;
   }
 
+  p = pbuf_alloc(PBUF_TRANSPORT, sizeof(POLL_REPLY_PACKET) + msg_len, PBUF_RAM);
+
+  udp_connect(UDP, DEST_IP, PORT);
+
+  POLL_REPLY_PACKET._header._mode = get_mode();
+
+  POLL_REPLY_PACKET._battery_level = battery_level;
+  POLL_REPLY_PACKET._error_code = 0x69;
+  POLL_REPLY_PACKET._message_length = msg_len;
+
+  memcpy(p->payload, &POLL_REPLY_PACKET, sizeof(POLL_REPLY_PACKET));
+  if(msg_len != 0 && msg != NULL)
+    memcpy(p->payload + sizeof(POLL_REPLY_PACKET), msg, msg_len);
+
+
+  ret_val = udp_send(UDP, p);
+  udp_disconnect(UDP);
+
+  if(ret_val)
+    ESP_LOGI(TAG, "Send Poll Reply Packet Error %d", ret_val);
 
 }

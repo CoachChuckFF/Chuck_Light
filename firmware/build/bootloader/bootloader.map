@@ -1,237 +1,239 @@
 Archive member included to satisfy reference by file (symbol)
 
-/home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/main/libmain.a(bootloader_start.o)
+/home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/main/libmain.a(bootloader_start.o)
                               (call_start_cpu0)
-/home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_flash.o)
-                              /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/main/libmain.a(bootloader_start.o) (bootloader_mmap)
-/home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(flash_partitions.o)
-                              /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/main/libmain.a(bootloader_start.o) (esp_partition_table_basic_verify)
-/home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(esp_image_format.o)
-                              /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/main/libmain.a(bootloader_start.o) (esp_image_load)
-/home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_sha.o)
-                              /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(esp_image_format.o) (bootloader_sha256_start)
-/home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_random.o)
-                              /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(esp_image_format.o) (bootloader_fill_random)
-/home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/log/liblog.a(log.o)
-                              /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/main/libmain.a(bootloader_start.o) (esp_log_timestamp)
-/home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/spi_flash/libspi_flash.a(spi_flash_rom_patch.o)
-                              /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/main/libmain.a(bootloader_start.o) (esp_rom_spiflash_unlock)
-/home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
-                              /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/main/libmain.a(bootloader_start.o) (rtc_clk_slow_freq_get)
-/home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/soc/libsoc.a(rtc_time.o)
-                              /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o) (rtc_clk_cal_ratio)
-/home/ece453/Documents/ece453/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/libgcc.a(_bswapsi2.o)
-                              /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_sha.o) (__bswapsi2)
-/home/ece453/Documents/ece453/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/libgcc.a(_udivdi3.o)
-                              /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/soc/libsoc.a(rtc_time.o) (__udivdi3)
+/home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_flash.o)
+                              /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/main/libmain.a(bootloader_start.o) (bootloader_mmap)
+/home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(flash_partitions.o)
+                              /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/main/libmain.a(bootloader_start.o) (esp_partition_table_basic_verify)
+/home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(esp_image_format.o)
+                              /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/main/libmain.a(bootloader_start.o) (esp_image_load)
+/home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_sha.o)
+                              /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(esp_image_format.o) (bootloader_sha256_start)
+/home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_random.o)
+                              /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(esp_image_format.o) (bootloader_fill_random)
+/home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/log/liblog.a(log.o)
+                              /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/main/libmain.a(bootloader_start.o) (esp_log_timestamp)
+/home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/spi_flash/libspi_flash.a(spi_flash_rom_patch.o)
+                              /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/main/libmain.a(bootloader_start.o) (esp_rom_spiflash_unlock)
+/home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
+                              /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/main/libmain.a(bootloader_start.o) (rtc_clk_slow_freq_get)
+/home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/soc/libsoc.a(rtc_time.o)
+                              /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o) (rtc_clk_cal_ratio)
+/home/penguin/Documents/Blizzard/compiling_files/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/libgcc.a(_bswapsi2.o)
+                              /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_sha.o) (__bswapsi2)
+/home/penguin/Documents/Blizzard/compiling_files/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/libgcc.a(_udivdi3.o)
+                              /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/soc/libsoc.a(rtc_time.o) (__udivdi3)
 
 Allocating common symbols
 Common symbol       size              file
 
 esp_image_spi_freq_t
-                    0x4               /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/main/libmain.a(bootloader_start.o)
+                    0x4               /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/main/libmain.a(bootloader_start.o)
 
 Discarded input sections
 
- .text          0x0000000000000000        0x0 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/main/libmain.a(bootloader_start.o)
- .data          0x0000000000000000        0x0 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/main/libmain.a(bootloader_start.o)
- .bss           0x0000000000000000        0x0 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/main/libmain.a(bootloader_start.o)
- .xt.lit        0x0000000000000000       0x98 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/main/libmain.a(bootloader_start.o)
- .xt.prop       0x0000000000000000      0xad4 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/main/libmain.a(bootloader_start.o)
- COMMON         0x0000000000000000        0x4 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/main/libmain.a(bootloader_start.o)
+ .text          0x0000000000000000        0x0 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/main/libmain.a(bootloader_start.o)
+ .data          0x0000000000000000        0x0 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/main/libmain.a(bootloader_start.o)
+ .bss           0x0000000000000000        0x0 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/main/libmain.a(bootloader_start.o)
+ .xt.lit        0x0000000000000000       0x98 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/main/libmain.a(bootloader_start.o)
+ .xt.prop       0x0000000000000000      0xad4 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/main/libmain.a(bootloader_start.o)
+ COMMON         0x0000000000000000        0x4 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/main/libmain.a(bootloader_start.o)
  .literal.bootloader_flash_write
-                0x0000000000000000       0x40 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_flash.o)
+                0x0000000000000000       0x40 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_flash.o)
  .literal.bootloader_flash_erase_sector
-                0x0000000000000000        0x8 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_flash.o)
- .text          0x0000000000000000        0x0 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_flash.o)
- .data          0x0000000000000000        0x0 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_flash.o)
- .bss           0x0000000000000000        0x0 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_flash.o)
+                0x0000000000000000        0x8 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_flash.o)
+ .text          0x0000000000000000        0x0 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_flash.o)
+ .data          0x0000000000000000        0x0 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_flash.o)
+ .bss           0x0000000000000000        0x0 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_flash.o)
  .text.bootloader_flash_write
-                0x0000000000000000       0xb2 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_flash.o)
+                0x0000000000000000       0xb2 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_flash.o)
  .text.bootloader_flash_erase_sector
-                0x0000000000000000       0x16 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_flash.o)
- .xt.lit        0x0000000000000000       0x40 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_flash.o)
- .xt.prop       0x0000000000000000      0x360 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_flash.o)
- .text          0x0000000000000000        0x0 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(flash_partitions.o)
- .data          0x0000000000000000        0x0 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(flash_partitions.o)
- .bss           0x0000000000000000        0x0 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(flash_partitions.o)
- .xt.lit        0x0000000000000000        0x8 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(flash_partitions.o)
- .xt.prop       0x0000000000000000       0xe4 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(flash_partitions.o)
+                0x0000000000000000       0x16 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_flash.o)
+ .xt.lit        0x0000000000000000       0x40 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_flash.o)
+ .xt.prop       0x0000000000000000      0x360 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_flash.o)
+ .text          0x0000000000000000        0x0 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(flash_partitions.o)
+ .data          0x0000000000000000        0x0 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(flash_partitions.o)
+ .bss           0x0000000000000000        0x0 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(flash_partitions.o)
+ .xt.lit        0x0000000000000000        0x8 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(flash_partitions.o)
+ .xt.prop       0x0000000000000000       0xe4 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(flash_partitions.o)
  .literal.esp_image_verify_bootloader
-                0x0000000000000000        0x8 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(esp_image_format.o)
- .text          0x0000000000000000        0x0 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(esp_image_format.o)
- .data          0x0000000000000000        0x0 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(esp_image_format.o)
- .bss           0x0000000000000000        0x0 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(esp_image_format.o)
- .rodata        0x0000000000000000        0x8 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(esp_image_format.o)
+                0x0000000000000000        0x8 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(esp_image_format.o)
+ .text          0x0000000000000000        0x0 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(esp_image_format.o)
+ .data          0x0000000000000000        0x0 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(esp_image_format.o)
+ .bss           0x0000000000000000        0x0 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(esp_image_format.o)
+ .rodata        0x0000000000000000        0x8 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(esp_image_format.o)
  .text.esp_image_verify_bootloader
-                0x0000000000000000       0x32 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(esp_image_format.o)
- .xt.lit        0x0000000000000000       0x48 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(esp_image_format.o)
- .xt.prop       0x0000000000000000      0x660 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(esp_image_format.o)
- .text          0x0000000000000000        0x0 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_sha.o)
- .data          0x0000000000000000        0x0 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_sha.o)
- .bss           0x0000000000000000        0x0 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_sha.o)
- .xt.lit        0x0000000000000000       0x18 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_sha.o)
- .xt.prop       0x0000000000000000      0x198 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_sha.o)
- .text          0x0000000000000000        0x0 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_random.o)
- .data          0x0000000000000000        0x0 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_random.o)
- .bss           0x0000000000000000        0x0 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_random.o)
+                0x0000000000000000       0x32 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(esp_image_format.o)
+ .xt.lit        0x0000000000000000       0x48 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(esp_image_format.o)
+ .xt.prop       0x0000000000000000      0x660 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(esp_image_format.o)
+ .text          0x0000000000000000        0x0 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_sha.o)
+ .data          0x0000000000000000        0x0 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_sha.o)
+ .bss           0x0000000000000000        0x0 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_sha.o)
+ .xt.lit        0x0000000000000000       0x18 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_sha.o)
+ .xt.prop       0x0000000000000000      0x198 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_sha.o)
+ .text          0x0000000000000000        0x0 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_random.o)
+ .data          0x0000000000000000        0x0 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_random.o)
+ .bss           0x0000000000000000        0x0 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_random.o)
  .rodata.str1.4
-                0x0000000000000000        0x9 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_random.o)
- .data.TAG      0x0000000000000000        0x4 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_random.o)
- .xt.lit        0x0000000000000000       0x18 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_random.o)
- .xt.prop       0x0000000000000000       0xd8 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_random.o)
+                0x0000000000000000        0x9 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_random.o)
+ .data.TAG      0x0000000000000000        0x4 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_random.o)
+ .xt.lit        0x0000000000000000       0x18 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_random.o)
+ .xt.prop       0x0000000000000000       0xd8 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_random.o)
  .literal.esp_log_buffer_hex_internal
-                0x0000000000000000       0x50 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/log/liblog.a(log.o)
+                0x0000000000000000       0x50 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/log/liblog.a(log.o)
  .literal.esp_log_buffer_char_internal
-                0x0000000000000000       0x50 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/log/liblog.a(log.o)
+                0x0000000000000000       0x50 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/log/liblog.a(log.o)
  .literal.esp_log_buffer_hexdump_internal
-                0x0000000000000000       0x78 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/log/liblog.a(log.o)
- .text          0x0000000000000000        0x0 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/log/liblog.a(log.o)
- .data          0x0000000000000000        0x0 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/log/liblog.a(log.o)
- .bss           0x0000000000000000        0x0 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/log/liblog.a(log.o)
+                0x0000000000000000       0x78 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/log/liblog.a(log.o)
+ .text          0x0000000000000000        0x0 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/log/liblog.a(log.o)
+ .data          0x0000000000000000        0x0 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/log/liblog.a(log.o)
+ .bss           0x0000000000000000        0x0 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/log/liblog.a(log.o)
  .rodata.str1.4
-                0x0000000000000000       0xa6 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/log/liblog.a(log.o)
+                0x0000000000000000       0xa6 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/log/liblog.a(log.o)
  .text.esp_log_buffer_hex_internal
-                0x0000000000000000      0x11a /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/log/liblog.a(log.o)
+                0x0000000000000000      0x11a /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/log/liblog.a(log.o)
  .text.esp_log_buffer_char_internal
-                0x0000000000000000      0x107 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/log/liblog.a(log.o)
+                0x0000000000000000      0x107 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/log/liblog.a(log.o)
  .text.esp_log_buffer_hexdump_internal
-                0x0000000000000000      0x1da /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/log/liblog.a(log.o)
- .xt.lit        0x0000000000000000       0x20 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/log/liblog.a(log.o)
- .xt.prop       0x0000000000000000      0x354 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/log/liblog.a(log.o)
+                0x0000000000000000      0x1da /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/log/liblog.a(log.o)
+ .xt.lit        0x0000000000000000       0x20 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/log/liblog.a(log.o)
+ .xt.prop       0x0000000000000000      0x354 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/log/liblog.a(log.o)
  .literal.spi_cache_mode_switch
-                0x0000000000000000       0x38 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/spi_flash/libspi_flash.a(spi_flash_rom_patch.o)
+                0x0000000000000000       0x38 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/spi_flash/libspi_flash.a(spi_flash_rom_patch.o)
  .literal.esp_rom_spiflash_erase_chip_internal
-                0x0000000000000000       0x10 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/spi_flash/libspi_flash.a(spi_flash_rom_patch.o)
+                0x0000000000000000       0x10 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/spi_flash/libspi_flash.a(spi_flash_rom_patch.o)
  .literal.esp_rom_spiflash_erase_block_internal
-                0x0000000000000000       0x18 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/spi_flash/libspi_flash.a(spi_flash_rom_patch.o)
+                0x0000000000000000       0x18 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/spi_flash/libspi_flash.a(spi_flash_rom_patch.o)
  .literal.esp_rom_spiflash_erase_sector_internal
-                0x0000000000000000       0x18 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/spi_flash/libspi_flash.a(spi_flash_rom_patch.o)
+                0x0000000000000000       0x18 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/spi_flash/libspi_flash.a(spi_flash_rom_patch.o)
  .literal.esp_rom_spiflash_enable_write
-                0x0000000000000000       0x10 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/spi_flash/libspi_flash.a(spi_flash_rom_patch.o)
+                0x0000000000000000       0x10 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/spi_flash/libspi_flash.a(spi_flash_rom_patch.o)
  .literal.esp_rom_spiflash_program_page_internal
-                0x0000000000000000       0x24 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/spi_flash/libspi_flash.a(spi_flash_rom_patch.o)
+                0x0000000000000000       0x24 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/spi_flash/libspi_flash.a(spi_flash_rom_patch.o)
  .literal.esp_rom_spiflash_lock
-                0x0000000000000000       0x18 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/spi_flash/libspi_flash.a(spi_flash_rom_patch.o)
+                0x0000000000000000       0x18 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/spi_flash/libspi_flash.a(spi_flash_rom_patch.o)
  .literal.esp_rom_spiflash_config_readmode
-                0x0000000000000000       0x30 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/spi_flash/libspi_flash.a(spi_flash_rom_patch.o)
+                0x0000000000000000       0x30 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/spi_flash/libspi_flash.a(spi_flash_rom_patch.o)
  .literal.esp_rom_spiflash_erase_chip
-                0x0000000000000000        0xc /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/spi_flash/libspi_flash.a(spi_flash_rom_patch.o)
+                0x0000000000000000        0xc /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/spi_flash/libspi_flash.a(spi_flash_rom_patch.o)
  .literal.esp_rom_spiflash_erase_block
-                0x0000000000000000       0x20 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/spi_flash/libspi_flash.a(spi_flash_rom_patch.o)
+                0x0000000000000000       0x20 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/spi_flash/libspi_flash.a(spi_flash_rom_patch.o)
  .literal.esp_rom_spiflash_erase_sector
-                0x0000000000000000       0x20 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/spi_flash/libspi_flash.a(spi_flash_rom_patch.o)
+                0x0000000000000000       0x20 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/spi_flash/libspi_flash.a(spi_flash_rom_patch.o)
  .literal.esp_rom_spiflash_write
-                0x0000000000000000       0x28 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/spi_flash/libspi_flash.a(spi_flash_rom_patch.o)
+                0x0000000000000000       0x28 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/spi_flash/libspi_flash.a(spi_flash_rom_patch.o)
  .literal.esp_rom_spiflash_write_encrypted
-                0x0000000000000000       0x10 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/spi_flash/libspi_flash.a(spi_flash_rom_patch.o)
+                0x0000000000000000       0x10 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/spi_flash/libspi_flash.a(spi_flash_rom_patch.o)
  .literal.esp_rom_spiflash_erase_area
-                0x0000000000000000       0x18 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/spi_flash/libspi_flash.a(spi_flash_rom_patch.o)
- .text          0x0000000000000000        0x0 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/spi_flash/libspi_flash.a(spi_flash_rom_patch.o)
- .data          0x0000000000000000        0x0 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/spi_flash/libspi_flash.a(spi_flash_rom_patch.o)
- .bss           0x0000000000000000        0x0 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/spi_flash/libspi_flash.a(spi_flash_rom_patch.o)
+                0x0000000000000000       0x18 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/spi_flash/libspi_flash.a(spi_flash_rom_patch.o)
+ .text          0x0000000000000000        0x0 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/spi_flash/libspi_flash.a(spi_flash_rom_patch.o)
+ .data          0x0000000000000000        0x0 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/spi_flash/libspi_flash.a(spi_flash_rom_patch.o)
+ .bss           0x0000000000000000        0x0 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/spi_flash/libspi_flash.a(spi_flash_rom_patch.o)
  .text.spi_cache_mode_switch
-                0x0000000000000000      0x266 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/spi_flash/libspi_flash.a(spi_flash_rom_patch.o)
+                0x0000000000000000      0x266 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/spi_flash/libspi_flash.a(spi_flash_rom_patch.o)
  .text.esp_rom_spiflash_erase_chip_internal
-                0x0000000000000000       0x30 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/spi_flash/libspi_flash.a(spi_flash_rom_patch.o)
+                0x0000000000000000       0x30 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/spi_flash/libspi_flash.a(spi_flash_rom_patch.o)
  .text.esp_rom_spiflash_erase_block_internal
-                0x0000000000000000       0x3c /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/spi_flash/libspi_flash.a(spi_flash_rom_patch.o)
+                0x0000000000000000       0x3c /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/spi_flash/libspi_flash.a(spi_flash_rom_patch.o)
  .text.esp_rom_spiflash_erase_sector_internal
-                0x0000000000000000       0x44 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/spi_flash/libspi_flash.a(spi_flash_rom_patch.o)
+                0x0000000000000000       0x44 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/spi_flash/libspi_flash.a(spi_flash_rom_patch.o)
  .text.esp_rom_spiflash_enable_write
-                0x0000000000000000       0x3d /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/spi_flash/libspi_flash.a(spi_flash_rom_patch.o)
+                0x0000000000000000       0x3d /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/spi_flash/libspi_flash.a(spi_flash_rom_patch.o)
  .text.esp_rom_spiflash_program_page_internal
-                0x0000000000000000       0xee /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/spi_flash/libspi_flash.a(spi_flash_rom_patch.o)
+                0x0000000000000000       0xee /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/spi_flash/libspi_flash.a(spi_flash_rom_patch.o)
  .text.esp_rom_spiflash_lock
-                0x0000000000000000       0x4e /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/spi_flash/libspi_flash.a(spi_flash_rom_patch.o)
+                0x0000000000000000       0x4e /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/spi_flash/libspi_flash.a(spi_flash_rom_patch.o)
  .text.esp_rom_spiflash_config_readmode
-                0x0000000000000000       0xa0 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/spi_flash/libspi_flash.a(spi_flash_rom_patch.o)
+                0x0000000000000000       0xa0 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/spi_flash/libspi_flash.a(spi_flash_rom_patch.o)
  .rodata.esp_rom_spiflash_config_readmode
-                0x0000000000000000       0x18 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/spi_flash/libspi_flash.a(spi_flash_rom_patch.o)
+                0x0000000000000000       0x18 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/spi_flash/libspi_flash.a(spi_flash_rom_patch.o)
  .text.esp_rom_spiflash_erase_chip
-                0x0000000000000000       0x24 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/spi_flash/libspi_flash.a(spi_flash_rom_patch.o)
+                0x0000000000000000       0x24 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/spi_flash/libspi_flash.a(spi_flash_rom_patch.o)
  .text.esp_rom_spiflash_erase_block
-                0x0000000000000000       0x66 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/spi_flash/libspi_flash.a(spi_flash_rom_patch.o)
+                0x0000000000000000       0x66 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/spi_flash/libspi_flash.a(spi_flash_rom_patch.o)
  .text.esp_rom_spiflash_erase_sector
-                0x0000000000000000       0x65 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/spi_flash/libspi_flash.a(spi_flash_rom_patch.o)
+                0x0000000000000000       0x65 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/spi_flash/libspi_flash.a(spi_flash_rom_patch.o)
  .text.esp_rom_spiflash_write
-                0x0000000000000000       0xca /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/spi_flash/libspi_flash.a(spi_flash_rom_patch.o)
+                0x0000000000000000       0xca /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/spi_flash/libspi_flash.a(spi_flash_rom_patch.o)
  .text.esp_rom_spiflash_write_encrypted
-                0x0000000000000000       0x5a /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/spi_flash/libspi_flash.a(spi_flash_rom_patch.o)
+                0x0000000000000000       0x5a /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/spi_flash/libspi_flash.a(spi_flash_rom_patch.o)
  .text.esp_rom_spiflash_erase_area
-                0x0000000000000000       0xbe /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/spi_flash/libspi_flash.a(spi_flash_rom_patch.o)
- .xt.lit        0x0000000000000000       0xa8 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/spi_flash/libspi_flash.a(spi_flash_rom_patch.o)
- .xt.prop       0x0000000000000000      0xb1c /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/spi_flash/libspi_flash.a(spi_flash_rom_patch.o)
+                0x0000000000000000       0xbe /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/spi_flash/libspi_flash.a(spi_flash_rom_patch.o)
+ .xt.lit        0x0000000000000000       0xa8 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/spi_flash/libspi_flash.a(spi_flash_rom_patch.o)
+ .xt.prop       0x0000000000000000      0xb1c /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/spi_flash/libspi_flash.a(spi_flash_rom_patch.o)
  .literal.rtc_clk_32k_bootstrap
-                0x0000000000000000       0x14 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
+                0x0000000000000000       0x14 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
  .literal.rtc_clk_32k_enabled
-                0x0000000000000000        0x8 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
+                0x0000000000000000        0x8 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
  .literal.rtc_clk_8m_enabled
-                0x0000000000000000        0x4 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
+                0x0000000000000000        0x4 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
  .literal.rtc_clk_8md256_enabled
-                0x0000000000000000        0x4 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
+                0x0000000000000000        0x4 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
  .literal.rtc_clk_apll_enable
-                0x0000000000000000       0x50 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
+                0x0000000000000000       0x50 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
  .literal.rtc_clk_slow_freq_get_hz
-                0x0000000000000000       0x10 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
- .literal.rtc_clk_cpu_freq_get
-                0x0000000000000000       0x28 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
- .literal.rtc_clk_cpu_freq_value
-                0x0000000000000000       0x2c /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
- .text          0x0000000000000000        0x0 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
- .data          0x0000000000000000        0x0 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
- .bss           0x0000000000000000        0x0 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
+                0x0000000000000000       0x10 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
+ .literal.rtc_clk_cpu_freq_from_mhz
+                0x0000000000000000        0x4 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
+ .literal.rtc_clk_cpu_freq_to_xtal
+                0x0000000000000000       0x30 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
+ .literal.rtc_clk_cpu_freq_to_pll
+                0x0000000000000000       0x30 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
+ .literal.rtc_clk_cpu_freq_set_fast
+                0x0000000000000000       0x10 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
+ .text          0x0000000000000000        0x0 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
+ .data          0x0000000000000000        0x0 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
+ .bss           0x0000000000000000        0x0 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
  .text.rtc_clk_32k_bootstrap
-                0x0000000000000000       0x3c /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
+                0x0000000000000000       0x3c /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
  .text.rtc_clk_32k_enabled
-                0x0000000000000000       0x1a /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
+                0x0000000000000000       0x1a /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
  .text.rtc_clk_8m_enabled
-                0x0000000000000000       0x19 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
+                0x0000000000000000       0x19 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
  .text.rtc_clk_8md256_enabled
-                0x0000000000000000       0x1a /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
+                0x0000000000000000       0x1a /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
  .text.rtc_clk_apll_enable
-                0x0000000000000000      0x162 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
+                0x0000000000000000      0x162 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
  .text.rtc_clk_slow_freq_get_hz
-                0x0000000000000000       0x29 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
- .text.rtc_clk_cpu_freq_get
-                0x0000000000000000       0x94 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
- .text.rtc_clk_cpu_freq_value
-                0x0000000000000000       0x45 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
- .rodata.rtc_clk_cpu_freq_value
-                0x0000000000000000       0x14 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
- .rodata.__func__$2164
-                0x0000000000000000       0x17 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
- .rodata.__func__$2149
-                0x0000000000000000       0x15 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
- .xt.lit        0x0000000000000000       0xb8 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
- .xt.prop       0x0000000000000000      0x99c /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
+                0x0000000000000000       0x29 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
+ .text.rtc_clk_cpu_freq_from_mhz
+                0x0000000000000000       0x4c /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
+ .text.rtc_clk_cpu_freq_to_xtal
+                0x0000000000000000       0x6f /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
+ .text.rtc_clk_cpu_freq_to_pll
+                0x0000000000000000       0xac /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
+ .text.rtc_clk_cpu_freq_set_fast
+                0x0000000000000000       0x32 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
+ .xt.lit        0x0000000000000000       0xd8 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
+ .xt.prop       0x0000000000000000      0xbac /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
  .literal.rtc_clk_cal
-                0x0000000000000000        0xc /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/soc/libsoc.a(rtc_time.o)
+                0x0000000000000000        0xc /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/soc/libsoc.a(rtc_time.o)
  .literal.rtc_time_us_to_slowclk
-                0x0000000000000000        0x4 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/soc/libsoc.a(rtc_time.o)
+                0x0000000000000000        0x4 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/soc/libsoc.a(rtc_time.o)
  .literal.rtc_time_get
-                0x0000000000000000       0x18 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/soc/libsoc.a(rtc_time.o)
- .text          0x0000000000000000        0x0 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/soc/libsoc.a(rtc_time.o)
- .data          0x0000000000000000        0x0 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/soc/libsoc.a(rtc_time.o)
- .bss           0x0000000000000000        0x0 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/soc/libsoc.a(rtc_time.o)
+                0x0000000000000000       0x18 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/soc/libsoc.a(rtc_time.o)
+ .text          0x0000000000000000        0x0 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/soc/libsoc.a(rtc_time.o)
+ .data          0x0000000000000000        0x0 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/soc/libsoc.a(rtc_time.o)
+ .bss           0x0000000000000000        0x0 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/soc/libsoc.a(rtc_time.o)
  .text.rtc_clk_cal
-                0x0000000000000000       0x52 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/soc/libsoc.a(rtc_time.o)
+                0x0000000000000000       0x52 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/soc/libsoc.a(rtc_time.o)
  .text.rtc_time_us_to_slowclk
-                0x0000000000000000       0x1f /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/soc/libsoc.a(rtc_time.o)
+                0x0000000000000000       0x1f /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/soc/libsoc.a(rtc_time.o)
  .text.rtc_time_slowclk_to_us
-                0x0000000000000000       0x1c /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/soc/libsoc.a(rtc_time.o)
+                0x0000000000000000       0x1c /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/soc/libsoc.a(rtc_time.o)
  .text.rtc_time_get
-                0x0000000000000000       0x50 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/soc/libsoc.a(rtc_time.o)
- .xt.lit        0x0000000000000000       0x28 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/soc/libsoc.a(rtc_time.o)
- .xt.prop       0x0000000000000000      0x210 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/soc/libsoc.a(rtc_time.o)
- .data          0x0000000000000000        0x0 /home/ece453/Documents/ece453/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/libgcc.a(_bswapsi2.o)
- .bss           0x0000000000000000        0x0 /home/ece453/Documents/ece453/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/libgcc.a(_bswapsi2.o)
- .xt.lit        0x0000000000000000        0x8 /home/ece453/Documents/ece453/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/libgcc.a(_bswapsi2.o)
- .xt.prop       0x0000000000000000       0x30 /home/ece453/Documents/ece453/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/libgcc.a(_bswapsi2.o)
- .data          0x0000000000000000        0x0 /home/ece453/Documents/ece453/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/libgcc.a(_udivdi3.o)
- .bss           0x0000000000000000        0x0 /home/ece453/Documents/ece453/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/libgcc.a(_udivdi3.o)
- .eh_frame      0x0000000000000000       0x28 /home/ece453/Documents/ece453/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/libgcc.a(_udivdi3.o)
- .xt.prop       0x0000000000000000      0x264 /home/ece453/Documents/ece453/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/libgcc.a(_udivdi3.o)
+                0x0000000000000000       0x50 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/soc/libsoc.a(rtc_time.o)
+ .xt.lit        0x0000000000000000       0x28 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/soc/libsoc.a(rtc_time.o)
+ .xt.prop       0x0000000000000000      0x210 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/soc/libsoc.a(rtc_time.o)
+ .data          0x0000000000000000        0x0 /home/penguin/Documents/Blizzard/compiling_files/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/libgcc.a(_bswapsi2.o)
+ .bss           0x0000000000000000        0x0 /home/penguin/Documents/Blizzard/compiling_files/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/libgcc.a(_bswapsi2.o)
+ .xt.lit        0x0000000000000000        0x8 /home/penguin/Documents/Blizzard/compiling_files/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/libgcc.a(_bswapsi2.o)
+ .xt.prop       0x0000000000000000       0x30 /home/penguin/Documents/Blizzard/compiling_files/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/libgcc.a(_bswapsi2.o)
+ .data          0x0000000000000000        0x0 /home/penguin/Documents/Blizzard/compiling_files/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/libgcc.a(_udivdi3.o)
+ .bss           0x0000000000000000        0x0 /home/penguin/Documents/Blizzard/compiling_files/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/libgcc.a(_udivdi3.o)
+ .eh_frame      0x0000000000000000       0x28 /home/penguin/Documents/Blizzard/compiling_files/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/libgcc.a(_udivdi3.o)
+ .xt.prop       0x0000000000000000      0x264 /home/penguin/Documents/Blizzard/compiling_files/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/libgcc.a(_udivdi3.o)
 
 Memory Configuration
 
@@ -244,15 +246,15 @@ dram_seg         0x000000003fff0000 0x0000000000010000 rw
 Linker script and memory map
 
 START GROUP
-LOAD /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a
-LOAD /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/log/liblog.a
-LOAD /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/spi_flash/libspi_flash.a
-LOAD /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/micro-ecc/libmicro-ecc.a
-LOAD /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/soc/libsoc.a
-LOAD /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/main/libmain.a
-LOAD /home/ece453/Documents/ece453/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/libgcc.a
-LOAD /home/ece453/Documents/ece453/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/../../../../xtensa-esp32-elf/lib/libstdc++.a
-LOAD /home/ece453/Documents/ece453/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/libgcov.a
+LOAD /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a
+LOAD /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/log/liblog.a
+LOAD /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/spi_flash/libspi_flash.a
+LOAD /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/micro-ecc/libmicro-ecc.a
+LOAD /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/soc/libsoc.a
+LOAD /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/main/libmain.a
+LOAD /home/penguin/Documents/Blizzard/compiling_files/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/libgcc.a
+LOAD /home/penguin/Documents/Blizzard/compiling_files/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/../../../../xtensa-esp32-elf/lib/libstdc++.a
+LOAD /home/penguin/Documents/Blizzard/compiling_files/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/libgcov.a
 END GROUP
 
 .iram1.text     0x0000000040078000        0x0
@@ -261,7 +263,7 @@ END GROUP
  *(.init.literal)
  *(.init)
 
-.dram0.bss      0x000000003fff0000       0x10
+.dram0.bss      0x000000003fff0000       0x18
                 0x000000003fff0000                . = ALIGN (0x8)
                 0x000000003fff0000                _bss_start = ABSOLUTE (.)
  *(.dynsbss)
@@ -275,23 +277,27 @@ END GROUP
  *(.dynbss)
  *(.bss)
  *(.bss.*)
- .bss.mapped    0x000000003fff0000        0x1 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_flash.o)
+ .bss.mapped    0x000000003fff0000        0x1 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_flash.o)
  *fill*         0x000000003fff0001        0x3 
  .bss.ram_obfs_value
-                0x000000003fff0004        0x8 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(esp_image_format.o)
+                0x000000003fff0004        0x8 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(esp_image_format.o)
  .bss.words_hashed
-                0x000000003fff000c        0x4 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_sha.o)
+                0x000000003fff000c        0x4 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_sha.o)
+ .bss.s_pll_freq
+                0x000000003fff0010        0x4 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
+ .bss.s_cur_freq
+                0x000000003fff0014        0x4 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
  *(.gnu.linkonce.b.*)
  *(COMMON)
-                0x000000003fff0010                . = ALIGN (0x8)
-                0x000000003fff0010                _bss_end = ABSOLUTE (.)
+                0x000000003fff0018                . = ALIGN (0x8)
+                0x000000003fff0018                _bss_end = ABSOLUTE (.)
 
-.dram0.data     0x000000003fff0010        0x4
-                0x000000003fff0010                _data_start = ABSOLUTE (.)
+.dram0.data     0x000000003fff0018        0x4
+                0x000000003fff0018                _data_start = ABSOLUTE (.)
  *(.data)
  *(.data.*)
  .data.current_read_mapping
-                0x000000003fff0010        0x4 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_flash.o)
+                0x000000003fff0018        0x4 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_flash.o)
  *(.gnu.linkonce.d.*)
  *(.data1)
  *(.sdata)
@@ -301,584 +307,611 @@ END GROUP
  *(.sdata2.*)
  *(.gnu.linkonce.s2.*)
  *(.jcr)
-                0x000000003fff0014                _data_end = ABSOLUTE (.)
+                0x000000003fff001c                _data_end = ABSOLUTE (.)
 
-.dram0.rodata   0x000000003fff0014     0x159c
-                0x000000003fff0014                _rodata_start = ABSOLUTE (.)
+.dram0.rodata   0x000000003fff001c     0x1610
+                0x000000003fff001c                _rodata_start = ABSOLUTE (.)
  *(.rodata)
- .rodata        0x000000003fff0014       0x1c /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/main/libmain.a(bootloader_start.o)
+ .rodata        0x000000003fff001c       0x1c /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/main/libmain.a(bootloader_start.o)
  *(.rodata.*)
  .rodata.str1.4
-                0x000000003fff0030      0x972 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/main/libmain.a(bootloader_start.o)
- *fill*         0x000000003fff09a2        0x2 
- .rodata.__func__$3747
-                0x000000003fff09a4       0x10 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/main/libmain.a(bootloader_start.o)
+                0x000000003fff0038      0x982 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/main/libmain.a(bootloader_start.o)
+ *fill*         0x000000003fff09ba        0x2 
+ .rodata.__func__$3782
+                0x000000003fff09bc       0x10 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/main/libmain.a(bootloader_start.o)
  .rodata.str1.4
-                0x000000003fff09b4      0x28e /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_flash.o)
- *fill*         0x000000003fff0c42        0x2 
+                0x000000003fff09cc      0x28e /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_flash.o)
+ *fill*         0x000000003fff0c5a        0x2 
  .rodata.str1.4
-                0x000000003fff0c44       0xfb /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(flash_partitions.o)
- *fill*         0x000000003fff0d3f        0x1 
+                0x000000003fff0c5c       0xfb /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(flash_partitions.o)
+ *fill*         0x000000003fff0d57        0x1 
  .rodata.str1.4
-                0x000000003fff0d40      0x45a /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(esp_image_format.o)
+                0x000000003fff0d58      0x45a /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(esp_image_format.o)
                                         0x49a (size before relaxing)
- *fill*         0x000000003fff119a        0x2 
+ *fill*         0x000000003fff11b2        0x2 
  .rodata.str1.4
-                0x000000003fff119c       0xd8 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_sha.o)
+                0x000000003fff11b4       0xe8 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_sha.o)
  .rodata.padding$2493
-                0x000000003fff1274       0x40 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_sha.o)
+                0x000000003fff129c       0x40 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_sha.o)
  .rodata.__func__$2489
-                0x000000003fff12b4       0x19 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_sha.o)
- *fill*         0x000000003fff12cd        0x3 
+                0x000000003fff12dc       0x19 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_sha.o)
+ *fill*         0x000000003fff12f5        0x3 
  .rodata.__func__$2469
-                0x000000003fff12d0       0x17 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_sha.o)
- *fill*         0x000000003fff12e7        0x1 
+                0x000000003fff12f8       0x17 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_sha.o)
+ *fill*         0x000000003fff130f        0x1 
  .rodata.str1.4
-                0x000000003fff12e8      0x264 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
-                                        0x261 (size before relaxing)
+                0x000000003fff1310      0x274 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
+                                        0x271 (size before relaxing)
  .rodata.rtc_clk_xtal_freq_estimate
-                0x000000003fff154c       0x64 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
+                0x000000003fff1584       0x64 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
+ .rodata.rtc_clk_cpu_freq_value
+                0x000000003fff15e8       0x14 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
+ .rodata.__func__$2602
+                0x000000003fff15fc       0x17 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
+ *fill*         0x000000003fff1613        0x1 
+ .rodata.__func__$2587
+                0x000000003fff1614       0x15 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
  *(.gnu.linkonce.r.*)
  *(.rodata1)
-                0x000000003fff15b0                __XT_EXCEPTION_TABLE_ = ABSOLUTE (.)
+                0x000000003fff1629                __XT_EXCEPTION_TABLE_ = ABSOLUTE (.)
  *(.xt_except_table)
  *(.gcc_except_table)
  *(.gnu.linkonce.e.*)
  *(.gnu.version_r)
  *(.eh_frame)
-                0x000000003fff15b0                . = ((. + 0x3) & 0xfffffffffffffffc)
-                0x000000003fff15b0                __init_array_start = ABSOLUTE (.)
+                0x000000003fff162c                . = ((. + 0x3) & 0xfffffffffffffffc)
+ *fill*         0x000000003fff1629        0x3 
+                0x000000003fff162c                __init_array_start = ABSOLUTE (.)
  *crtbegin.o(.ctors)
  *(EXCLUDE_FILE(*crtend.o) .ctors)
  *(SORT(.ctors.*))
  *(.ctors)
-                0x000000003fff15b0                __init_array_end = ABSOLUTE (.)
+                0x000000003fff162c                __init_array_end = ABSOLUTE (.)
  *crtbegin.o(.dtors)
  *(EXCLUDE_FILE(*crtend.o) .dtors)
  *(SORT(.dtors.*))
  *(.dtors)
-                0x000000003fff15b0                __XT_EXCEPTION_DESCS_ = ABSOLUTE (.)
+                0x000000003fff162c                __XT_EXCEPTION_DESCS_ = ABSOLUTE (.)
  *(.xt_except_desc)
  *(.gnu.linkonce.h.*)
-                0x000000003fff15b0                __XT_EXCEPTION_DESCS_END__ = ABSOLUTE (.)
+                0x000000003fff162c                __XT_EXCEPTION_DESCS_END__ = ABSOLUTE (.)
  *(.xt_except_desc_end)
  *(.dynamic)
  *(.gnu.version_d)
-                0x000000003fff15b0                _rodata_end = ABSOLUTE (.)
-                0x000000003fff15b0                _lit4_start = ABSOLUTE (.)
+                0x000000003fff162c                _rodata_end = ABSOLUTE (.)
+                0x000000003fff162c                _lit4_start = ABSOLUTE (.)
  *(*.lit4)
  *(.lit4.*)
  *(.gnu.linkonce.lit4.*)
-                0x000000003fff15b0                _lit4_end = ABSOLUTE (.)
-                0x000000003fff15b0                . = ALIGN (0x4)
-                0x000000003fff15b0                _heap_start = ABSOLUTE (.)
+                0x000000003fff162c                _lit4_end = ABSOLUTE (.)
+                0x000000003fff162c                . = ALIGN (0x4)
+                0x000000003fff162c                _heap_start = ABSOLUTE (.)
 
-.iram.text      0x0000000040078000     0x2f91
+.iram.text      0x0000000040078000     0x30e9
                 0x0000000040078000                _stext = .
                 0x0000000040078000                _text_start = ABSOLUTE (.)
  *(.literal .text .literal.* .text.* .stub .gnu.warning .gnu.linkonce.literal.* .gnu.linkonce.t.*.literal .gnu.linkonce.t.*)
  .literal.wdt_reset_cpu0_info_enable
-                0x0000000040078000        0x4 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/main/libmain.a(bootloader_start.o)
+                0x0000000040078000        0x4 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/main/libmain.a(bootloader_start.o)
  .literal.wdt_reset_info_dump
-                0x0000000040078004       0x60 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/main/libmain.a(bootloader_start.o)
+                0x0000000040078004       0x60 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/main/libmain.a(bootloader_start.o)
                                          0x6c (size before relaxing)
  .literal.print_flash_info
-                0x0000000040078064       0x4c /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/main/libmain.a(bootloader_start.o)
+                0x0000000040078064       0x4c /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/main/libmain.a(bootloader_start.o)
                                          0x68 (size before relaxing)
  .literal.log_invalid_app_partition
-                0x00000000400780b0       0x10 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/main/libmain.a(bootloader_start.o)
+                0x00000000400780b0       0x10 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/main/libmain.a(bootloader_start.o)
                                          0x2c (size before relaxing)
  .literal.clock_configure
-                0x00000000400780c0       0x10 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/main/libmain.a(bootloader_start.o)
+                0x00000000400780c0       0x10 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/main/libmain.a(bootloader_start.o)
                                          0x1c (size before relaxing)
  .literal.uart_console_configure
-                0x00000000400780d0       0x14 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/main/libmain.a(bootloader_start.o)
+                0x00000000400780d0       0x14 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/main/libmain.a(bootloader_start.o)
                                          0x18 (size before relaxing)
  .literal.wdt_reset_check
-                0x00000000400780e4        0xc /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/main/libmain.a(bootloader_start.o)
+                0x00000000400780e4        0xc /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/main/libmain.a(bootloader_start.o)
                                          0x30 (size before relaxing)
  .literal.update_flash_config
-                0x00000000400780f0       0x20 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/main/libmain.a(bootloader_start.o)
+                0x00000000400780f0       0x20 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/main/libmain.a(bootloader_start.o)
  .literal.ota_select_crc
-                0x0000000040078110        0x4 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/main/libmain.a(bootloader_start.o)
+                0x0000000040078110        0x4 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/main/libmain.a(bootloader_start.o)
  .literal.ota_select_valid
-                0x0000000040078114        0x0 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/main/libmain.a(bootloader_start.o)
+                0x0000000040078114        0x0 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/main/libmain.a(bootloader_start.o)
                                           0x4 (size before relaxing)
  .literal.get_selected_boot_partition
-                0x0000000040078114       0x20 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/main/libmain.a(bootloader_start.o)
+                0x0000000040078114       0x20 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/main/libmain.a(bootloader_start.o)
                                          0x70 (size before relaxing)
  .literal.try_load_partition
-                0x0000000040078134        0x4 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/main/libmain.a(bootloader_start.o)
+                0x0000000040078134        0x4 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/main/libmain.a(bootloader_start.o)
                                          0x14 (size before relaxing)
  .literal.load_boot_image
-                0x0000000040078138        0xc /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/main/libmain.a(bootloader_start.o)
+                0x0000000040078138        0xc /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/main/libmain.a(bootloader_start.o)
                                          0x3c (size before relaxing)
  .literal.set_cache_and_start_app
-                0x0000000040078144       0x14 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/main/libmain.a(bootloader_start.o)
+                0x0000000040078144       0x14 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/main/libmain.a(bootloader_start.o)
                                          0x30 (size before relaxing)
  .literal.unpack_load_app
-                0x0000000040078158       0x1c /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/main/libmain.a(bootloader_start.o)
+                0x0000000040078158       0x1c /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/main/libmain.a(bootloader_start.o)
                                          0x34 (size before relaxing)
  .literal.load_partition_table
-                0x0000000040078174       0x40 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/main/libmain.a(bootloader_start.o)
+                0x0000000040078174       0x40 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/main/libmain.a(bootloader_start.o)
                                          0x84 (size before relaxing)
  .literal.bootloader_main
-                0x00000000400781b4       0x2c /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/main/libmain.a(bootloader_start.o)
+                0x00000000400781b4       0x2c /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/main/libmain.a(bootloader_start.o)
                                          0x9c (size before relaxing)
  .literal.__assert_func
-                0x00000000400781e0        0x4 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/main/libmain.a(bootloader_start.o)
+                0x00000000400781e0        0x4 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/main/libmain.a(bootloader_start.o)
                                          0x10 (size before relaxing)
  .literal.call_start_cpu0
-                0x00000000400781e4       0x3c /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/main/libmain.a(bootloader_start.o)
+                0x00000000400781e4       0x3c /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/main/libmain.a(bootloader_start.o)
                                          0x74 (size before relaxing)
  .literal.spi_to_esp_err
-                0x0000000040078220        0x8 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_flash.o)
+                0x0000000040078220        0x8 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_flash.o)
  .literal.bootloader_flash_read_allow_decrypt
-                0x0000000040078228       0x10 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_flash.o)
+                0x0000000040078228       0x10 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_flash.o)
                                          0x30 (size before relaxing)
  .literal.bootloader_flash_read_no_decrypt
-                0x0000000040078238        0x0 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_flash.o)
+                0x0000000040078238        0x0 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_flash.o)
                                          0x14 (size before relaxing)
  .literal.bootloader_mmap
-                0x0000000040078238       0x14 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_flash.o)
+                0x0000000040078238       0x14 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_flash.o)
                                          0x50 (size before relaxing)
  .literal.bootloader_munmap
-                0x000000004007824c        0x0 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_flash.o)
+                0x000000004007824c        0x0 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_flash.o)
                                          0x14 (size before relaxing)
  .literal.bootloader_flash_read
-                0x000000004007824c        0xc /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_flash.o)
+                0x000000004007824c        0xc /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_flash.o)
                                          0x30 (size before relaxing)
  .literal.esp_partition_table_basic_verify
-                0x0000000040078258       0x14 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(flash_partitions.o)
+                0x0000000040078258       0x14 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(flash_partitions.o)
                                          0x30 (size before relaxing)
  .literal.should_map
-                0x000000004007826c        0x0 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(esp_image_format.o)
+                0x000000004007826c        0x0 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(esp_image_format.o)
                                          0x10 (size before relaxing)
  .literal.verify_image_header
-                0x000000004007826c       0x14 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(esp_image_format.o)
+                0x000000004007826c       0x14 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(esp_image_format.o)
                                          0x2c (size before relaxing)
  .literal.verify_segment_header
-                0x0000000040078280        0xc /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(esp_image_format.o)
+                0x0000000040078280        0xc /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(esp_image_format.o)
                                          0x28 (size before relaxing)
  .literal.verify_checksum
-                0x000000004007828c        0x4 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(esp_image_format.o)
+                0x000000004007828c        0x4 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(esp_image_format.o)
                                          0x1c (size before relaxing)
  .literal.verify_simple_hash
-                0x0000000040078290        0x8 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(esp_image_format.o)
+                0x0000000040078290        0x8 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(esp_image_format.o)
                                          0x2c (size before relaxing)
  .literal.should_load
-                0x0000000040078298        0xc /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(esp_image_format.o)
+                0x0000000040078298        0xc /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(esp_image_format.o)
                                          0x18 (size before relaxing)
  .literal.process_segment
-                0x00000000400782a4       0x28 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(esp_image_format.o)
+                0x00000000400782a4       0x28 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(esp_image_format.o)
                                          0x7c (size before relaxing)
  .literal.esp_image_load
-                0x00000000400782cc       0x14 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(esp_image_format.o)
+                0x00000000400782cc       0x14 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(esp_image_format.o)
                                          0x74 (size before relaxing)
  .literal.bootloader_sha256_start
-                0x00000000400782e0        0x8 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_sha.o)
+                0x00000000400782e0        0x8 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_sha.o)
  .literal.bootloader_sha256_data
-                0x00000000400782e8       0x20 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_sha.o)
+                0x00000000400782e8       0x20 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_sha.o)
                                          0x30 (size before relaxing)
  .literal.bootloader_sha256_finish
-                0x0000000040078308       0x18 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_sha.o)
+                0x0000000040078308       0x18 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_sha.o)
                                          0x4c (size before relaxing)
  .literal.bootloader_fill_random
-                0x0000000040078320        0x8 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_random.o)
+                0x0000000040078320        0x8 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_random.o)
  .literal.bootloader_random_enable
-                0x0000000040078328       0x6c /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_random.o)
+                0x0000000040078328       0x6c /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_random.o)
                                          0x78 (size before relaxing)
  .literal.bootloader_random_disable
-                0x0000000040078394       0x1c /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_random.o)
+                0x0000000040078394       0x1c /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_random.o)
                                          0x4c (size before relaxing)
  .literal.esp_log_early_timestamp
-                0x00000000400783b0        0x8 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/log/liblog.a(log.o)
+                0x00000000400783b0        0x8 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/log/liblog.a(log.o)
  .literal.esp_rom_spiflash_read_status
-                0x00000000400783b8       0x10 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/spi_flash/libspi_flash.a(spi_flash_rom_patch.o)
+                0x00000000400783b8       0x10 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/spi_flash/libspi_flash.a(spi_flash_rom_patch.o)
                                          0x14 (size before relaxing)
  .literal.esp_rom_spiflash_wait_idle
-                0x00000000400783c8        0x8 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/spi_flash/libspi_flash.a(spi_flash_rom_patch.o)
+                0x00000000400783c8        0x8 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/spi_flash/libspi_flash.a(spi_flash_rom_patch.o)
                                           0xc (size before relaxing)
  .literal.esp_rom_spiflash_read_data
-                0x00000000400783d0       0x10 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/spi_flash/libspi_flash.a(spi_flash_rom_patch.o)
+                0x00000000400783d0       0x10 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/spi_flash/libspi_flash.a(spi_flash_rom_patch.o)
                                          0x18 (size before relaxing)
  .literal.esp_rom_spiflash_read_statushigh
-                0x00000000400783e0        0x4 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/spi_flash/libspi_flash.a(spi_flash_rom_patch.o)
+                0x00000000400783e0        0x4 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/spi_flash/libspi_flash.a(spi_flash_rom_patch.o)
                                           0xc (size before relaxing)
  .literal.esp_rom_spiflash_write_status
-                0x00000000400783e4        0x0 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/spi_flash/libspi_flash.a(spi_flash_rom_patch.o)
+                0x00000000400783e4        0x0 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/spi_flash/libspi_flash.a(spi_flash_rom_patch.o)
                                          0x14 (size before relaxing)
  .literal.esp_rom_spiflash_unlock
-                0x00000000400783e4        0xc /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/spi_flash/libspi_flash.a(spi_flash_rom_patch.o)
+                0x00000000400783e4        0xc /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/spi_flash/libspi_flash.a(spi_flash_rom_patch.o)
                                          0x28 (size before relaxing)
  .literal.esp_rom_spiflash_read
-                0x00000000400783f0       0x3c /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/spi_flash/libspi_flash.a(spi_flash_rom_patch.o)
+                0x00000000400783f0       0x3c /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/spi_flash/libspi_flash.a(spi_flash_rom_patch.o)
                                          0x5c (size before relaxing)
  .literal.rtc_clk_32k_enable_internal
-                0x000000004007842c       0x10 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
+                0x000000004007842c       0x10 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
                                          0x14 (size before relaxing)
  .literal.rtc_clk_xtal_freq_estimate
-                0x000000004007843c       0x14 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
+                0x000000004007843c       0x14 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
                                          0x30 (size before relaxing)
  .literal.rtc_clk_32k_enable
-                0x0000000040078450        0x4 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
+                0x0000000040078450        0x4 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
                                           0xc (size before relaxing)
  .literal.rtc_clk_8m_enable
-                0x0000000040078454       0x10 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
+                0x0000000040078454       0x10 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
  .literal.rtc_clk_slow_freq_set
-                0x0000000040078464        0x0 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
+                0x0000000040078464        0x0 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
                                           0xc (size before relaxing)
  .literal.rtc_clk_slow_freq_get
-                0x0000000040078464        0x0 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
+                0x0000000040078464        0x0 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
                                           0x4 (size before relaxing)
  .literal.rtc_clk_fast_freq_set
-                0x0000000040078464        0x0 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
+                0x0000000040078464        0x0 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
                                           0xc (size before relaxing)
  .literal.rtc_clk_fast_freq_get
-                0x0000000040078464        0x0 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
+                0x0000000040078464        0x0 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
                                           0x4 (size before relaxing)
  .literal.rtc_clk_bbpll_set
-                0x0000000040078464        0xc /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
+                0x0000000040078464        0xc /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
                                          0x30 (size before relaxing)
  .literal.rtc_clk_xtal_freq_get
-                0x0000000040078470        0x8 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
+                0x0000000040078470        0x8 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
                                          0x1c (size before relaxing)
+ .literal.rtc_clk_cpu_freq_get
+                0x0000000040078478       0x14 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
+                                         0x28 (size before relaxing)
+ .literal.rtc_clk_cpu_freq_value
+                0x000000004007848c       0x20 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
+                                         0x2c (size before relaxing)
  .literal.rtc_clk_xtal_freq_update
-                0x0000000040078478        0x0 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
+                0x00000000400784ac        0x0 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
                                           0x8 (size before relaxing)
  .literal.rtc_clk_apb_freq_update
-                0x0000000040078478        0x4 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
+                0x00000000400784ac        0x4 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
                                           0x8 (size before relaxing)
  .literal.rtc_clk_cpu_freq_set
-                0x000000004007847c       0x2c /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
-                                         0x74 (size before relaxing)
+                0x00000000400784b0       0x20 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
+                                         0x7c (size before relaxing)
  .literal.rtc_clk_apb_freq_get
-                0x00000000400784a8        0x8 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
+                0x00000000400784d0        0x8 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
                                          0x14 (size before relaxing)
  .literal.rtc_clk_init
-                0x00000000400784b0       0x24 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
-                                         0x80 (size before relaxing)
+                0x00000000400784d8       0x24 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
+                                         0x90 (size before relaxing)
  .literal.rtc_clk_cal_internal
-                0x00000000400784d4       0x20 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/soc/libsoc.a(rtc_time.o)
+                0x00000000400784fc       0x20 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/soc/libsoc.a(rtc_time.o)
                                          0x3c (size before relaxing)
  .literal.rtc_clk_cal_ratio
-                0x00000000400784f4        0x0 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/soc/libsoc.a(rtc_time.o)
+                0x000000004007851c        0x0 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/soc/libsoc.a(rtc_time.o)
                                           0x8 (size before relaxing)
- .literal       0x00000000400784f4        0x8 /home/ece453/Documents/ece453/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/libgcc.a(_bswapsi2.o)
+ .literal       0x000000004007851c        0x8 /home/penguin/Documents/Blizzard/compiling_files/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/libgcc.a(_bswapsi2.o)
  .text.wdt_reset_cpu0_info_enable
-                0x00000000400784fc       0x27 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/main/libmain.a(bootloader_start.o)
- *fill*         0x0000000040078523        0x1 
+                0x0000000040078524       0x27 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/main/libmain.a(bootloader_start.o)
+ *fill*         0x000000004007854b        0x1 
  .text.wdt_reset_info_dump
-                0x0000000040078524       0xe6 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/main/libmain.a(bootloader_start.o)
- *fill*         0x000000004007860a        0x2 
+                0x000000004007854c       0xe6 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/main/libmain.a(bootloader_start.o)
+ *fill*         0x0000000040078632        0x2 
  .text.print_flash_info
-                0x000000004007860c       0xee /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/main/libmain.a(bootloader_start.o)
+                0x0000000040078634       0xee /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/main/libmain.a(bootloader_start.o)
                                          0xf2 (size before relaxing)
- *fill*         0x00000000400786fa        0x2 
+ *fill*         0x0000000040078722        0x2 
  .text.log_invalid_app_partition
-                0x00000000400786fc       0x57 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/main/libmain.a(bootloader_start.o)
+                0x0000000040078724       0x57 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/main/libmain.a(bootloader_start.o)
                                          0x5b (size before relaxing)
- *fill*         0x0000000040078753        0x1 
+ *fill*         0x000000004007877b        0x1 
  .text.clock_configure
-                0x0000000040078754       0x5e /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/main/libmain.a(bootloader_start.o)
+                0x000000004007877c       0x5e /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/main/libmain.a(bootloader_start.o)
                                          0x6a (size before relaxing)
- *fill*         0x00000000400787b2        0x2 
+ *fill*         0x00000000400787da        0x2 
  .text.uart_console_configure
-                0x00000000400787b4       0x36 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/main/libmain.a(bootloader_start.o)
+                0x00000000400787dc       0x36 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/main/libmain.a(bootloader_start.o)
                                          0x3a (size before relaxing)
- *fill*         0x00000000400787ea        0x2 
+ *fill*         0x0000000040078812        0x2 
  .text.wdt_reset_check
-                0x00000000400787ec       0xa2 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/main/libmain.a(bootloader_start.o)
+                0x0000000040078814       0xa2 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/main/libmain.a(bootloader_start.o)
                                          0xae (size before relaxing)
- *fill*         0x000000004007888e        0x2 
+ *fill*         0x00000000400788b6        0x2 
  .text.update_flash_config
-                0x0000000040078890       0x68 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/main/libmain.a(bootloader_start.o)
+                0x00000000400788b8       0x68 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/main/libmain.a(bootloader_start.o)
  .text.ota_select_crc
-                0x00000000400788f8       0x14 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/main/libmain.a(bootloader_start.o)
+                0x0000000040078920       0x14 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/main/libmain.a(bootloader_start.o)
  .text.ota_select_valid
-                0x000000004007890c       0x20 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/main/libmain.a(bootloader_start.o)
+                0x0000000040078934       0x20 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/main/libmain.a(bootloader_start.o)
                                          0x24 (size before relaxing)
  .text.get_selected_boot_partition
-                0x000000004007892c      0x140 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/main/libmain.a(bootloader_start.o)
+                0x0000000040078954      0x140 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/main/libmain.a(bootloader_start.o)
                                         0x14c (size before relaxing)
  .text.try_load_partition
-                0x0000000040078a6c       0x34 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/main/libmain.a(bootloader_start.o)
+                0x0000000040078a94       0x34 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/main/libmain.a(bootloader_start.o)
                                          0x38 (size before relaxing)
  .text.load_boot_image
-                0x0000000040078aa0       0xa6 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/main/libmain.a(bootloader_start.o)
+                0x0000000040078ac8       0xa6 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/main/libmain.a(bootloader_start.o)
                                          0xba (size before relaxing)
- *fill*         0x0000000040078b46        0x2 
+ *fill*         0x0000000040078b6e        0x2 
  .text.set_cache_and_start_app
-                0x0000000040078b48       0xcf /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/main/libmain.a(bootloader_start.o)
- *fill*         0x0000000040078c17        0x1 
+                0x0000000040078b70       0xcf /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/main/libmain.a(bootloader_start.o)
+ *fill*         0x0000000040078c3f        0x1 
  .text.unpack_load_app
-                0x0000000040078c18       0xb2 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/main/libmain.a(bootloader_start.o)
+                0x0000000040078c40       0xb2 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/main/libmain.a(bootloader_start.o)
                                          0xb6 (size before relaxing)
- *fill*         0x0000000040078cca        0x2 
+ *fill*         0x0000000040078cf2        0x2 
  .text.load_partition_table
-                0x0000000040078ccc      0x160 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/main/libmain.a(bootloader_start.o)
+                0x0000000040078cf4      0x160 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/main/libmain.a(bootloader_start.o)
                                         0x17c (size before relaxing)
-                0x0000000040078ccc                load_partition_table
+                0x0000000040078cf4                load_partition_table
  .text.bootloader_main
-                0x0000000040078e2c      0x107 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/main/libmain.a(bootloader_start.o)
+                0x0000000040078e54      0x107 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/main/libmain.a(bootloader_start.o)
                                         0x143 (size before relaxing)
-                0x0000000040078e2c                bootloader_main
- *fill*         0x0000000040078f33        0x1 
+                0x0000000040078e54                bootloader_main
+ *fill*         0x0000000040078f5b        0x1 
  .text.__assert_func
-                0x0000000040078f34       0x1f /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/main/libmain.a(bootloader_start.o)
+                0x0000000040078f5c       0x1f /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/main/libmain.a(bootloader_start.o)
                                          0x23 (size before relaxing)
-                0x0000000040078f34                __assert_func
- *fill*         0x0000000040078f53        0x1 
+                0x0000000040078f5c                __assert_func
+ *fill*         0x0000000040078f7b        0x1 
  .text.call_start_cpu0
-                0x0000000040078f54      0x124 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/main/libmain.a(bootloader_start.o)
+                0x0000000040078f7c      0x124 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/main/libmain.a(bootloader_start.o)
                                         0x130 (size before relaxing)
-                0x0000000040078f54                call_start_cpu0
+                0x0000000040078f7c                call_start_cpu0
  .text.spi_to_esp_err
-                0x0000000040079078       0x22 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_flash.o)
- *fill*         0x000000004007909a        0x2 
+                0x00000000400790a0       0x22 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_flash.o)
+ *fill*         0x00000000400790c2        0x2 
  .text.bootloader_flash_read_allow_decrypt
-                0x000000004007909c       0x97 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_flash.o)
+                0x00000000400790c4       0x97 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_flash.o)
                                          0x9b (size before relaxing)
- *fill*         0x0000000040079133        0x1 
+ *fill*         0x000000004007915b        0x1 
  .text.bootloader_flash_read_no_decrypt
-                0x0000000040079134       0x32 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_flash.o)
+                0x000000004007915c       0x32 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_flash.o)
                                          0x36 (size before relaxing)
- *fill*         0x0000000040079166        0x2 
+ *fill*         0x000000004007918e        0x2 
  .text.bootloader_mmap
-                0x0000000040079168       0xb1 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_flash.o)
+                0x0000000040079190       0xb1 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_flash.o)
                                          0xb9 (size before relaxing)
-                0x0000000040079168                bootloader_mmap
- *fill*         0x0000000040079219        0x3 
+                0x0000000040079190                bootloader_mmap
+ *fill*         0x0000000040079241        0x3 
  .text.bootloader_munmap
-                0x000000004007921c       0x36 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_flash.o)
-                0x000000004007921c                bootloader_munmap
- *fill*         0x0000000040079252        0x2 
+                0x0000000040079244       0x36 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_flash.o)
+                0x0000000040079244                bootloader_munmap
+ *fill*         0x000000004007927a        0x2 
  .text.bootloader_flash_read
-                0x0000000040079254       0x86 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_flash.o)
-                0x0000000040079254                bootloader_flash_read
- *fill*         0x00000000400792da        0x2 
+                0x000000004007927c       0x86 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_flash.o)
+                0x000000004007927c                bootloader_flash_read
+ *fill*         0x0000000040079302        0x2 
  .text.esp_partition_table_basic_verify
-                0x00000000400792dc       0xb1 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(flash_partitions.o)
+                0x0000000040079304       0xb1 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(flash_partitions.o)
                                          0xb5 (size before relaxing)
-                0x00000000400792dc                esp_partition_table_basic_verify
- *fill*         0x000000004007938d        0x3 
+                0x0000000040079304                esp_partition_table_basic_verify
+ *fill*         0x00000000400793b5        0x3 
  .text.should_map
-                0x0000000040079390       0x30 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(esp_image_format.o)
+                0x00000000400793b8       0x30 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(esp_image_format.o)
  .text.verify_image_header
-                0x00000000400793c0       0x7e /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(esp_image_format.o)
- *fill*         0x000000004007943e        0x2 
+                0x00000000400793e8       0x7e /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(esp_image_format.o)
+ *fill*         0x0000000040079466        0x2 
  .text.verify_segment_header
-                0x0000000040079440       0x71 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(esp_image_format.o)
+                0x0000000040079468       0x71 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(esp_image_format.o)
                                          0x79 (size before relaxing)
- *fill*         0x00000000400794b1        0x3 
+ *fill*         0x00000000400794d9        0x3 
  .text.verify_checksum
-                0x00000000400794b4       0x87 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(esp_image_format.o)
+                0x00000000400794dc       0x87 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(esp_image_format.o)
                                          0x8f (size before relaxing)
- *fill*         0x000000004007953b        0x1 
+ *fill*         0x0000000040079563        0x1 
  .text.verify_simple_hash
-                0x000000004007953c       0x5b /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(esp_image_format.o)
+                0x0000000040079564       0x5b /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(esp_image_format.o)
                                          0x6a (size before relaxing)
- *fill*         0x0000000040079597        0x1 
+ *fill*         0x00000000400795bf        0x1 
  .text.should_load
-                0x0000000040079598       0x44 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(esp_image_format.o)
+                0x00000000400795c0       0x44 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(esp_image_format.o)
                                          0x48 (size before relaxing)
  .text.process_segment
-                0x00000000400795dc      0x1bd /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(esp_image_format.o)
+                0x0000000040079604      0x1bd /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(esp_image_format.o)
                                         0x1d1 (size before relaxing)
- *fill*         0x0000000040079799        0x3 
+ *fill*         0x00000000400797c1        0x3 
  .text.esp_image_load
-                0x000000004007979c      0x24a /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(esp_image_format.o)
+                0x00000000400797c4      0x24a /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(esp_image_format.o)
                                         0x262 (size before relaxing)
-                0x000000004007979c                esp_image_load
- *fill*         0x00000000400799e6        0x2 
+                0x00000000400797c4                esp_image_load
+ *fill*         0x0000000040079a0e        0x2 
  .text.bootloader_sha256_start
-                0x00000000400799e8       0x12 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_sha.o)
-                0x00000000400799e8                bootloader_sha256_start
- *fill*         0x00000000400799fa        0x2 
+                0x0000000040079a10       0x12 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_sha.o)
+                0x0000000040079a10                bootloader_sha256_start
+ *fill*         0x0000000040079a22        0x2 
  .text.bootloader_sha256_data
-                0x00000000400799fc       0xa1 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_sha.o)
+                0x0000000040079a24       0xa1 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_sha.o)
                                          0xa9 (size before relaxing)
-                0x00000000400799fc                bootloader_sha256_data
- *fill*         0x0000000040079a9d        0x3 
+                0x0000000040079a24                bootloader_sha256_data
+ *fill*         0x0000000040079ac5        0x3 
  .text.bootloader_sha256_finish
-                0x0000000040079aa0       0xdc /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_sha.o)
+                0x0000000040079ac8       0xdc /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_sha.o)
                                          0xf0 (size before relaxing)
-                0x0000000040079aa0                bootloader_sha256_finish
+                0x0000000040079ac8                bootloader_sha256_finish
  .text.bootloader_fill_random
-                0x0000000040079b7c       0x59 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_random.o)
-                0x0000000040079b7c                bootloader_fill_random
- *fill*         0x0000000040079bd5        0x3 
+                0x0000000040079ba4       0x59 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_random.o)
+                0x0000000040079ba4                bootloader_fill_random
+ *fill*         0x0000000040079bfd        0x3 
  .text.bootloader_random_enable
-                0x0000000040079bd8      0x1d5 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_random.o)
-                0x0000000040079bd8                bootloader_random_enable
- *fill*         0x0000000040079dad        0x3 
+                0x0000000040079c00      0x1d5 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_random.o)
+                0x0000000040079c00                bootloader_random_enable
+ *fill*         0x0000000040079dd5        0x3 
  .text.bootloader_random_disable
-                0x0000000040079db0      0x11c /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_random.o)
-                0x0000000040079db0                bootloader_random_disable
+                0x0000000040079dd8      0x11c /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_random.o)
+                0x0000000040079dd8                bootloader_random_disable
  .text.esp_log_early_timestamp
-                0x0000000040079ecc       0x14 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/log/liblog.a(log.o)
-                0x0000000040079ecc                esp_log_timestamp
-                0x0000000040079ecc                esp_log_early_timestamp
+                0x0000000040079ef4       0x1f /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/log/liblog.a(log.o)
+                0x0000000040079ef4                esp_log_timestamp
+                0x0000000040079ef4                esp_log_early_timestamp
+ *fill*         0x0000000040079f13        0x1 
  .text.esp_rom_spiflash_read_status
-                0x0000000040079ee0       0x61 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/spi_flash/libspi_flash.a(spi_flash_rom_patch.o)
-                0x0000000040079ee0                esp_rom_spiflash_read_status
- *fill*         0x0000000040079f41        0x3 
+                0x0000000040079f14       0x61 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/spi_flash/libspi_flash.a(spi_flash_rom_patch.o)
+                0x0000000040079f14                esp_rom_spiflash_read_status
+ *fill*         0x0000000040079f75        0x3 
  .text.esp_rom_spiflash_wait_idle
-                0x0000000040079f44       0x32 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/spi_flash/libspi_flash.a(spi_flash_rom_patch.o)
-                0x0000000040079f44                esp_rom_spiflash_wait_idle
- *fill*         0x0000000040079f76        0x2 
+                0x0000000040079f78       0x32 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/spi_flash/libspi_flash.a(spi_flash_rom_patch.o)
+                0x0000000040079f78                esp_rom_spiflash_wait_idle
+ *fill*         0x0000000040079faa        0x2 
  .text.esp_rom_spiflash_read_data
-                0x0000000040079f78       0xe2 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/spi_flash/libspi_flash.a(spi_flash_rom_patch.o)
- *fill*         0x000000004007a05a        0x2 
+                0x0000000040079fac       0xe2 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/spi_flash/libspi_flash.a(spi_flash_rom_patch.o)
+ *fill*         0x000000004007a08e        0x2 
  .text.esp_rom_spiflash_read_statushigh
-                0x000000004007a05c       0x21 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/spi_flash/libspi_flash.a(spi_flash_rom_patch.o)
-                0x000000004007a05c                esp_rom_spiflash_read_statushigh
- *fill*         0x000000004007a07d        0x3 
+                0x000000004007a090       0x21 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/spi_flash/libspi_flash.a(spi_flash_rom_patch.o)
+                0x000000004007a090                esp_rom_spiflash_read_statushigh
+ *fill*         0x000000004007a0b1        0x3 
  .text.esp_rom_spiflash_write_status
-                0x000000004007a080       0x34 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/spi_flash/libspi_flash.a(spi_flash_rom_patch.o)
+                0x000000004007a0b4       0x34 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/spi_flash/libspi_flash.a(spi_flash_rom_patch.o)
                                          0x38 (size before relaxing)
-                0x000000004007a080                esp_rom_spiflash_write_status
+                0x000000004007a0b4                esp_rom_spiflash_write_status
  .text.esp_rom_spiflash_unlock
-                0x000000004007a0b4       0x6a /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/spi_flash/libspi_flash.a(spi_flash_rom_patch.o)
+                0x000000004007a0e8       0x6a /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/spi_flash/libspi_flash.a(spi_flash_rom_patch.o)
                                          0x7e (size before relaxing)
-                0x000000004007a0b4                esp_rom_spiflash_unlock
- *fill*         0x000000004007a11e        0x2 
+                0x000000004007a0e8                esp_rom_spiflash_unlock
+ *fill*         0x000000004007a152        0x2 
  .text.esp_rom_spiflash_read
-                0x000000004007a120      0x284 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/spi_flash/libspi_flash.a(spi_flash_rom_patch.o)
-                0x000000004007a120                esp_rom_spiflash_read
+                0x000000004007a154      0x284 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/spi_flash/libspi_flash.a(spi_flash_rom_patch.o)
+                0x000000004007a154                esp_rom_spiflash_read
  .text.rtc_clk_32k_enable_internal
-                0x000000004007a3a4       0x81 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
- *fill*         0x000000004007a425        0x3 
+                0x000000004007a3d8       0x81 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
+ *fill*         0x000000004007a459        0x3 
  .text.rtc_clk_xtal_freq_estimate
-                0x000000004007a428       0x8a /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
- *fill*         0x000000004007a4b2        0x2 
+                0x000000004007a45c       0x8a /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
+ *fill*         0x000000004007a4e6        0x2 
  .text.rtc_clk_32k_enable
-                0x000000004007a4b4       0x2d /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
-                0x000000004007a4b4                rtc_clk_32k_enable
- *fill*         0x000000004007a4e1        0x3 
+                0x000000004007a4e8       0x2d /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
+                0x000000004007a4e8                rtc_clk_32k_enable
+ *fill*         0x000000004007a515        0x3 
  .text.rtc_clk_8m_enable
-                0x000000004007a4e4       0x9d /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
-                0x000000004007a4e4                rtc_clk_8m_enable
- *fill*         0x000000004007a581        0x3 
+                0x000000004007a518       0x9d /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
+                0x000000004007a518                rtc_clk_8m_enable
+ *fill*         0x000000004007a5b5        0x3 
  .text.rtc_clk_slow_freq_set
-                0x000000004007a584       0x27 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
-                0x000000004007a584                rtc_clk_slow_freq_set
- *fill*         0x000000004007a5ab        0x1 
+                0x000000004007a5b8       0x27 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
+                0x000000004007a5b8                rtc_clk_slow_freq_set
+ *fill*         0x000000004007a5df        0x1 
  .text.rtc_clk_slow_freq_get
-                0x000000004007a5ac       0x10 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
-                0x000000004007a5ac                rtc_clk_slow_freq_get
+                0x000000004007a5e0       0x10 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
+                0x000000004007a5e0                rtc_clk_slow_freq_get
  .text.rtc_clk_fast_freq_set
-                0x000000004007a5bc       0x2a /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
-                0x000000004007a5bc                rtc_clk_fast_freq_set
- *fill*         0x000000004007a5e6        0x2 
+                0x000000004007a5f0       0x2a /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
+                0x000000004007a5f0                rtc_clk_fast_freq_set
+ *fill*         0x000000004007a61a        0x2 
  .text.rtc_clk_fast_freq_get
-                0x000000004007a5e8       0x10 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
-                0x000000004007a5e8                rtc_clk_fast_freq_get
+                0x000000004007a61c       0x10 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
+                0x000000004007a61c                rtc_clk_fast_freq_get
  .text.rtc_clk_bbpll_set
-                0x000000004007a5f8      0x154 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
+                0x000000004007a62c      0x154 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
                                         0x15c (size before relaxing)
-                0x000000004007a5f8                rtc_clk_bbpll_set
+                0x000000004007a62c                rtc_clk_bbpll_set
  .text.rtc_clk_xtal_freq_get
-                0x000000004007a74c       0x38 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
+                0x000000004007a780       0x38 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
                                          0x3c (size before relaxing)
-                0x000000004007a74c                rtc_get_xtal
-                0x000000004007a74c                rtc_clk_xtal_freq_get
+                0x000000004007a780                rtc_get_xtal
+                0x000000004007a780                rtc_clk_xtal_freq_get
+ .text.rtc_clk_cpu_freq_get
+                0x000000004007a7b8       0x88 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
+                                         0x94 (size before relaxing)
+                0x000000004007a7b8                rtc_clk_cpu_freq_get
+ .text.rtc_clk_cpu_freq_value
+                0x000000004007a840       0x45 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
+                0x000000004007a840                rtc_clk_cpu_freq_value
+ *fill*         0x000000004007a885        0x3 
  .text.rtc_clk_xtal_freq_update
-                0x000000004007a784       0x12 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
+                0x000000004007a888       0x12 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
                                          0x16 (size before relaxing)
-                0x000000004007a784                rtc_clk_xtal_freq_update
- *fill*         0x000000004007a796        0x2 
+                0x000000004007a888                rtc_clk_xtal_freq_update
+ *fill*         0x000000004007a89a        0x2 
  .text.rtc_clk_apb_freq_update
-                0x000000004007a798       0x13 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
+                0x000000004007a89c       0x13 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
                                          0x16 (size before relaxing)
-                0x000000004007a798                rtc_clk_apb_freq_update
- *fill*         0x000000004007a7ab        0x1 
+                0x000000004007a89c                rtc_clk_apb_freq_update
+ *fill*         0x000000004007a8af        0x1 
  .text.rtc_clk_cpu_freq_set
-                0x000000004007a7ac      0x1b4 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
-                                        0x1c4 (size before relaxing)
-                0x000000004007a7ac                rtc_clk_cpu_freq_set
+                0x000000004007a8b0      0x1d9 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
+                                        0x1e9 (size before relaxing)
+                0x000000004007a8b0                rtc_clk_cpu_freq_set
+ *fill*         0x000000004007aa89        0x3 
  .text.rtc_clk_apb_freq_get
-                0x000000004007a960       0x2a /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
-                0x000000004007a960                rtc_clk_apb_freq_get
- *fill*         0x000000004007a98a        0x2 
+                0x000000004007aa8c       0x2a /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
+                0x000000004007aa8c                rtc_clk_apb_freq_get
+ *fill*         0x000000004007aab6        0x2 
  .text.rtc_clk_init
-                0x000000004007a98c      0x156 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
-                                        0x186 (size before relaxing)
-                0x000000004007a98c                rtc_clk_init
- *fill*         0x000000004007aae2        0x2 
+                0x000000004007aab8      0x182 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
+                                        0x1ba (size before relaxing)
+                0x000000004007aab8                rtc_clk_init
+ *fill*         0x000000004007ac3a        0x2 
  .text.rtc_clk_cal_internal
-                0x000000004007aae4      0x161 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/soc/libsoc.a(rtc_time.o)
- *fill*         0x000000004007ac45        0x3 
+                0x000000004007ac3c      0x161 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/soc/libsoc.a(rtc_time.o)
+ *fill*         0x000000004007ad9d        0x3 
  .text.rtc_clk_cal_ratio
-                0x000000004007ac48       0x20 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/soc/libsoc.a(rtc_time.o)
+                0x000000004007ada0       0x20 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/soc/libsoc.a(rtc_time.o)
                                          0x24 (size before relaxing)
-                0x000000004007ac48                rtc_clk_cal_ratio
- .text          0x000000004007ac68       0x26 /home/ece453/Documents/ece453/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/libgcc.a(_bswapsi2.o)
-                0x000000004007ac68                __bswapsi2
- *fill*         0x000000004007ac8e        0x2 
+                0x000000004007ada0                rtc_clk_cal_ratio
+ .text          0x000000004007adc0       0x26 /home/penguin/Documents/Blizzard/compiling_files/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/libgcc.a(_bswapsi2.o)
+                0x000000004007adc0                __bswapsi2
+ *fill*         0x000000004007ade6        0x2 
  .text.index_to_partition
-                0x000000004007ac90       0x48 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/main/libmain.a(bootloader_start.o)
- *fill*         0x000000004007acd8        0x0 
- *fill*         0x000000004007acd8        0x0 
- *fill*         0x000000004007acd8        0x0 
- *fill*         0x000000004007acd8        0x0 
- *fill*         0x000000004007acd8        0x0 
- *fill*         0x000000004007acd8        0x0 
- *fill*         0x000000004007acd8        0x0 
- *fill*         0x000000004007acd8        0x0 
- *fill*         0x000000004007acd8        0x0 
- *fill*         0x000000004007acd8        0x0 
- *fill*         0x000000004007acd8        0x0 
- *fill*         0x000000004007acd8        0x0 
- *fill*         0x000000004007acd8        0x0 
- *fill*         0x000000004007acd8        0x0 
- *fill*         0x000000004007acd8        0x0 
- *fill*         0x000000004007acd8        0x0 
- *fill*         0x000000004007acd8        0x0 
- *fill*         0x000000004007acd8        0x0 
- *fill*         0x000000004007acd8        0x0 
- *fill*         0x000000004007acd8        0x0 
- *fill*         0x000000004007acd8        0x0 
- *fill*         0x000000004007acd8        0x0 
- *fill*         0x000000004007acd8        0x0 
- *fill*         0x000000004007acd8        0x0 
- *fill*         0x000000004007acd8        0x0 
- *fill*         0x000000004007acd8        0x0 
- *fill*         0x000000004007acd8        0x0 
- *fill*         0x000000004007acd8        0x0 
- *fill*         0x000000004007acd8        0x0 
- *fill*         0x000000004007acd8        0x0 
- *fill*         0x000000004007acd8        0x0 
- *fill*         0x000000004007acd8        0x0 
- *fill*         0x000000004007acd8        0x0 
- *fill*         0x000000004007acd8        0x0 
- *fill*         0x000000004007acd8        0x0 
+                0x000000004007ade8       0x48 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/main/libmain.a(bootloader_start.o)
+ *fill*         0x000000004007ae30        0x0 
+ *fill*         0x000000004007ae30        0x0 
+ *fill*         0x000000004007ae30        0x0 
+ *fill*         0x000000004007ae30        0x0 
+ *fill*         0x000000004007ae30        0x0 
+ *fill*         0x000000004007ae30        0x0 
+ *fill*         0x000000004007ae30        0x0 
+ *fill*         0x000000004007ae30        0x0 
+ *fill*         0x000000004007ae30        0x0 
+ *fill*         0x000000004007ae30        0x0 
+ *fill*         0x000000004007ae30        0x0 
+ *fill*         0x000000004007ae30        0x0 
+ *fill*         0x000000004007ae30        0x0 
+ *fill*         0x000000004007ae30        0x0 
+ *fill*         0x000000004007ae30        0x0 
+ *fill*         0x000000004007ae30        0x0 
+ *fill*         0x000000004007ae30        0x0 
+ *fill*         0x000000004007ae30        0x0 
+ *fill*         0x000000004007ae30        0x0 
+ *fill*         0x000000004007ae30        0x0 
+ *fill*         0x000000004007ae30        0x0 
+ *fill*         0x000000004007ae30        0x0 
+ *fill*         0x000000004007ae30        0x0 
+ *fill*         0x000000004007ae30        0x0 
+ *fill*         0x000000004007ae30        0x0 
+ *fill*         0x000000004007ae30        0x0 
+ *fill*         0x000000004007ae30        0x0 
+ *fill*         0x000000004007ae30        0x0 
+ *fill*         0x000000004007ae30        0x0 
+ *fill*         0x000000004007ae30        0x0 
+ *fill*         0x000000004007ae30        0x0 
+ *fill*         0x000000004007ae30        0x0 
+ *fill*         0x000000004007ae30        0x0 
+ *fill*         0x000000004007ae30        0x0 
+ *fill*         0x000000004007ae30        0x0 
+ *fill*         0x000000004007ae30        0x0 
  .text.clk_val_is_valid
-                0x000000004007acd8       0x20 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
+                0x000000004007ae30       0x20 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
  .text.reg_val_to_clk_val
-                0x000000004007acf8        0x8 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
+                0x000000004007ae50        0x8 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
  .text.clk_val_to_reg_val
-                0x000000004007ad00        0xe /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
- *fill*         0x000000004007ad0e        0x0 
- *fill*         0x000000004007ad0e        0x0 
- *fill*         0x000000004007ad0e        0x0 
- *fill*         0x000000004007ad0e        0x0 
- *fill*         0x000000004007ad0e        0x0 
- *fill*         0x000000004007ad0e        0x0 
- *fill*         0x000000004007ad0e        0x0 
- *fill*         0x000000004007ad0e        0x0 
- *fill*         0x000000004007ad0e        0x0 
- *fill*         0x000000004007ad0e        0x0 
- *fill*         0x000000004007ad0e        0x0 
- *fill*         0x000000004007ad0e        0x2 
- .text          0x000000004007ad10      0x281 /home/ece453/Documents/ece453/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/libgcc.a(_udivdi3.o)
-                0x000000004007ad10                __udivdi3
+                0x000000004007ae58        0xe /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
+ *fill*         0x000000004007ae66        0x0 
+ *fill*         0x000000004007ae66        0x0 
+ *fill*         0x000000004007ae66        0x0 
+ *fill*         0x000000004007ae66        0x0 
+ *fill*         0x000000004007ae66        0x0 
+ *fill*         0x000000004007ae66        0x0 
+ *fill*         0x000000004007ae66        0x0 
+ *fill*         0x000000004007ae66        0x0 
+ *fill*         0x000000004007ae66        0x0 
+ *fill*         0x000000004007ae66        0x0 
+ *fill*         0x000000004007ae66        0x0 
+ *fill*         0x000000004007ae66        0x0 
+ *fill*         0x000000004007ae66        0x0 
+ *fill*         0x000000004007ae66        0x2 
+ .text          0x000000004007ae68      0x281 /home/penguin/Documents/Blizzard/compiling_files/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/libgcc.a(_udivdi3.o)
+                0x000000004007ae68                __udivdi3
  *(.iram1 .iram1.*)
  *(.fini.literal)
  *(.fini)
  *(.gnu.version)
-                0x000000004007af91                _text_end = ABSOLUTE (.)
-                0x000000004007af91                _etext = .
+                0x000000004007b0e9                _text_end = ABSOLUTE (.)
+                0x000000004007b0e9                _etext = .
                 [!provide]                        PROVIDE (abort, 0x4000bba4)
                 [!provide]                        PROVIDE (__absvdi2, 0x4006387c)
                 [!provide]                        PROVIDE (__absvsi2, 0x40063868)
@@ -1236,6 +1269,8 @@ END GROUP
                 [!provide]                        PROVIDE (r_ea_interval_duration_req, 0x4001597c)
                 [!provide]                        PROVIDE (r_ea_interval_insert, 0x4001557c)
                 [!provide]                        PROVIDE (r_ea_interval_remove, 0x40015590)
+                [!provide]                        PROVIDE (ea_conflict_check, 0x40014e9c)
+                [!provide]                        PROVIDE (ea_prog_timer, 0x40014f88)
                 [!provide]                        PROVIDE (realloc, 0x4000becc)
                 [!provide]                        PROVIDE (_realloc_r, 0x4000bbe0)
                 [!provide]                        PROVIDE (r_ea_offset_req, 0x40015748)
@@ -2345,7 +2380,7 @@ END GROUP
                 [!provide]                        PROVIDE (xthal_set_ccompare, 0x4000c058)
                 [!provide]                        PROVIDE (xthal_set_intclear, 0x4000c1ec)
                 [!provide]                        PROVIDE (_xtos_set_intlevel, 0x4000bfdc)
-                [!provide]                        PROVIDE (g_ticks_per_us_pro, 0x3ffe01e0)
+                0x000000003ffe01e0                PROVIDE (g_ticks_per_us_pro, 0x3ffe01e0)
                 [!provide]                        PROVIDE (g_ticks_per_us_app, 0x3ffe40f0)
                 0x0000000040063238                PROVIDE (esp_rom_spiflash_config_param, 0x40063238)
                 0x00000000400621b0                PROVIDE (esp_rom_spiflash_read_user_cmd, 0x400621b0)
@@ -2487,6 +2522,7 @@ END GROUP
                 [!provide]                        PROVIDE (ets_update_cpu_frequency_rom, 0x40008550)
                 [!provide]                        PROVIDE (hci_tl_env, 0x3ffb8154)
                 [!provide]                        PROVIDE (ld_acl_env, 0x3ffb8258)
+                [!provide]                        PROVIDE (ea_env, 0x3ffb80ec)
                 [!provide]                        PROVIDE (ld_active_ch_map, 0x3ffb8334)
                 [!provide]                        PROVIDE (ld_bcst_acl_env, 0x3ffb8274)
                 [!provide]                        PROVIDE (ld_csb_rx_env, 0x3ffb8278)
@@ -2694,174 +2730,175 @@ END GROUP
                 [!provide]                        PROVIDE (TIMERG1, 0x3ff60000)
                 [!provide]                        PROVIDE (SPI2, 0x3ff64000)
                 [!provide]                        PROVIDE (SPI3, 0x3ff65000)
+                [!provide]                        PROVIDE (SYSCON, 0x3ff66000)
                 [!provide]                        PROVIDE (I2C1, 0x3ff67000)
+                [!provide]                        PROVIDE (SDMMC, 0x3ff68000)
                 [!provide]                        PROVIDE (MCPWM1, 0x3ff6c000)
                 [!provide]                        PROVIDE (I2S1, 0x3ff6d000)
                 [!provide]                        PROVIDE (UART2, 0x3ff6e000)
-                [!provide]                        PROVIDE (SDMMC, 0x3ff68000)
                 0x0000000040008550                PROVIDE (ets_update_cpu_frequency, 0x40008550)
-OUTPUT(/home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader.elf elf32-xtensa-le)
+OUTPUT(/home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader.elf elf32-xtensa-le)
 
-.debug_frame    0x0000000000000000      0xa68
- .debug_frame   0x0000000000000000      0x1f0 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/main/libmain.a(bootloader_start.o)
- .debug_frame   0x00000000000001f0       0xd0 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_flash.o)
- .debug_frame   0x00000000000002c0       0x28 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(flash_partitions.o)
- .debug_frame   0x00000000000002e8       0xe8 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(esp_image_format.o)
- .debug_frame   0x00000000000003d0       0x58 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_sha.o)
- .debug_frame   0x0000000000000428       0x58 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_random.o)
- .debug_frame   0x0000000000000480       0x70 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/log/liblog.a(log.o)
- .debug_frame   0x00000000000004f0      0x208 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/spi_flash/libspi_flash.a(spi_flash_rom_patch.o)
- .debug_frame   0x00000000000006f8      0x280 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
- .debug_frame   0x0000000000000978       0xa0 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/soc/libsoc.a(rtc_time.o)
- .debug_frame   0x0000000000000a18       0x28 /home/ece453/Documents/ece453/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/libgcc.a(_bswapsi2.o)
- .debug_frame   0x0000000000000a40       0x28 /home/ece453/Documents/ece453/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/libgcc.a(_udivdi3.o)
+.debug_frame    0x0000000000000000      0xac8
+ .debug_frame   0x0000000000000000      0x1f0 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/main/libmain.a(bootloader_start.o)
+ .debug_frame   0x00000000000001f0       0xd0 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_flash.o)
+ .debug_frame   0x00000000000002c0       0x28 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(flash_partitions.o)
+ .debug_frame   0x00000000000002e8       0xe8 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(esp_image_format.o)
+ .debug_frame   0x00000000000003d0       0x58 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_sha.o)
+ .debug_frame   0x0000000000000428       0x58 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_random.o)
+ .debug_frame   0x0000000000000480       0x70 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/log/liblog.a(log.o)
+ .debug_frame   0x00000000000004f0      0x208 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/spi_flash/libspi_flash.a(spi_flash_rom_patch.o)
+ .debug_frame   0x00000000000006f8      0x2e0 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
+ .debug_frame   0x00000000000009d8       0xa0 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/soc/libsoc.a(rtc_time.o)
+ .debug_frame   0x0000000000000a78       0x28 /home/penguin/Documents/Blizzard/compiling_files/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/libgcc.a(_bswapsi2.o)
+ .debug_frame   0x0000000000000aa0       0x28 /home/penguin/Documents/Blizzard/compiling_files/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/libgcc.a(_udivdi3.o)
 
-.debug_info     0x0000000000000000     0x7e15
- .debug_info    0x0000000000000000     0x270f /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/main/libmain.a(bootloader_start.o)
- .debug_info    0x000000000000270f      0xc05 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_flash.o)
- .debug_info    0x0000000000003314      0x381 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(flash_partitions.o)
- .debug_info    0x0000000000003695     0x11e9 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(esp_image_format.o)
- .debug_info    0x000000000000487e      0x44d /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_sha.o)
- .debug_info    0x0000000000004ccb      0x278 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_random.o)
- .debug_info    0x0000000000004f43      0x8b2 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/log/liblog.a(log.o)
- .debug_info    0x00000000000057f5      0xaf5 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/spi_flash/libspi_flash.a(spi_flash_rom_patch.o)
- .debug_info    0x00000000000062ea     0x1133 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
- .debug_info    0x000000000000741d      0x363 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/soc/libsoc.a(rtc_time.o)
- .debug_info    0x0000000000007780       0xcd /home/ece453/Documents/ece453/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/libgcc.a(_bswapsi2.o)
- .debug_info    0x000000000000784d      0x5c8 /home/ece453/Documents/ece453/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/libgcc.a(_udivdi3.o)
+.debug_info     0x0000000000000000     0x807a
+ .debug_info    0x0000000000000000     0x270f /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/main/libmain.a(bootloader_start.o)
+ .debug_info    0x000000000000270f      0xc05 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_flash.o)
+ .debug_info    0x0000000000003314      0x381 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(flash_partitions.o)
+ .debug_info    0x0000000000003695     0x11e9 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(esp_image_format.o)
+ .debug_info    0x000000000000487e      0x44d /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_sha.o)
+ .debug_info    0x0000000000004ccb      0x278 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_random.o)
+ .debug_info    0x0000000000004f43      0x900 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/log/liblog.a(log.o)
+ .debug_info    0x0000000000005843      0xaf5 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/spi_flash/libspi_flash.a(spi_flash_rom_patch.o)
+ .debug_info    0x0000000000006338     0x134a /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
+ .debug_info    0x0000000000007682      0x363 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/soc/libsoc.a(rtc_time.o)
+ .debug_info    0x00000000000079e5       0xcd /home/penguin/Documents/Blizzard/compiling_files/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/libgcc.a(_bswapsi2.o)
+ .debug_info    0x0000000000007ab2      0x5c8 /home/penguin/Documents/Blizzard/compiling_files/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/libgcc.a(_udivdi3.o)
 
-.debug_abbrev   0x0000000000000000     0x17df
- .debug_abbrev  0x0000000000000000      0x49e /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/main/libmain.a(bootloader_start.o)
- .debug_abbrev  0x000000000000049e      0x22f /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_flash.o)
- .debug_abbrev  0x00000000000006cd      0x16c /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(flash_partitions.o)
- .debug_abbrev  0x0000000000000839      0x2a4 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(esp_image_format.o)
- .debug_abbrev  0x0000000000000add      0x17d /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_sha.o)
- .debug_abbrev  0x0000000000000c5a      0x126 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_random.o)
- .debug_abbrev  0x0000000000000d80      0x1c5 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/log/liblog.a(log.o)
- .debug_abbrev  0x0000000000000f45      0x22e /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/spi_flash/libspi_flash.a(spi_flash_rom_patch.o)
- .debug_abbrev  0x0000000000001173      0x34b /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
- .debug_abbrev  0x00000000000014be      0x162 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/soc/libsoc.a(rtc_time.o)
- .debug_abbrev  0x0000000000001620       0x60 /home/ece453/Documents/ece453/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/libgcc.a(_bswapsi2.o)
- .debug_abbrev  0x0000000000001680      0x15f /home/ece453/Documents/ece453/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/libgcc.a(_udivdi3.o)
+.debug_abbrev   0x0000000000000000     0x184a
+ .debug_abbrev  0x0000000000000000      0x49e /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/main/libmain.a(bootloader_start.o)
+ .debug_abbrev  0x000000000000049e      0x22f /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_flash.o)
+ .debug_abbrev  0x00000000000006cd      0x16c /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(flash_partitions.o)
+ .debug_abbrev  0x0000000000000839      0x2a4 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(esp_image_format.o)
+ .debug_abbrev  0x0000000000000add      0x17d /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_sha.o)
+ .debug_abbrev  0x0000000000000c5a      0x126 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_random.o)
+ .debug_abbrev  0x0000000000000d80      0x1f3 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/log/liblog.a(log.o)
+ .debug_abbrev  0x0000000000000f73      0x22e /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/spi_flash/libspi_flash.a(spi_flash_rom_patch.o)
+ .debug_abbrev  0x00000000000011a1      0x388 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
+ .debug_abbrev  0x0000000000001529      0x162 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/soc/libsoc.a(rtc_time.o)
+ .debug_abbrev  0x000000000000168b       0x60 /home/penguin/Documents/Blizzard/compiling_files/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/libgcc.a(_bswapsi2.o)
+ .debug_abbrev  0x00000000000016eb      0x15f /home/penguin/Documents/Blizzard/compiling_files/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/libgcc.a(_udivdi3.o)
 
-.debug_loc      0x0000000000000000     0x45c6
- .debug_loc     0x0000000000000000      0xfb6 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/main/libmain.a(bootloader_start.o)
- .debug_loc     0x0000000000000fb6      0x638 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_flash.o)
- .debug_loc     0x00000000000015ee      0x116 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(flash_partitions.o)
- .debug_loc     0x0000000000001704      0xae1 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(esp_image_format.o)
- .debug_loc     0x00000000000021e5      0x135 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_sha.o)
- .debug_loc     0x000000000000231a       0x91 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_random.o)
- .debug_loc     0x00000000000023ab      0x369 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/log/liblog.a(log.o)
- .debug_loc     0x0000000000002714      0xa20 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/spi_flash/libspi_flash.a(spi_flash_rom_patch.o)
- .debug_loc     0x0000000000003134      0x8bf /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
- .debug_loc     0x00000000000039f3      0x1ca /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/soc/libsoc.a(rtc_time.o)
- .debug_loc     0x0000000000003bbd       0x21 /home/ece453/Documents/ece453/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/libgcc.a(_bswapsi2.o)
- .debug_loc     0x0000000000003bde      0x9e8 /home/ece453/Documents/ece453/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/libgcc.a(_udivdi3.o)
+.debug_loc      0x0000000000000000     0x4818
+ .debug_loc     0x0000000000000000      0xfb6 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/main/libmain.a(bootloader_start.o)
+ .debug_loc     0x0000000000000fb6      0x638 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_flash.o)
+ .debug_loc     0x00000000000015ee      0x116 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(flash_partitions.o)
+ .debug_loc     0x0000000000001704      0xae1 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(esp_image_format.o)
+ .debug_loc     0x00000000000021e5      0x135 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_sha.o)
+ .debug_loc     0x000000000000231a       0x91 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_random.o)
+ .debug_loc     0x00000000000023ab      0x4ad /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/log/liblog.a(log.o)
+ .debug_loc     0x0000000000002858      0xa20 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/spi_flash/libspi_flash.a(spi_flash_rom_patch.o)
+ .debug_loc     0x0000000000003278      0x9cd /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
+ .debug_loc     0x0000000000003c45      0x1ca /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/soc/libsoc.a(rtc_time.o)
+ .debug_loc     0x0000000000003e0f       0x21 /home/penguin/Documents/Blizzard/compiling_files/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/libgcc.a(_bswapsi2.o)
+ .debug_loc     0x0000000000003e30      0x9e8 /home/penguin/Documents/Blizzard/compiling_files/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/libgcc.a(_udivdi3.o)
 
-.debug_aranges  0x0000000000000000      0x458
+.debug_aranges  0x0000000000000000      0x478
  .debug_aranges
-                0x0000000000000000       0xb8 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/main/libmain.a(bootloader_start.o)
+                0x0000000000000000       0xb8 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/main/libmain.a(bootloader_start.o)
  .debug_aranges
-                0x00000000000000b8       0x58 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_flash.o)
+                0x00000000000000b8       0x58 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_flash.o)
  .debug_aranges
-                0x0000000000000110       0x20 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(flash_partitions.o)
+                0x0000000000000110       0x20 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(flash_partitions.o)
  .debug_aranges
-                0x0000000000000130       0x60 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(esp_image_format.o)
+                0x0000000000000130       0x60 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(esp_image_format.o)
  .debug_aranges
-                0x0000000000000190       0x30 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_sha.o)
+                0x0000000000000190       0x30 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_sha.o)
  .debug_aranges
-                0x00000000000001c0       0x30 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_random.o)
+                0x00000000000001c0       0x30 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_random.o)
  .debug_aranges
-                0x00000000000001f0       0x38 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/log/liblog.a(log.o)
+                0x00000000000001f0       0x38 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/log/liblog.a(log.o)
  .debug_aranges
-                0x0000000000000228       0xc0 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/spi_flash/libspi_flash.a(spi_flash_rom_patch.o)
+                0x0000000000000228       0xc0 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/spi_flash/libspi_flash.a(spi_flash_rom_patch.o)
  .debug_aranges
-                0x00000000000002e8       0xe8 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
+                0x00000000000002e8      0x108 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
  .debug_aranges
-                0x00000000000003d0       0x48 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/soc/libsoc.a(rtc_time.o)
+                0x00000000000003f0       0x48 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/soc/libsoc.a(rtc_time.o)
  .debug_aranges
-                0x0000000000000418       0x20 /home/ece453/Documents/ece453/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/libgcc.a(_bswapsi2.o)
+                0x0000000000000438       0x20 /home/penguin/Documents/Blizzard/compiling_files/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/libgcc.a(_bswapsi2.o)
  .debug_aranges
-                0x0000000000000438       0x20 /home/ece453/Documents/ece453/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/libgcc.a(_udivdi3.o)
+                0x0000000000000458       0x20 /home/penguin/Documents/Blizzard/compiling_files/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/libgcc.a(_udivdi3.o)
 
-.debug_ranges   0x0000000000000000      0x450
- .debug_ranges  0x0000000000000000       0xc0 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/main/libmain.a(bootloader_start.o)
- .debug_ranges  0x00000000000000c0       0x48 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_flash.o)
- .debug_ranges  0x0000000000000108       0x28 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(flash_partitions.o)
- .debug_ranges  0x0000000000000130       0x68 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(esp_image_format.o)
- .debug_ranges  0x0000000000000198       0x20 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_sha.o)
- .debug_ranges  0x00000000000001b8       0x20 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_random.o)
- .debug_ranges  0x00000000000001d8       0x28 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/log/liblog.a(log.o)
- .debug_ranges  0x0000000000000200       0xb0 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/spi_flash/libspi_flash.a(spi_flash_rom_patch.o)
- .debug_ranges  0x00000000000002b0      0x108 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
- .debug_ranges  0x00000000000003b8       0x38 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/soc/libsoc.a(rtc_time.o)
- .debug_ranges  0x00000000000003f0       0x60 /home/ece453/Documents/ece453/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/libgcc.a(_udivdi3.o)
+.debug_ranges   0x0000000000000000      0x470
+ .debug_ranges  0x0000000000000000       0xc0 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/main/libmain.a(bootloader_start.o)
+ .debug_ranges  0x00000000000000c0       0x48 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_flash.o)
+ .debug_ranges  0x0000000000000108       0x28 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(flash_partitions.o)
+ .debug_ranges  0x0000000000000130       0x68 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(esp_image_format.o)
+ .debug_ranges  0x0000000000000198       0x20 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_sha.o)
+ .debug_ranges  0x00000000000001b8       0x20 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_random.o)
+ .debug_ranges  0x00000000000001d8       0x28 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/log/liblog.a(log.o)
+ .debug_ranges  0x0000000000000200       0xb0 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/spi_flash/libspi_flash.a(spi_flash_rom_patch.o)
+ .debug_ranges  0x00000000000002b0      0x128 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
+ .debug_ranges  0x00000000000003d8       0x38 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/soc/libsoc.a(rtc_time.o)
+ .debug_ranges  0x0000000000000410       0x60 /home/penguin/Documents/Blizzard/compiling_files/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/libgcc.a(_udivdi3.o)
 
-.debug_line     0x0000000000000000     0x49f0
- .debug_line    0x0000000000000000      0xe5b /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/main/libmain.a(bootloader_start.o)
- .debug_line    0x0000000000000e5b      0x5c5 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_flash.o)
- .debug_line    0x0000000000001420      0x316 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(flash_partitions.o)
- .debug_line    0x0000000000001736      0xa75 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(esp_image_format.o)
- .debug_line    0x00000000000021ab      0x407 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_sha.o)
- .debug_line    0x00000000000025b2      0x3c2 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_random.o)
- .debug_line    0x0000000000002974      0x524 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/log/liblog.a(log.o)
- .debug_line    0x0000000000002e98      0xafc /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/spi_flash/libspi_flash.a(spi_flash_rom_patch.o)
- .debug_line    0x0000000000003994      0xac0 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
- .debug_line    0x0000000000004454      0x383 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/soc/libsoc.a(rtc_time.o)
- .debug_line    0x00000000000047d7       0x8a /home/ece453/Documents/ece453/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/libgcc.a(_bswapsi2.o)
- .debug_line    0x0000000000004861      0x18f /home/ece453/Documents/ece453/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/libgcc.a(_udivdi3.o)
+.debug_line     0x0000000000000000     0x507a
+ .debug_line    0x0000000000000000      0xf06 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/main/libmain.a(bootloader_start.o)
+ .debug_line    0x0000000000000f06      0x64a /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_flash.o)
+ .debug_line    0x0000000000001550      0x388 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(flash_partitions.o)
+ .debug_line    0x00000000000018d8      0xb33 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(esp_image_format.o)
+ .debug_line    0x000000000000240b      0x479 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_sha.o)
+ .debug_line    0x0000000000002884      0x421 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_random.o)
+ .debug_line    0x0000000000002ca5      0x596 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/log/liblog.a(log.o)
+ .debug_line    0x000000000000323b      0xb48 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/spi_flash/libspi_flash.a(spi_flash_rom_patch.o)
+ .debug_line    0x0000000000003d83      0xcfe /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
+ .debug_line    0x0000000000004a81      0x3e2 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/soc/libsoc.a(rtc_time.o)
+ .debug_line    0x0000000000004e63       0x89 /home/penguin/Documents/Blizzard/compiling_files/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/libgcc.a(_bswapsi2.o)
+ .debug_line    0x0000000000004eec      0x18e /home/penguin/Documents/Blizzard/compiling_files/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/libgcc.a(_udivdi3.o)
 
-.debug_str      0x0000000000000000     0x244d
- .debug_str     0x0000000000000000      0xef3 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/main/libmain.a(bootloader_start.o)
-                                        0xfd1 (size before relaxing)
- .debug_str     0x0000000000000ef3      0x28c /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_flash.o)
-                                        0x5ba (size before relaxing)
- .debug_str     0x000000000000117f       0x70 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(flash_partitions.o)
-                                        0x3bb (size before relaxing)
- .debug_str     0x00000000000011ef      0x301 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(esp_image_format.o)
-                                        0xa0d (size before relaxing)
- .debug_str     0x00000000000014f0      0x102 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_sha.o)
-                                        0x2da (size before relaxing)
- .debug_str     0x00000000000015f2       0x7d /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_random.o)
-                                        0x25d (size before relaxing)
- .debug_str     0x000000000000166f      0x1a1 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/log/liblog.a(log.o)
-                                        0x36a (size before relaxing)
- .debug_str     0x0000000000001810      0x4ae /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/spi_flash/libspi_flash.a(spi_flash_rom_patch.o)
-                                        0x771 (size before relaxing)
- .debug_str     0x0000000000001cbe      0x444 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
-                                        0x834 (size before relaxing)
- .debug_str     0x0000000000002102      0x135 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/soc/libsoc.a(rtc_time.o)
-                                        0x370 (size before relaxing)
- .debug_str     0x0000000000002237      0x13a /home/ece453/Documents/ece453/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/libgcc.a(_bswapsi2.o)
-                                        0x1e0 (size before relaxing)
- .debug_str     0x0000000000002371       0xdc /home/ece453/Documents/ece453/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/libgcc.a(_udivdi3.o)
-                                        0x25a (size before relaxing)
+.debug_str      0x0000000000000000     0x25de
+ .debug_str     0x0000000000000000      0xf09 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/main/libmain.a(bootloader_start.o)
+                                        0xfe7 (size before relaxing)
+ .debug_str     0x0000000000000f09      0x2a2 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_flash.o)
+                                        0x5d0 (size before relaxing)
+ .debug_str     0x00000000000011ab       0x83 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(flash_partitions.o)
+                                        0x3d1 (size before relaxing)
+ .debug_str     0x000000000000122e      0x314 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(esp_image_format.o)
+                                        0xa23 (size before relaxing)
+ .debug_str     0x0000000000001542      0x115 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_sha.o)
+                                        0x2ed (size before relaxing)
+ .debug_str     0x0000000000001657       0x90 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_random.o)
+                                        0x273 (size before relaxing)
+ .debug_str     0x00000000000016e7      0x1cb /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/log/liblog.a(log.o)
+                                        0x394 (size before relaxing)
+ .debug_str     0x00000000000018b2      0x4c1 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/spi_flash/libspi_flash.a(spi_flash_rom_patch.o)
+                                        0x784 (size before relaxing)
+ .debug_str     0x0000000000001d73      0x50f /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
+                                        0x904 (size before relaxing)
+ .debug_str     0x0000000000002282      0x148 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/soc/libsoc.a(rtc_time.o)
+                                        0x383 (size before relaxing)
+ .debug_str     0x00000000000023ca      0x138 /home/penguin/Documents/Blizzard/compiling_files/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/libgcc.a(_bswapsi2.o)
+                                        0x1de (size before relaxing)
+ .debug_str     0x0000000000002502       0xdc /home/penguin/Documents/Blizzard/compiling_files/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/libgcc.a(_udivdi3.o)
+                                        0x258 (size before relaxing)
 
 .comment        0x0000000000000000       0x3a
- .comment       0x0000000000000000       0x3a /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/main/libmain.a(bootloader_start.o)
+ .comment       0x0000000000000000       0x3a /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/main/libmain.a(bootloader_start.o)
                                          0x3b (size before relaxing)
- .comment       0x000000000000003a       0x3b /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_flash.o)
- .comment       0x000000000000003a       0x3b /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(flash_partitions.o)
- .comment       0x000000000000003a       0x3b /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(esp_image_format.o)
- .comment       0x000000000000003a       0x3b /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_sha.o)
- .comment       0x000000000000003a       0x3b /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_random.o)
- .comment       0x000000000000003a       0x3b /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/log/liblog.a(log.o)
- .comment       0x000000000000003a       0x3b /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/spi_flash/libspi_flash.a(spi_flash_rom_patch.o)
- .comment       0x000000000000003a       0x3b /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
- .comment       0x000000000000003a       0x3b /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/soc/libsoc.a(rtc_time.o)
- .comment       0x000000000000003a       0x3b /home/ece453/Documents/ece453/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/libgcc.a(_bswapsi2.o)
- .comment       0x000000000000003a       0x3b /home/ece453/Documents/ece453/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/libgcc.a(_udivdi3.o)
+ .comment       0x000000000000003a       0x3b /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_flash.o)
+ .comment       0x000000000000003a       0x3b /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(flash_partitions.o)
+ .comment       0x000000000000003a       0x3b /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(esp_image_format.o)
+ .comment       0x000000000000003a       0x3b /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_sha.o)
+ .comment       0x000000000000003a       0x3b /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_random.o)
+ .comment       0x000000000000003a       0x3b /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/log/liblog.a(log.o)
+ .comment       0x000000000000003a       0x3b /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/spi_flash/libspi_flash.a(spi_flash_rom_patch.o)
+ .comment       0x000000000000003a       0x3b /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
+ .comment       0x000000000000003a       0x3b /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/soc/libsoc.a(rtc_time.o)
+ .comment       0x000000000000003a       0x3b /home/penguin/Documents/Blizzard/compiling_files/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/libgcc.a(_bswapsi2.o)
+ .comment       0x000000000000003a       0x3b /home/penguin/Documents/Blizzard/compiling_files/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/libgcc.a(_udivdi3.o)
 
 .xtensa.info    0x0000000000000000       0x38
- .xtensa.info   0x0000000000000000       0x38 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/main/libmain.a(bootloader_start.o)
- .xtensa.info   0x0000000000000038        0x0 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_flash.o)
- .xtensa.info   0x0000000000000038        0x0 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(flash_partitions.o)
- .xtensa.info   0x0000000000000038        0x0 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(esp_image_format.o)
- .xtensa.info   0x0000000000000038        0x0 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_sha.o)
- .xtensa.info   0x0000000000000038        0x0 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_random.o)
- .xtensa.info   0x0000000000000038        0x0 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/log/liblog.a(log.o)
- .xtensa.info   0x0000000000000038        0x0 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/spi_flash/libspi_flash.a(spi_flash_rom_patch.o)
- .xtensa.info   0x0000000000000038        0x0 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
- .xtensa.info   0x0000000000000038        0x0 /home/ece453/Documents/ece453/chuck-light/firmware/build/bootloader/soc/libsoc.a(rtc_time.o)
- .xtensa.info   0x0000000000000038        0x0 /home/ece453/Documents/ece453/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/libgcc.a(_bswapsi2.o)
- .xtensa.info   0x0000000000000038        0x0 /home/ece453/Documents/ece453/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/libgcc.a(_udivdi3.o)
+ .xtensa.info   0x0000000000000000       0x38 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/main/libmain.a(bootloader_start.o)
+ .xtensa.info   0x0000000000000038        0x0 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_flash.o)
+ .xtensa.info   0x0000000000000038        0x0 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(flash_partitions.o)
+ .xtensa.info   0x0000000000000038        0x0 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(esp_image_format.o)
+ .xtensa.info   0x0000000000000038        0x0 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_sha.o)
+ .xtensa.info   0x0000000000000038        0x0 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_random.o)
+ .xtensa.info   0x0000000000000038        0x0 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/log/liblog.a(log.o)
+ .xtensa.info   0x0000000000000038        0x0 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/spi_flash/libspi_flash.a(spi_flash_rom_patch.o)
+ .xtensa.info   0x0000000000000038        0x0 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/soc/libsoc.a(rtc_clk.o)
+ .xtensa.info   0x0000000000000038        0x0 /home/penguin/Documents/Blizzard/chuck_light/firmware/build/bootloader/soc/libsoc.a(rtc_time.o)
+ .xtensa.info   0x0000000000000038        0x0 /home/penguin/Documents/Blizzard/compiling_files/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/libgcc.a(_bswapsi2.o)
+ .xtensa.info   0x0000000000000038        0x0 /home/penguin/Documents/Blizzard/compiling_files/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/5.2.0/libgcc.a(_udivdi3.o)
