@@ -21,8 +21,7 @@ void init_udp_controller()
     IP = IP_ADDR_ANY;
     PORT = UDP_PORT;
     UDP = udp_new();
-
-    ESP_LOGI(TAG, "Bind %d", udp_bind(UDP, IP, PORT));
+    udp_bind(UDP, IP, PORT);
 
     udp_recv(UDP, udp_recieve, NULL);
 

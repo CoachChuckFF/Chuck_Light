@@ -145,12 +145,6 @@ void app_main()
             break;
           }
 
-          //TODO send info if event
-          //send_data_packet()
-
-SKIP_USER_INPUT:
-
-
         break;
         case COLOR_WHEEL_MODE:
 
@@ -171,6 +165,13 @@ SKIP_USER_INPUT:
 
         break;
       }
+
+      if(direction_event || button_event)
+      {
+        send_data_packet(USER_ACTION_DATA, (direction_event) ? &direction_event : &button_event);
+      }
+
+SKIP_USER_INPUT:
 
       direction_event = 0;
       button_event = 0;
