@@ -9,6 +9,12 @@
 # hardware binary files
 ### project_name.sof SRAM Object File
 
+# eclipse
+.metadata
+.recommenders
+debug_server/bin
+debug_server/.metadata
+
 # software binary files
 ### tbd
 
@@ -130,3 +136,4 @@ debug_server/bin/
 
 # do track output files for ftp server
 !SoC/ece453/output_files/*
+/.metadata/
