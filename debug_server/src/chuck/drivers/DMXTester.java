@@ -4,7 +4,13 @@ import java.io.IOException;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
+/**
+ * Test program to debug DMX driver. Prompts user to interact with driver.
+ * 
+ * @author Joseph Eichenhofer
+ */
 public class DMXTester {
+	
 	public static void main(String[] args) {
 		DMXDriver driver = null;
 

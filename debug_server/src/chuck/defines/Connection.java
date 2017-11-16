@@ -1,5 +1,11 @@
 package chuck.defines;
 
+/**
+ * Byte definitions for packet ids and other communication packet binary metadata
+ * 
+ * @author Joseph Eichenhofer and Christian Krueger
+ *
+ */
 public class Connection {
 	public static final int DMX_PORT = 6454;
 

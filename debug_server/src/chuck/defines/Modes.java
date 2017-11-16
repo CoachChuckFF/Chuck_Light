@@ -1,5 +1,11 @@
 package chuck.defines;
 
+/**
+ * Defines for current executing state of the main application.
+ * 
+ * @author Christian Krueger
+ *
+ */
 public class Modes {
 	public static final byte IDLE = 0;
 	public static final byte SELECTION = 1;
