@@ -71,11 +71,11 @@ public class DMXDriver {
 
 		int data_val = values[0];
 		if (values.length > 1)
-			data_val = (values[1] & 0xff) << 8;
+			data_val += (values[1] & 0xff) << 8;
 		if (values.length > 2)
-			data_val = (values[2] & 0xff) << 16;
+			data_val += (values[2] & 0xff) << 16;
 		if (values.length > 3)
-			data_val = (values[3] & 0xff) << 14;
+			data_val += (values[3] & 0xff) << 14;
 
 		write_reg(data, data_val);
 		write_reg(addr, address);
@@ -109,5 +109,6 @@ public class DMXDriver {
 							reg.toString()));
 
 		Files.write(reg, buf, StandardOpenOption.SYNC);
+		// System.out.printf("Wrote %08x to %s\n", val, reg.toString());
 	}
 }

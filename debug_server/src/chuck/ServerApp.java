@@ -51,6 +51,7 @@ public class ServerApp {
 		try {
 			// instantiate dmx driver
 			dmx = new DMXDriver();
+			System.out.println("DMX Driver Initialized");
 		} catch (IOException ex) {
 			// fatal error if unable to instantiate driver
 			ex.printStackTrace();
@@ -59,6 +60,7 @@ public class ServerApp {
 		try {
 			// instantiate server socket
 			serverSocket = new DatagramSocket(Connection.DMX_PORT);
+			System.out.println("Server Socket Initialized");
 		} catch (SocketException ex) {
 			// fatal error if unable to instantiate server socket
 			ex.printStackTrace();
@@ -68,15 +70,19 @@ public class ServerApp {
 		// start heartbeat thread
 		heartbeat = new HeartBeatThread(serverSocket);
 		heartbeat.start();
+		System.out.println("Heartbeat Thread Started");
 		// start udp listener thread
 		udpListen = new UDPServerThread(serverSocket, commandQ);
 		udpListen.start();
+		System.out.println("UDP Thread Started");
 
 		// TODO: implement state machine and transitions
 
 		// for testing, set to some random color
+		boolean on = false;
 		try {
-			dmx.setDMX(2, 128, 125, 64);
+			dmx.setDMX(1, 255, 128, 125, 64);
+			on = true;
 		} catch (IOException ex) {
 			// treat ioexception as fatal error
 			ex.printStackTrace();
@@ -84,7 +90,6 @@ public class ServerApp {
 		}
 
 		WirelessCommand currCommand = null;
-		boolean on = false;
 		while (true) {
 			// take element from queue, blocking until something is there
 			try {
@@ -95,6 +100,7 @@ public class ServerApp {
 				System.exit(-1);
 			}
 
+			System.out.println("Received packet.");
 			if (!currCommand.parse()) {
 				// if unable to parse the command, ignore it
 				System.out.println("Received invalid packet");
@@ -106,16 +112,20 @@ public class ServerApp {
 				System.out.println("received command packet");
 				break;
 			default:
+				System.out.println(currCommand.toString());
 				break;
 			}
 
 			// for now, just toggle the light on and off with each received packet
 			try {
+				if (currCommand.getID() == Connection.POLL_PACKET_ID || currCommand.getID() == Connection.POLL_REPLY_PACKET_ID)
+					continue;
 				if (on) {
 					dmx.setDMX(1, 0);
 				} else {
 					dmx.setDMX(1, 255);
 				}
+				on = !on;
 			} catch (IOException e) {
 				// treat ioexception as fatal error
 				e.printStackTrace();

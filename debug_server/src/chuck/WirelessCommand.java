@@ -30,6 +30,14 @@ public class WirelessCommand {
 		return id;
 	}
 
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder("command type:");
+		sb.append(String.format("%02x", id));
+		
+		return sb.toString();
+	}
+	
 	private boolean verifyPacket() {
 		/*
 		 * for (int i = 0; i < Connection.ID.length; i++) { if(buffer[i] !=
