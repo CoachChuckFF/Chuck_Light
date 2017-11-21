@@ -37,8 +37,10 @@ public class ServerApp {
 	 * @param args n/a
 	 */
 	public static void main(String[] args) {
-		ServerApp serv = new ServerApp();
-		serv.startServer();
+		ProfileManager manager = new ProfileManager();
+		manager.managerCLI();
+		//ServerApp serv = new ServerApp();
+		//serv.startServer();
 	}
 
 	/**
