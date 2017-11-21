@@ -1,6 +1,10 @@
 package chuck;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
@@ -8,6 +12,9 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.concurrent.CopyOnWriteArrayList;
+
+import chuck.defines.*;
+
 
 /**
  * Chuck Lighting Profile Manager Class
@@ -29,14 +36,45 @@ public class ProfileManager {
 	  }
 
 	  public ProfileManager(String filepath) {
-		  set = new CopyOnWriteArrayList<LightingProfile>();
 		  parseSetFile(filepath);
 	  }
 
 	  //reads from set file and populates the set arraylist
 	  public void parseSetFile(String filepath)
 	  {
+        String line = "";
+        String cvsSplitBy = ",";
+        LightingProfile light;
+        set = new CopyOnWriteArrayList<LightingProfile>();
 
+        try (BufferedReader br = new BufferedReader(new FileReader(filepath))) {
+
+            while ((line = br.readLine()) != null) {
+
+                // use comma as separator
+                String[] lightLine = line.split(cvsSplitBy);
+                light = new LightingProfile(lightLine[0], 
+                							Integer.parseInt(lightLine[1]),
+                							Integer.parseInt(lightLine[2]));
+                light.setDimmer(Integer.parseInt(lightLine[3]));
+                light.setRed(Integer.parseInt(lightLine[4]));
+                light.setGreen(Integer.parseInt(lightLine[5]));
+                light.setBlue(Integer.parseInt(lightLine[6]));
+                light.setAmber(Integer.parseInt(lightLine[7]));
+                light.setWhite(Integer.parseInt(lightLine[8]));
+                light.setStrobe(Integer.parseInt(lightLine[9]));
+                light.setZoom(Integer.parseInt(lightLine[10]));
+                light.setPan(Integer.parseInt(lightLine[11]));
+                light.setPanFine(Integer.parseInt(lightLine[12]));
+                light.setTilt(Integer.parseInt(lightLine[13]));
+                light.setTiltFine(Integer.parseInt(lightLine[14]));
+                
+                set.add(light);
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
 		  //sort via whos address comes first
 		  Collections.sort(set);
@@ -46,6 +84,28 @@ public class ProfileManager {
 	  public void writeSetFile(String filepath)
 	  {
 
+	    BufferedWriter writer = null;
+	    
+		try {
+			writer = new BufferedWriter(new FileWriter(filepath));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	    try {
+			writer.write(this.toString());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	    
+	    try {
+			writer.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	  }
 
 	  public void managerCLI()
@@ -70,29 +130,43 @@ public class ProfileManager {
 				quit = true;
 			} else if (splitInput[0].startsWith("a")) {
 				try {
-					addProfileToSet(reader);
+					addProfileToSetCLI(reader);
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			} else if (splitInput[0].startsWith("e")) {
 				try {
-					editProfileInSet(reader);
+					editProfileInSetCLI(reader);
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			} else if (splitInput[0].startsWith("d")) {
 				try {
-					deleteProfileInSet(reader);
+					deleteProfileInSetCLI(reader);
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-			} else if (splitInput[0].startsWith("l")) {
-
 			} else if (splitInput[0].startsWith("s")) {
+				try {
+					saveSetCLI(reader);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 
+			} else if (splitInput[0].startsWith("l")) {
+				try {
+					loadSetCLI(reader);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
+			} else if (input.startsWith("p")) {
+				System.out.println(this.toString());
 			} else if (input.startsWith("h")) {
 				printMainHelp();
 			} else {
@@ -102,7 +176,7 @@ public class ProfileManager {
 		} while (!quit);
 	}
 
-	private void addProfileToSet(BufferedReader reader) throws IOException
+	private void addProfileToSetCLI(BufferedReader reader) throws IOException
 	{
 		String input;
 		LightingProfile light = new LightingProfile();
@@ -270,7 +344,7 @@ public class ProfileManager {
 		Collections.sort(set);
 	}
 	
-	private void editProfileInSet(BufferedReader reader) throws IOException
+	private void editProfileInSetCLI(BufferedReader reader) throws IOException
 	{
 		Iterator<LightingProfile> iterator;
 		String input;
@@ -378,7 +452,7 @@ public class ProfileManager {
 		
 	}
 	
-	private void deleteProfileInSet(BufferedReader reader) throws IOException
+	private void deleteProfileInSetCLI(BufferedReader reader) throws IOException
 	{
 		Iterator<LightingProfile> iterator;
 		String input;
@@ -422,16 +496,108 @@ public class ProfileManager {
  
 		
 	}
+	
+	private void saveSetCLI(BufferedReader reader) throws IOException{
+		File folder = new File(Filepaths.INFO_FULL_FP + Filepaths.SET_REL_FP);
+		File[] listOfFiles = folder.listFiles();
+		String input = "";
+	
+		System.out.println("Current Set Files");
+		System.out.println("'q' to quit");
+		
+	    for (int i = 0, j = 0; i < listOfFiles.length; i++) {
+	      if (listOfFiles[i].isFile()) {
+	        System.out.println(j++ +". "+ listOfFiles[i].getName());
+	      } else if (listOfFiles[i].isDirectory()) {
+	        System.out.println("Directory " + listOfFiles[i].getName());
+	      }
+	    }
+	    
+	    System.out.print("Enter filename: ");
+	    
+		input = reader.readLine();
+
+		if(input.equals("q") || input.equals(""))
+			return;
+	    
+		writeSetFile(Filepaths.INFO_FULL_FP + Filepaths.SET_REL_FP + "/" + input);
+	    
+	}
+	
+	private void loadSetCLI(BufferedReader reader) throws IOException{
+		File folder = new File(Filepaths.INFO_FULL_FP + Filepaths.SET_REL_FP);
+		File[] listOfFiles = folder.listFiles();
+		String input = "";
+	
+		System.out.println("Current Set Files");
+		System.out.println("Enter Number to Load");
+		System.out.println("'q' to quit");
+		
+	    for (int i = 0; i < listOfFiles.length; i++) {
+	      if (listOfFiles[i].isFile()) {
+	        System.out.println(i +". "+ listOfFiles[i].getName());
+	      } else if (listOfFiles[i].isDirectory()) {
+	        System.out.println("Directory " + listOfFiles[i].getName());
+	      }
+	    }
+	    
+	    System.out.print("Load> ");
+	    
+		input = reader.readLine();
+
+		if(input.equals("q") || 
+				input.equals(""))
+
+			return;
+		
+		if(Integer.parseInt(input) > listOfFiles.length - 1 ||
+				Integer.parseInt(input) < 0){
+			System.out.println("Bad Selection");
+			return;
+		}
+	    
+		parseSetFile(listOfFiles[Integer.parseInt(input)].getAbsolutePath());
+	    
+	}
 
 	private static void printMainHelp() {
 		System.out.println("Set Manager Commands:");
 		System.out.println("\ta: add profile");
 		System.out.println("\te: edit profile");
 		System.out.println("\td: delete profile");
-		System.out.println("\tl: load set");
 		System.out.println("\ts: save set");
+		System.out.println("\tl: load set");
+		System.out.println("\tp: print current set");	
 		System.out.println("\th: help");
 		System.out.println("\tq: quit/back");
+	}
+	
+	public String toString() {
+		String csv = "";
+		LightingProfile temp;
+		Iterator<LightingProfile> iterator = set.iterator();
+		
+		while(iterator.hasNext())
+		{
+			temp = iterator.next();
+			csv += temp.getName() + "," +
+					temp.getAddress() + "," +
+					temp.getChannels() + "," +
+					temp.getDimmer() + "," +
+					temp.getRed() + "," +
+					temp.getGreen() + "," +
+					temp.getBlue() + "," +
+					temp.getAmber() + "," +
+					temp.getWhite() + "," +
+					temp.getStrobe() + "," +
+					temp.getZoom() + "," +
+					temp.getPan() + "," +
+					temp.getPanFine() + "," +
+					temp.getTilt() + "," +
+					temp.getTiltFine() + "\n";
+
+		}
+		return csv;
 	}
 
 }
