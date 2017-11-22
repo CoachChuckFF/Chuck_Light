@@ -7,6 +7,7 @@ import chuck.defines.*;
 
 public class HeartBeatThread extends Thread {
 	private DatagramSocket server;
+	private boolean running;
 
 	/**
 	 * Constructor. Set UDP socket for sending heartbeat packets.
@@ -25,7 +26,7 @@ public class HeartBeatThread extends Thread {
 	@Override
 	public void run() {
 		DatagramPacket heartbeat;
-
+		running = true;
 		InetAddress address = null;
 		try {
 			address = InetAddress.getByName("255.255.255.255");
@@ -40,7 +41,7 @@ public class HeartBeatThread extends Thread {
 		System.arraycopy(Connection.ID, 0, data, 0, 8);
 		data[8] = Connection.POLL_PACKET_ID;
 
-		while (true) {
+		while (running) {
 			// data[9] = getCurrentState();
 			heartbeat = new DatagramPacket(data, data.length, address, Connection.DMX_PORT);
 			try {
@@ -59,5 +60,10 @@ public class HeartBeatThread extends Thread {
 				System.exit(-1);
 			}
 		}
+	}
+	
+	public void redrum()
+	{
+		running = false;
 	}
 }

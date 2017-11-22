@@ -108,9 +108,8 @@ public class ProfileManager {
 		}
 	  }
 
-	  public void managerCLI()
+	  public void managerCLI(BufferedReader reader)
 	  {
-		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 		boolean quit = false;
 		String input = null;
 		String[] splitInput = null;
@@ -570,6 +569,10 @@ public class ProfileManager {
 		System.out.println("\tp: print current set");	
 		System.out.println("\th: help");
 		System.out.println("\tq: quit/back");
+	}
+	
+	public int getLightCount(){
+		return set.size();
 	}
 	
 	public String toString() {

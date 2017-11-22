@@ -16,6 +16,7 @@ public class UDPServerThread extends Thread {
 
 	private DatagramSocket server;
 	private BlockingQueue<WirelessCommand> commandQ;
+	private boolean running = false;
 
 	/**
 	 * Constructor. Specify the shared socket and shared queue.
@@ -39,7 +40,7 @@ public class UDPServerThread extends Thread {
 	public void run() {
 		byte[] receiveData = new byte[1024];
 
-		while (true) {
+		while (running) {
 			DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
 			try {
 				server.receive(receivePacket);
@@ -78,4 +79,10 @@ public class UDPServerThread extends Thread {
 			 */
 		}
 	}
+	
+	public void redrum()
+	{
+		running = false;
+	}
+
 }

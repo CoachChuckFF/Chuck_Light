@@ -7,9 +7,11 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
 import chuck.defines.Connection;
+import chuck.defines.Modes;
 import chuck.drivers.DMXDriver;
 import chuck.threads.HeartBeatThread;
 import chuck.threads.UDPServerThread;
+import chuck.threads.UserCLIThread;
 
 /**
  * Chuck Light server application. Starts heartbeat thread and udp listener
@@ -21,15 +23,21 @@ import chuck.threads.UDPServerThread;
 public class ServerApp {
 
 	private DMXDriver dmx;
+	private ProfileManager profiles;
+	private byte[] dmxVals;
+	private boolean serverRunning = false;
 	private DatagramSocket serverSocket;
 
 	private HeartBeatThread heartbeat;
 	private UDPServerThread udpListen;
+	private UserCLIThread cli;
+	
+	private int currentLightIndex;
 
 	/**
 	 * Shared synchronous queue of commands to process. Producer is UDPServerThread, consumer is main execution.
 	 */
-	private BlockingQueue<WirelessCommand> commandQ = new LinkedBlockingQueue<WirelessCommand>();
+	private BlockingQueue<WirelessCommand> commandQ;
 
 	/**
 	 * Start the server program.
@@ -37,10 +45,29 @@ public class ServerApp {
 	 * @param args n/a
 	 */
 	public static void main(String[] args) {
-		ProfileManager manager = new ProfileManager();
-		manager.managerCLI();
-		//ServerApp serv = new ServerApp();
-		//serv.startServer();
+		ServerApp serv = new ServerApp();
+		serv.init();
+		serv.startServer();
+	}
+	
+	public void init(){
+		profiles = new ProfileManager();
+		/*try {
+			// instantiate dmx driver
+			dmx = new DMXDriver();
+			System.out.println("DMX Driver Initialized");
+		} catch (IOException ex) {
+			// fatal error if unable to instantiate driver
+			ex.printStackTrace();
+			System.exit(-1);
+		}*/
+	}
+	
+	public void startMainCLI(){
+		cli = new UserCLIThread(dmxVals, profiles, this);
+		cli.setPriority(Thread.MIN_PRIORITY);
+		cli.start();
+
 	}
 
 	/**
@@ -50,15 +77,10 @@ public class ServerApp {
 	 * type of command.
 	 */
 	public void startServer() {
-		try {
-			// instantiate dmx driver
-			dmx = new DMXDriver();
-			System.out.println("DMX Driver Initialized");
-		} catch (IOException ex) {
-			// fatal error if unable to instantiate driver
-			ex.printStackTrace();
-			System.exit(-1);
-		}
+		
+		dmxVals = new byte[512];
+		currentLightIndex = 0;
+		
 		try {
 			// instantiate server socket
 			serverSocket = new DatagramSocket(Connection.DMX_PORT);
@@ -68,31 +90,29 @@ public class ServerApp {
 			ex.printStackTrace();
 			System.exit(-1);
 		}
+		
+		//create new command queue
+		commandQ = new LinkedBlockingQueue<WirelessCommand>();
 
 		// start heartbeat thread
 		heartbeat = new HeartBeatThread(serverSocket);
+		heartbeat.setPriority(Thread.NORM_PRIORITY);
 		heartbeat.start();
+		
 		System.out.println("Heartbeat Thread Started");
 		// start udp listener thread
 		udpListen = new UDPServerThread(serverSocket, commandQ);
+		udpListen.setPriority(Thread.MAX_PRIORITY);
 		udpListen.start();
 		System.out.println("UDP Thread Started");
 
 		// TODO: implement state machine and transitions
 
-		// for testing, set to some random color
-		boolean on = false;
-		try {
-			dmx.setDMX(1, 255, 128, 125, 64);
-			on = true;
-		} catch (IOException ex) {
-			// treat ioexception as fatal error
-			ex.printStackTrace();
-			System.exit(-1);
-		}
-
+		startMainCLI();
+		
 		WirelessCommand currCommand = null;
-		while (true) {
+		serverRunning = true;
+		while (serverRunning) {
 			// take element from queue, blocking until something is there
 			try {
 				currCommand = commandQ.take();
@@ -119,7 +139,7 @@ public class ServerApp {
 			}
 
 			// for now, just toggle the light on and off with each received packet
-			try {
+			/*try {
 				if (currCommand.getID() == Connection.POLL_PACKET_ID || currCommand.getID() == Connection.POLL_REPLY_PACKET_ID)
 					continue;
 				if (on) {
@@ -132,7 +152,51 @@ public class ServerApp {
 				// treat ioexception as fatal error
 				e.printStackTrace();
 				System.exit(-1);
-			}
+			}*/
 		}
+	}
+	
+	public void stopServer(){
+		if(!udpListen.equals(null))
+			try {
+				udpListen.redrum();
+				udpListen.join();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		if(!heartbeat.equals(null))
+			try {
+				heartbeat.redrum();
+				heartbeat.join();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		if(!serverSocket.equals(null))
+			serverSocket.close();
+		
+		/*try {
+			dmx.clearDMX();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}*/
+		
+		serverRunning = false;
+	}
+	
+	public ProfileManager getProfileManager(){
+		return profiles;
+	}
+	
+	public byte[] getDMXVals(){
+		return dmxVals;
+	}
+	
+	public boolean isServerRunning()
+	{
+		return serverRunning;
+		
 	}
 }
