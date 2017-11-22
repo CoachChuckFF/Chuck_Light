@@ -18,13 +18,15 @@ import chuck.threads.UserCLIThread;
  * thread, then waits for commands from the udp listener thread via the shared
  * queue.
  * 
- * @author Joseph Eichenhofer
+ * @author Joseph Eichenhofer and Christian Krueger
  */
 public class ServerApp {
 
 	private DMXDriver dmx;
 	private ProfileManager profiles;
-	private byte[] dmxVals;
+	private byte[] dmxVals; //1 indexed
+	private byte[] dmxTempVals; //1 indexed
+	private byte currentState;
 	private boolean serverRunning = false;
 	private DatagramSocket serverSocket;
 
@@ -78,7 +80,9 @@ public class ServerApp {
 	 */
 	public void startServer() {
 		
-		dmxVals = new byte[512];
+		dmxVals = new byte[513];
+		dmxTempVals = new byte[513];
+		currentState = Modes.IDLE;
 		currentLightIndex = 0;
 		
 		try {
@@ -95,7 +99,7 @@ public class ServerApp {
 		commandQ = new LinkedBlockingQueue<WirelessCommand>();
 
 		// start heartbeat thread
-		heartbeat = new HeartBeatThread(serverSocket);
+		heartbeat = new HeartBeatThread(serverSocket, currentState);
 		heartbeat.setPriority(Thread.NORM_PRIORITY);
 		heartbeat.start();
 		
@@ -153,6 +157,33 @@ public class ServerApp {
 				e.printStackTrace();
 				System.exit(-1);
 			}*/
+			
+			/* ---------- Main State Machine ------------------- */
+			switch(currentState)
+			{
+				case Modes.CHASE:
+				break;
+				case Modes.IDLE:
+					//switch(currCommand.action)
+				break;
+				case Modes.LIGHT_SELECTION:
+				break;
+				case Modes.CONTROL_SELECTION:
+				break;
+				case Modes.COLOR_WHEEL:
+				break;
+				case Modes.DMX:
+				break;
+				case Modes.PRESET:
+				break;
+				case Modes.PARTY:
+				break;
+				case Modes.SCARY:
+				break;
+				default:
+					System.out.println("State out of bounds!");
+				break;
+			}
 		}
 	}
 	
@@ -199,4 +230,5 @@ public class ServerApp {
 		return serverRunning;
 		
 	}
+	
 }

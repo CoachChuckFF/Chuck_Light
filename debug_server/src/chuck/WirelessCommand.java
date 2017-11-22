@@ -1,10 +1,14 @@
 package chuck;
 
+import chuck.defines.Connection;
+import chuck.defines.Modes;
+
 public class WirelessCommand {
 	private byte[] receiveData;
 	private boolean parsed = false;
 	
 	private byte id;
+	
 	
 	public WirelessCommand(byte[] rawData) {
 		receiveData = rawData.clone();
@@ -39,10 +43,9 @@ public class WirelessCommand {
 	}
 	
 	private boolean verifyPacket() {
-		/*
-		 * for (int i = 0; i < Connection.ID.length; i++) { if(buffer[i] !=
-		 * Connection.ID[i]) return false; }
-		 */
+		for (int i = 0; i < Connection.ID.length; i++) {
+		if(receiveData[i] != Connection.ID[i]) return false; }
+
 
 		return true;
 	}

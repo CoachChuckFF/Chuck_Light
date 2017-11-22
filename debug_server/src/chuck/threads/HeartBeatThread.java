@@ -7,6 +7,7 @@ import chuck.defines.*;
 
 public class HeartBeatThread extends Thread {
 	private DatagramSocket server;
+	private byte currentState;
 	private boolean running;
 
 	/**
@@ -14,8 +15,9 @@ public class HeartBeatThread extends Thread {
 	 * 
 	 * @param server	Shared UDP server socket for sending to controller.
 	 */
-	public HeartBeatThread(DatagramSocket server) {
+	public HeartBeatThread(DatagramSocket server, byte currentState) {
 		this.server = server;
+		this.currentState = currentState;
 	}
 
 	/**
@@ -42,7 +44,7 @@ public class HeartBeatThread extends Thread {
 		data[8] = Connection.POLL_PACKET_ID;
 
 		while (running) {
-			// data[9] = getCurrentState();
+			data[9] = currentState;
 			heartbeat = new DatagramPacket(data, data.length, address, Connection.DMX_PORT);
 			try {
 				server.send(heartbeat);

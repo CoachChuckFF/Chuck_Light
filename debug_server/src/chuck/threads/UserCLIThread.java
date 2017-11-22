@@ -41,6 +41,11 @@ public class UserCLIThread extends Thread {
 				app.stopServer();
 				System.out.println("Goodbye");
 				System.exit(0);
+			} else if (splitInput[0].startsWith("c")) {
+				quit = true;
+				System.out.println("CLI stopping...");
+				if(app.isServerRunning())
+					System.out.println("Server will continue to run");
 			} else if (splitInput[0].startsWith("p")) {
 				if(app.isServerRunning())
 					System.out.println("stop server first");
@@ -94,7 +99,8 @@ public class UserCLIThread extends Thread {
 		else
 			System.out.println("\ts: start server");
 		System.out.println("\th: help");
-		System.out.println("\tq: quit");
+		System.out.println("\tc: close only CLI");
+		System.out.println("\tq: quit all");
 	}
 	
 }

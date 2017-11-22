@@ -1,0 +1,23 @@
+----------------------------------------------------------------------------------------------------------------------------------
+NCDrill File Report For: ChuckControllerFinal.PcbDoc   11/22/2017  12:24:18 PM
+----------------------------------------------------------------------------------------------------------------------------------
+
+Layer Pair : Top Layer to Bottom Layer
+ASCII RoundHoles File : ChuckFinalGerber.TXT
+EIA File   : ChuckFinalGerber.DRL
+
+Tool       Hole Size               Hole Tolerance               Hole Type       Hole Count   Plated         Tool Travel
+----------------------------------------------------------------------------------------------------------------------------------
+T1      12mil (0.305mm)                                           Round             61        PTH        14.71inch (373.74mm)
+T2      20mil (0.508mm)                                           Round             3         PTH        0.15inch (3.81mm)
+T3      24mil (0.6mm)                                             Round             6         PTH        0.63inch (16.01mm)
+T4      28mil (0.7mm)                                             Round             2         PTH        0.08inch (2.00mm)
+T5      35mil (0.889mm)                                           Round             6         PTH        1.43inch (36.36mm)
+T6      44mil (1.118mm)                                           Round             4         PTH        0.60inch (15.34mm)
+T7      47mil (1.2mm)                                             Round             2         PTH        0.21inch (5.30mm)
+T8      55mil (1.397mm)                                           Round             4         PTH        1.73inch (43.81mm)
+T9      125mil (3.175mm)                                          Round             2         NPTH       0.94inch (23.80mm)
+----------------------------------------------------------------------------------------------------------------------------------
+Totals                                                                              90
+
+Total Processing Time (hh:mm:ss) : 00:00:00
