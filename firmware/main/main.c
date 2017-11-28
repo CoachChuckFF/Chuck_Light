@@ -108,6 +108,7 @@ void app_main()
           case PS2_B:
             ESP_LOGI(TAG, "PS2 Pressed");
             button_event = PS2_B;
+	          read_motion_reg(0x0F);
           break;
         }
 
