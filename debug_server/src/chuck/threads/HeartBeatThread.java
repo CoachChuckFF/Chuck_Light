@@ -8,6 +8,8 @@ import chuck.defines.*;
 public class HeartBeatThread extends Thread {
 	private DatagramSocket server;
 	private byte currentState;
+	private byte[] data;
+	private InetAddress address;
 	private boolean running;
 
 	/**
@@ -27,9 +29,8 @@ public class HeartBeatThread extends Thread {
 	 */
 	@Override
 	public void run() {
-		DatagramPacket heartbeat;
 		running = true;
-		InetAddress address = null;
+		address = null;
 		try {
 			address = InetAddress.getByName("255.255.255.255");
 		} catch (UnknownHostException ex) {
@@ -44,15 +45,8 @@ public class HeartBeatThread extends Thread {
 		data[8] = Connection.POLL_PACKET_ID;
 
 		while (running) {
-			data[9] = currentState;
-			heartbeat = new DatagramPacket(data, data.length, address, Connection.DMX_PORT);
-			try {
-				server.send(heartbeat);
-			} catch (IOException e) {
-				// io exception treated as fatal error
-				e.printStackTrace();
-				System.exit(-1);
-			}
+
+			sendHeartbeat();
 			
 			try {
 				Thread.sleep(7000);
@@ -61,6 +55,26 @@ public class HeartBeatThread extends Thread {
 				e.printStackTrace();
 				System.exit(-1);
 			}
+		}
+	}
+	
+	public synchronized void sendHeartbeat(){
+		
+		if(running){
+			data[9] = currentState;
+			DatagramPacket heartbeat = new DatagramPacket(data, data.length, address, Connection.DMX_PORT);
+		
+			try {
+				server.send(heartbeat);
+			} catch (IOException e) {
+				// io exception treated as fatal error
+				e.printStackTrace();
+				System.exit(-1);
+			}
+		}
+		else
+		{
+			System.out.println("Server not Running");
 		}
 	}
 	

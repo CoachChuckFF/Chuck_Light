@@ -11,9 +11,9 @@
 #include "modes.h"
 #include "esp_log.h"
 
-#define KONAMI_COMPLETE 1
-#define REV_KONAMI_COMPLETE 2
-#define KONAMI_SEMICOMPLETE 3
+#define KONAMI_COMPLETE 0x31
+#define REV_KONAMI_COMPLETE 0x32
+#define KONAMI_SEMICOMPLETE 0x33
 
 void clear_konami(void);
 void konami_tick(void);
