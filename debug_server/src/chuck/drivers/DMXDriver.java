@@ -52,6 +52,7 @@ public class DMXDriver {
 			throw new IOException(STAT_FILENAME + " not readable.");
 
 		dmxShadow = new int[513];
+		clearDMX();
 	}
 
 	/**
