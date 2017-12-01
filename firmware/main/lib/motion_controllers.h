@@ -14,8 +14,8 @@
 #include "esp_heap_caps.h"
 #include "esp_log.h"
 
-#define MISO_PIN 25
-#define MOSI_PIN 23
+#define MISO_PIN 23
+#define MOSI_PIN 25
 #define CLK_PIN  19
 #define CS_PIN   22 //could just tie high
 #define DRDY_PIN 21

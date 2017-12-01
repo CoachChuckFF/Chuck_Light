@@ -84,6 +84,7 @@ public class ServerApp {
 		dmxTempVals = new byte[513];
 		currentState = Modes.IDLE;
 		currentLightIndex = 0;
+		boolean sendHeartbeat = false;
 		
 		try {
 			// instantiate server socket
@@ -133,57 +134,199 @@ public class ServerApp {
 				continue;
 			}
 
-			switch (currCommand.getID()) {
+			sendHeartbeat = false;
+			
+			switch (currCommand.getPacketType()) {
 			case Connection.COMMAND_PACKET_ID:
-				System.out.println("received command packet");
+			/* ---------- Main State Machine ------------------- */
+				switch(currentState)
+				{
+					case Modes.CHASE:
+						if(currCommand.getDataType() != Connection.USER_ACTION_DATA){
+							sendHeartbeat = true;
+							break;
+						}
+						switch(currCommand.getUserActionData()){
+						case Connection.UP:
+							//TODO Change Chase Speed Up
+							break;
+						case Connection.DOWN:
+							//TODO Change Chase Speed Down
+							break;
+						case Connection.B2:
+							currentState = Modes.IDLE;
+							sendHeartbeat = true;
+							break;
+						}
+					break;
+					case Modes.IDLE:
+						if(currCommand.getDataType() != Connection.USER_ACTION_DATA){
+							sendHeartbeat = true;
+							break;
+						}
+						switch(currCommand.getUserActionData()){
+						case Connection.LEFT:
+							//TODO Transition to left scene
+							break;
+						case Connection.RIGHT:
+							//TODO Transition to right scene
+							break;
+						case Connection.B1:
+							currentState = Modes.LIGHT_SELECTION;
+							//TODO Highlight first Light
+							sendHeartbeat = true;
+							break;
+						case Connection.B2:
+							currentState = Modes.CHASE;
+							sendHeartbeat = true;
+							break;
+						}
+					break;
+					case Modes.LIGHT_SELECTION:
+						if(currCommand.getDataType() != Connection.USER_ACTION_DATA){
+							sendHeartbeat = true;
+							break;
+						}
+						switch(currCommand.getUserActionData()){
+						case Connection.LEFT:
+							//TODO Highlight Prevous Light
+							break;
+						case Connection.RIGHT:
+							//TODO Highlight Next Light
+							break;
+						case Connection.B1:
+							currentState = Modes.CONTROL_SELECTION;
+							//creates carbon copy of lights as is
+							System.arraycopy(dmxVals, 0, dmxTempVals, 0, 513);
+							//TODO start colorwheel visualization
+							sendHeartbeat = true;
+							break;
+						case Connection.B2:
+							currentState = Modes.IDLE;
+							sendHeartbeat = true;
+							break;
+						}
+					break;
+					case Modes.CONTROL_SELECTION: //TODO need stateful information - what mode is highlighted
+						if(currCommand.getDataType() != Connection.USER_ACTION_DATA){
+							sendHeartbeat = true;
+							break;
+						}
+						switch(currCommand.getUserActionData()){
+						case Connection.LEFT:
+							//TODO Position Dependant
+							break;
+						case Connection.RIGHT:
+							//TODO Position Dependant
+							break;
+						case Connection.B1:
+							//TODO Position Dependant
+							//currentState = Modes.CONTROL_SELECTION;
+							sendHeartbeat = true;
+							break;
+						case Connection.B2:
+							currentState = Modes.LIGHT_SELECTION;
+							//TODO copy dmxTempVals to Light
+							sendHeartbeat = true;
+							break;
+						}	
+					break;
+					case Modes.COLOR_WHEEL: 
+						if(currCommand.getDataType() == Connection.USER_ACTION_DATA){
+							switch(currCommand.getUserActionData()){
+							case Connection.B1:
+								//TODO SaveChanges
+								currentState = Modes.LIGHT_SELECTION;
+								sendHeartbeat = true;
+								break;
+							case Connection.B2:
+								currentState = Modes.CONTROL_SELECTION;
+								//TODO start Colorwheel visulization
+								sendHeartbeat = true;
+								break;
+							}
+						}
+						else if(currCommand.getDataType() == Connection.JOYSTIC_DATA)
+						{
+							//TODO RGB stuff with Joystick
+						}
+						else
+						{
+							//bad mode
+							sendHeartbeat = true;
+							break;
+						}
+					break;
+					case Modes.DMX: //TODO needs statful data - current DMX channel selected
+						if(currCommand.getDataType() != Connection.USER_ACTION_DATA){
+							sendHeartbeat = true;
+							break;
+						}
+						switch(currCommand.getUserActionData()){
+						case Connection.LEFT:
+							//TODO Control Last DMX Channel
+							break;
+						case Connection.RIGHT:
+							//TODO Control Next DMX Channel
+							break;
+						case Connection.UP:
+							//TODO Increase DMX value @ channel
+							break;
+						case Connection.DOWN:
+							//TODO Decrease DMX value @ channel
+							break;
+						case Connection.B1:
+							//TODO Save Changes
+							currentState = Modes.LIGHT_SELECTION;
+							sendHeartbeat = true;
+							break;
+						case Connection.B2:
+							currentState = Modes.CONTROL_SELECTION;
+							//start DMX mode visulization 
+							sendHeartbeat = true;
+							break;
+						}
+					break;
+					case Modes.PRESET:
+						switch(currCommand.getUserActionData()){
+						case Connection.LEFT:
+							//TODO Last Preset
+							break;
+						case Connection.RIGHT:
+							//TODO Next Preset
+							break;
+						case Connection.B1:
+							//TODO Save
+							currentState = Modes.LIGHT_SELECTION;
+							sendHeartbeat = true;
+							break;
+						case Connection.B2:
+							currentState = Modes.CONTROL_SELECTION;
+							//start Preset visulization
+							sendHeartbeat = true;
+							break;
+						}
+					break;
+					case Modes.PARTY:
+					break;
+					case Modes.SCARY:
+					break;
+					default:
+						System.out.println("State out of bounds!");
+					break;
+				}
+				break;
+			case Connection.POLL_REPLY_PACKET_ID:
+				//Do mode matching maybe?
+				System.out.println("Poll Reply");
 				break;
 			default:
-				System.out.println(currCommand.toString());
-				break;
+				System.out.println("Unkown Packet Type");
+			break;
 			}
-
-			// for now, just toggle the light on and off with each received packet
-			/*try {
-				if (currCommand.getID() == Connection.POLL_PACKET_ID || currCommand.getID() == Connection.POLL_REPLY_PACKET_ID)
-					continue;
-				if (on) {
-					dmx.setDMX(1, 0);
-				} else {
-					dmx.setDMX(1, 255);
-				}
-				on = !on;
-			} catch (IOException e) {
-				// treat ioexception as fatal error
-				e.printStackTrace();
-				System.exit(-1);
-			}*/
 			
-			/* ---------- Main State Machine ------------------- */
-			switch(currentState)
-			{
-				case Modes.CHASE:
-				break;
-				case Modes.IDLE:
-					//switch(currCommand.action)
-				break;
-				case Modes.LIGHT_SELECTION:
-				break;
-				case Modes.CONTROL_SELECTION:
-				break;
-				case Modes.COLOR_WHEEL:
-				break;
-				case Modes.DMX:
-				break;
-				case Modes.PRESET:
-				break;
-				case Modes.PARTY:
-				break;
-				case Modes.SCARY:
-				break;
-				default:
-					System.out.println("State out of bounds!");
-				break;
-			}
+			if(sendHeartbeat)
+				heartbeat.sendHeartbeat();
 		}
 	}
 	
