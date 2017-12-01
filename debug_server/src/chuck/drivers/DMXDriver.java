@@ -56,6 +56,30 @@ public class DMXDriver {
 	}
 
 	/**
+	 * Get the dmx value at the specified address.
+	 * 
+	 * @param address
+	 *            dmx address to fetch, must be within [1:512]
+	 * @return value at specified dmx address
+	 */
+	public int getDMX(int address) {
+		if (address <= 0 || address > 512)
+			throw new IllegalArgumentException("DMX address must be within [1:512]");
+		return dmxShadow[address];
+	}
+
+	/**
+	 * Get all the dmx values in the form of an int array. Array is 513 ints long,
+	 * with arr[x] = dmx value at address x. <br />
+	 * Implemented by returning a copy of the shadow array.
+	 * 
+	 * @return 513 int array containing dmx values
+	 */
+	public int[] getDmx() {
+		return dmxShadow.clone();
+	}
+
+	/**
 	 * Set up to four dmx values in the dmx 512 byte array. <br />
 	 * The first parameter in values is set at DMX address specified by address. The
 	 * following three values parameters are set in the adjacent ascending
@@ -90,13 +114,11 @@ public class DMXDriver {
 		// bit_offset is the number of bits to shift each value into data_val
 		// curr_val holds the truncated byte from each input value
 		int bit_offset, curr_val;
-		for (int i = 0; i < 4; i++) {
-			bit_offset = 4 * i;
+		for (int i = 0; i < values.length; i++) {
+			bit_offset = 8 * i;
 			curr_val = values[i] & 0xff;
-			if (values.length > i) {
-				data_val += curr_val << bit_offset;
-				dmxShadow[address + i] = curr_val;
-			}
+			data_val += curr_val << bit_offset;
+			dmxShadow[address + i] = curr_val;
 		}
 
 		// write the four bytes out to the dmx register
@@ -158,6 +180,6 @@ public class DMXDriver {
 							reg.toString()));
 
 		Files.write(reg, buf, StandardOpenOption.SYNC);
-		// System.out.printf("Wrote %08x to %s\n", val, reg.toString());
+		System.out.printf("Wrote %08x to %s\n", val, reg.toString());
 	}
 }
