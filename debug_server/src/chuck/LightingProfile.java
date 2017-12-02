@@ -221,7 +221,9 @@ public class LightingProfile implements Comparable<LightingProfile> {
 		this.tilt_fine = tilt_fine;
 	}
 
-	/* (non-Javadoc)
+	/** 
+	 * Comparison based on address; used for sorting in correct addressable order.
+	 * 
 	 * @see java.lang.Comparable#compareTo(java.lang.Object)
 	 */
 	@Override

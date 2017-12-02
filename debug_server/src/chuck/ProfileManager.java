@@ -6,12 +6,8 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -41,8 +37,10 @@ public class ProfileManager {
 	/**
 	 * Constructor. Create a profile set from given file.
 	 * 
-	 * @param filepath "Set file" to load into manager
-	 * @throws IOException if unable to read/parse file
+	 * @param filepath
+	 *            "Set file" to load into manager
+	 * @throws IOException
+	 *             if unable to read/parse file
 	 */
 	public ProfileManager(String filepath) throws IOException {
 		parseSetFile(filepath);
@@ -51,8 +49,10 @@ public class ProfileManager {
 	/**
 	 * reads from set file and populates the set arraylist
 	 * 
-	 * @param filepath "set file" to load into manager
-	 * @throws IOException if unable to read/parse file
+	 * @param filepath
+	 *            "set file" to load into manager
+	 * @throws IOException
+	 *             if unable to read/parse file
 	 */
 	public void parseSetFile(String filepath) throws IOException {
 		String line = "";
@@ -94,8 +94,10 @@ public class ProfileManager {
 	/**
 	 * writes current set to a set file
 	 * 
-	 * @param filepath destination file
-	 * @throws IOException if unable to write
+	 * @param filepath
+	 *            destination file
+	 * @throws IOException
+	 *             if unable to write
 	 */
 	public void writeSetFile(String filepath) throws IOException {
 
@@ -111,7 +113,8 @@ public class ProfileManager {
 	/**
 	 * Prompt user for command line inputs to edit profiles.
 	 * 
-	 * @param reader Buffered reader from commandline input source
+	 * @param reader
+	 *            Buffered reader from commandline input source
 	 */
 	public void managerCLI(BufferedReader reader) {
 		boolean quit = false;
