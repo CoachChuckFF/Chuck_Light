@@ -158,8 +158,8 @@ module ece453(
 			.write_data1(dmx_data_r[15:8]),
 			.write_data2(dmx_data_r[23:16]),
 			.write_data3(dmx_data_r[31:24]),
-			.write_size((dmx_size_r > 32'h4) ? 3'h4 : dmx_size_r[2:0]),
-			.write_en(dmx_write),
+			.write_size((dmx_size_r > 32'h4) ? 3'h0 : dmx_size_r[2:0]),
+			.write_en((dmx_addr_r <= 32'd512) && (dmx_addr_r > 32'b0) && dmx_write),
 			.dmx_signal(dmx_out)
 		);
 

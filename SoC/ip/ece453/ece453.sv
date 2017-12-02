@@ -158,8 +158,8 @@ module ece453(
 			.write_data1(dmx_data_r[15:8]),
 			.write_data2(dmx_data_r[23:16]),
 			.write_data3(dmx_data_r[31:24]),
-			.write_size((dmx_size_r > 32'h4) ? 3'h4 : dmx_size_r[2:0]),
-			.write_en(dmx_write),
+			.write_size((dmx_size_r > 32'h4) ? 3'h0 : dmx_size_r[2:0]),
+			.write_en((dmx_addr_r <= 32'd512) && (dmx_addr_r > 32'b0) && dmx_write),
 			.dmx_signal(dmx_out)
 		);
 
@@ -197,6 +197,7 @@ module ece453(
 	end
 endmodule
 
+
 module dmx512(
 	input			clk,		// Clock
 	input			rst,		// Asynchronous reset active high
@@ -233,10 +234,10 @@ module dmx512(
 	/* offset addresses for four bytes to write (if overflow memory index of 512, then set zero) */
 	/* set zero for bytes not being written (according to write_size) */
 	wire [9:0] addr0, addr1, addr2, addr3;
-	assign addr0 = (write_size >= 2'h1 && write_addr <= 10'h200) ? write_addr			: 10'h0;
-	assign addr1 = (write_size >= 2'h2 && write_addr <= 10'h1ff) ? write_addr + 10'h1	: 10'h0;
-	assign addr2 = (write_size >= 2'h3 && write_addr <= 10'h1fe) ? write_addr + 10'h2	: 10'h0;
-	assign addr3 = (write_size >= 2'h4 && write_addr <= 10'h1fd) ? write_addr + 10'h3	: 10'h0;
+	assign addr0 = (write_size >= 3'h1 && write_addr <= 10'h200) ? write_addr			: 10'h0;
+	assign addr1 = (write_size >= 3'h2 && write_addr <= 10'h1ff) ? write_addr + 10'h1	: 10'h0;
+	assign addr2 = (write_size >= 3'h3 && write_addr <= 10'h1fe) ? write_addr + 10'h2	: 10'h0;
+	assign addr3 = (write_size >= 3'h4 && write_addr <= 10'h1fd) ? write_addr + 10'h3	: 10'h0;
 	/* 512 bytes of dmx data to continuously send */
 	reg [7:0] DMX_data [0:512];
 	always_ff @(posedge clk or posedge rst) begin

@@ -35,10 +35,10 @@ module dmx512(
 	/* offset addresses for four bytes to write (if overflow memory index of 512, then set zero) */
 	/* set zero for bytes not being written (according to write_size) */
 	wire [9:0] addr0, addr1, addr2, addr3;
-	assign addr0 = (write_size >= 2'h1 && write_addr <= 10'h200) ? write_addr			: 10'h0;
-	assign addr1 = (write_size >= 2'h2 && write_addr <= 10'h1ff) ? write_addr + 10'h1	: 10'h0;
-	assign addr2 = (write_size >= 2'h3 && write_addr <= 10'h1fe) ? write_addr + 10'h2	: 10'h0;
-	assign addr3 = (write_size >= 2'h4 && write_addr <= 10'h1fd) ? write_addr + 10'h3	: 10'h0;
+	assign addr0 = (write_size >= 3'h1 && write_addr <= 10'h200) ? write_addr			: 10'h0;
+	assign addr1 = (write_size >= 3'h2 && write_addr <= 10'h1ff) ? write_addr + 10'h1	: 10'h0;
+	assign addr2 = (write_size >= 3'h3 && write_addr <= 10'h1fe) ? write_addr + 10'h2	: 10'h0;
+	assign addr3 = (write_size >= 3'h4 && write_addr <= 10'h1fd) ? write_addr + 10'h3	: 10'h0;
 	/* 512 bytes of dmx data to continuously send */
 	reg [7:0] DMX_data [0:512];
 	always_ff @(posedge clk or posedge rst) begin
