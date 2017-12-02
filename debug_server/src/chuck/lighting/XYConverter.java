@@ -50,7 +50,7 @@ public class XYConverter {
 				// calculate distance from center
 				distance = (float) Math.sqrt(x * x + y * y);
 				// calculate degree angle off zero
-				angle = (float) (Math.atan(x / y) * (180 / Math.PI));
+				angle = (float) (Math.atan2(x, y) * (180 / Math.PI));
 
 				// ignore outside of radius (leave black)
 				if (distance > RADIUS) {
