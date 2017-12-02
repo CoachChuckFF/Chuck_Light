@@ -11,6 +11,7 @@ public class HeartBeatThread extends Thread {
 	private byte[] data;
 	private InetAddress address;
 	private boolean running;
+	private boolean connected;
 
 	/**
 	 * Constructor. Set UDP socket for sending heartbeat packets.
@@ -32,6 +33,7 @@ public class HeartBeatThread extends Thread {
 		running = true;
 		address = null;
 		try {
+			//change to not broadcast
 			address = InetAddress.getByName("255.255.255.255");
 		} catch (UnknownHostException ex) {
 			// TODO: configure a specific IP address, maybe with some kind of handshake
@@ -40,7 +42,7 @@ public class HeartBeatThread extends Thread {
 			System.exit(-1);
 		}
 
-		byte[] data = new byte[10];
+		data = new byte[10];
 		System.arraycopy(Connection.ID, 0, data, 0, 8);
 		data[8] = Connection.POLL_PACKET_ID;
 
@@ -81,5 +83,26 @@ public class HeartBeatThread extends Thread {
 	public void redrum()
 	{
 		running = false;
+		connected = false;
+	}
+	
+	public void setAddress(InetAddress address)
+	{	
+		this.address = address;
+	}
+	
+	public void setConnected(boolean connected)
+	{
+		this.connected = connected;
+	}
+	
+	public boolean getConnected()
+	{
+		return this.connected;
+	}
+	
+	public void setCurrentState(byte currentState)
+	{
+		this.currentState = currentState;
 	}
 }

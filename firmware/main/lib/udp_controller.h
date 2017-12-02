@@ -52,8 +52,8 @@ typedef struct dataPacket {
   //data points will be populated
   uint8_t _data_type; //user_action,joystick,gyro
   uint8_t _user_action; //up,down,left,right,b1,b2,b_ps2,konami,reverse_konami
-  uint8_t _joystick[2]; //[0] x direction & [1] y direction
-  uint8_t _gyro[3]; //TODO finalize gyroscope length
+  int _joystick[2]; //[0] x direction & [1] y direction
+  int _gyro[3]; //TODO finalize gyroscope length
 }__attribute__((packed)) dataPacket;
 
 //Basestation to Controller
@@ -91,7 +91,7 @@ void udp_recieve(void *arg,
                   const ip_addr_t *addr,
                   u16_t port);
 
-void send_data_packet(uint8_t data_type, uint8_t *data);
+void send_data_packet(uint8_t data_type, uint8_t user_data, int *other_data);
 void send_poll_reply_packet(uint8_t mode,
                             float battery_level,
                             uint8_t msg_len,

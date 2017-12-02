@@ -39,19 +39,19 @@ public class UDPServerThread extends Thread {
 	@Override
 	public void run() {
 		byte[] receiveData = new byte[1024];
-
+		running = true;
 		while (running) {
 			DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
 			try {
 				server.receive(receivePacket);
+				
 			} catch (IOException ex) {
 				// treat ioexception as fatal for now;
 				ex.printStackTrace();
 				System.exit(-1);
 			}
-
 			try {
-				commandQ.put(new WirelessCommand(receivePacket.getData()));
+				commandQ.put(new WirelessCommand(receivePacket.getData(), receivePacket.getAddress()));
 			} catch (InterruptedException ex) {
 				ex.printStackTrace();
 				System.exit(-1);

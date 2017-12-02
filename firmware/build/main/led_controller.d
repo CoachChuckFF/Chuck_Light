@@ -81,6 +81,7 @@ led_controller.o: \
  /home/penguin/Documents/Blizzard/compiling_files/esp-idf/components/newlib/include/limits.h \
  /home/penguin/Documents/Blizzard/compiling_files/esp-idf/components/freertos/include/freertos/list.h \
  /home/penguin/Documents/Blizzard/compiling_files/esp-idf/components/freertos/include/freertos/queue.h \
+ /home/penguin/Documents/Blizzard/chuck_light/firmware/main/./lib/modes.h \
  /home/penguin/Documents/Blizzard/compiling_files/esp-idf/components/log/include/esp_log.h \
  /home/penguin/Documents/Blizzard/compiling_files/esp-idf/components/log/include/esp_log_internal.h
 
@@ -245,6 +246,8 @@ led_controller.o: \
 /home/penguin/Documents/Blizzard/compiling_files/esp-idf/components/freertos/include/freertos/list.h:
 
 /home/penguin/Documents/Blizzard/compiling_files/esp-idf/components/freertos/include/freertos/queue.h:
+
+/home/penguin/Documents/Blizzard/chuck_light/firmware/main/./lib/modes.h:
 
 /home/penguin/Documents/Blizzard/compiling_files/esp-idf/components/log/include/esp_log.h:
 

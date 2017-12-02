@@ -3,6 +3,7 @@ package chuck;
 import java.io.IOException;
 import java.net.DatagramSocket;
 import java.net.SocketException;
+import java.util.Arrays;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
@@ -121,13 +122,16 @@ public class ServerApp {
 			// take element from queue, blocking until something is there
 			try {
 				currCommand = commandQ.take();
+				if(!heartbeat.getConnected())
+				{
+					heartbeat.setAddress(currCommand.sender_ip);
+				}
 			} catch (InterruptedException ex) {
 				// for now, treat interruptedexception as fatal error
 				ex.printStackTrace();
 				System.exit(-1);
 			}
 
-			System.out.println("Received packet.");
 			if (!currCommand.parse()) {
 				// if unable to parse the command, ignore it
 				System.out.println("Received invalid packet");
@@ -137,8 +141,44 @@ public class ServerApp {
 			sendHeartbeat = false;
 			
 			switch (currCommand.getPacketType()) {
-			case Connection.COMMAND_PACKET_ID:
+			case Connection.DATA_PACKET_ID:
 			/* ---------- Main State Machine ------------------- */
+				/*for debug purposes*/
+				switch(currCommand.getUserActionData()){
+				case Connection.UP:
+					System.out.println("up");
+					break;
+				case Connection.DOWN:
+					System.out.println("down");
+					break;
+				case Connection.LEFT:
+					System.out.println("left");
+					break;
+				case Connection.RIGHT:
+					System.out.println("right");
+					break;
+				case Connection.B1:
+					System.out.println("b1");
+					break;
+				case Connection.B2:
+					System.out.println("b2");
+					break;
+				case Connection.PS2:
+					System.out.println("ps2");
+					break;
+				case Connection.B12:
+					System.out.println("b12");
+					break;
+				case Connection.KONAMI:
+					System.out.println("ko");
+					currentState = Modes.PARTY;
+					sendHeartbeat = true;
+					break;
+				case Connection.REV_KONAMI:
+					System.out.println("rko");
+					break;
+				}
+				
 				switch(currentState)
 				{
 					case Modes.CHASE:
@@ -178,6 +218,14 @@ public class ServerApp {
 							break;
 						case Connection.B2:
 							currentState = Modes.CHASE;
+							sendHeartbeat = true;
+							break;
+						case Connection.KONAMI:
+							currentState = Modes.PARTY;
+							sendHeartbeat = true;
+							break;
+						case Connection.REV_KONAMI:
+							currentState = Modes.SCARY;
 							sendHeartbeat = true;
 							break;
 						}
@@ -221,7 +269,7 @@ public class ServerApp {
 							break;
 						case Connection.B1:
 							//TODO Position Dependant
-							//currentState = Modes.CONTROL_SELECTION;
+							currentState = Modes.COLOR_WHEEL;
 							sendHeartbeat = true;
 							break;
 						case Connection.B2:
@@ -248,6 +296,7 @@ public class ServerApp {
 						}
 						else if(currCommand.getDataType() == Connection.JOYSTIC_DATA)
 						{
+							System.out.println(Arrays.toString(currCommand.getJoystickData()));
 							//TODO RGB stuff with Joystick
 						}
 						else
@@ -308,8 +357,22 @@ public class ServerApp {
 						}
 					break;
 					case Modes.PARTY:
+						switch(currCommand.getUserActionData()){
+						case Connection.B12:
+							//TODO Save
+							currentState = Modes.IDLE;
+							sendHeartbeat = true;
+							break;
+						}
 					break;
 					case Modes.SCARY:
+						switch(currCommand.getUserActionData()){
+						case Connection.B12:
+							//TODO Save
+							currentState = Modes.IDLE;
+							sendHeartbeat = true;
+							break;
+						}
 					break;
 					default:
 						System.out.println("State out of bounds!");
@@ -320,13 +383,20 @@ public class ServerApp {
 				//Do mode matching maybe?
 				System.out.println("Poll Reply");
 				break;
+			case Connection.POLL_PACKET_ID:
+				//Do mode matching maybe?
+				System.out.println("Poll");
+				break;
 			default:
 				System.out.println("Unkown Packet Type");
 			break;
 			}
 			
 			if(sendHeartbeat)
+			{
+				heartbeat.setCurrentState(currentState);
 				heartbeat.sendHeartbeat();
+			}
 		}
 	}
 	

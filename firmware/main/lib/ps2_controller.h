@@ -14,8 +14,8 @@
 #include "driver/adc.h"
 #include "esp_log.h"
 
-#define X_PIN 34
-#define Y_PIN 35
+#define X_PIN 35
+#define Y_PIN 34
 #define Z_PIN 32 //for refrence only - PS2 button controlled in button_controllers
 
 #define X_ADC ADC1_CHANNEL_7

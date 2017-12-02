@@ -23,14 +23,20 @@
 #define TAG "Main"
 
 extern uint8_t DEBOUNCE_TICK;
-uint8_t MODE = SELECTION_MODE;
+uint8_t MODE = IDLE_MODE;
 
 uint8_t button_event = 0;
 uint8_t direction_event = 0;
 uint8_t motion_event = 0;
 
+int joystick_data[2];
+int gyro_data[3];
+
 uint8_t buf[4];
 uint8_t tick = 0;
+uint8_t party_tick = 0;
+uint8_t xy_tick = 0;
+uint8_t party_sub_mode = 0;
 
 void app_main()
 {
@@ -65,24 +71,18 @@ void app_main()
           break;
           case LEFT:
             ESP_LOGI(TAG, "LEFT");
-            set_blue(HIGH);
             direction_event = LEFT;
           break;
           case RIGHT:
             ESP_LOGI(TAG, "RIGHT");
-            set_red(HIGH);
             direction_event = RIGHT;
           break;
           case UP:
             ESP_LOGI(TAG, "UP");
-            set_red(LOW);
-            set_green(LOW);
-            set_blue(LOW);
             direction_event = UP;
           break;
           case DOWN:
             ESP_LOGI(TAG, "DOWN");
-            set_green(HIGH);
             direction_event = DOWN;
           break;
         }
@@ -112,21 +112,18 @@ void app_main()
           break;
         }
 
-
-        /*if(!(tick++ % 8))
-          print_xy();*/
-
-
         DEBOUNCE_TICK = 0;
         konami_tick();
+        party_tick++;
+        xy_tick++;
       }
 
       switch(MODE)
       {
-        case IDLE_MODE:
+        case CHASE_MODE:
 
         break;
-        case SELECTION_MODE:
+        case IDLE_MODE:
 
           switch(check_konami(direction_event, button_event))
           {
@@ -138,38 +135,84 @@ void app_main()
             break;
             case KONAMI_COMPLETE:
               ESP_LOGI(TAG, "KONAMI!!! -> Enter Party Mode");
-              goto SKIP_USER_INPUT;
+              direction_event = KONAMI_COMPLETE;
             break;
             case REV_KONAMI_COMPLETE:
               ESP_LOGI(TAG, "REVERSE-KONAMI!!! -> Enter Scary Mode");
-              goto SKIP_USER_INPUT;
+              direction_event = REV_KONAMI_COMPLETE;
             break;
           }
+        break;
+        case LIGHT_SELECTION_MODE:
+
+
+        break;
+        case CONTROL_SELECTION_MODE:
+
 
         break;
         case COLOR_WHEEL_MODE:
-
-        break;
-        case PRESET_MODE:
-
-        break;
-        case RECENT_MODE:
+        if(xy_tick > 30)
+        {
+          read_xy(joystick_data);
+          //print_xy();
+          send_data_packet(JOYSTICK_DATA, 0, joystick_data);
+          xy_tick = 0;
+        }
 
         break;
         case DMX_MODE:
 
+
+        break;
+        case PRESET_MODE:
+
+
         break;
         case PARTY_MODE:
+          //send gyro data
+          if(party_tick > 10)
+          {
+            switch(party_sub_mode)
+            {
+              case 1:
+                set_red(HIGH);
+                set_green(LOW);
+                set_blue(LOW);
+              break;
+              case 2:
+                set_red(LOW);
+                set_green(HIGH);
+                set_blue(LOW);
+              break;
+              case 3:
+                set_red(LOW);
+                set_green(LOW);
+                set_blue(HIGH);
+              break;
+              case 4:
+                set_red(LOW);
+                set_green(LOW);
+                set_blue(LOW);
+                party_sub_mode = 0;
+              break;
+              default:
+                party_sub_mode = 1;
+            }
+            party_sub_mode++;
+            party_tick = 0;
+          }
 
         break;
         case SCARY_MODE:
+          //send gyro data
 
         break;
       }
 
       if(direction_event || button_event)
       {
-        send_data_packet(USER_ACTION_DATA, (direction_event) ? &direction_event : &button_event);
+        send_data_packet(USER_ACTION_DATA, (direction_event) ? direction_event : button_event, NULL);
       }
 
 SKIP_USER_INPUT:
@@ -187,4 +230,5 @@ uint8_t get_mode()
 void set_mode(uint8_t mode)
 {
   MODE = mode;
+  set_leds(mode);
 }

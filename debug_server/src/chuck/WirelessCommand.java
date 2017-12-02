@@ -1,5 +1,8 @@
 package chuck;
 
+import java.net.InetAddress;
+import java.util.Arrays;
+
 import chuck.defines.Connection;
 import chuck.defines.Modes;
 
@@ -8,6 +11,9 @@ public class WirelessCommand {
 	private byte packetType;
 	private byte mode;
 	private boolean parsed = false;
+	
+	//general
+	InetAddress sender_ip;
 	
 	//Poll Reply Packet Specific
 	private float batteryLevel;
@@ -18,12 +24,13 @@ public class WirelessCommand {
 	//Data Packet Specific
 	private byte dataType;
 	private byte userActionData; //LRUD, Buttons
-	private byte joystickData[];
-	private byte gyroData[];
+	private int joystickData[];
+	private int gyroData[];
 	
 	
-	public WirelessCommand(byte[] rawData) {
+	public WirelessCommand(byte[] rawData, InetAddress sender_ip) {
 		receiveData = rawData.clone();
+		this.sender_ip = sender_ip;
 	}
 
 	/*
@@ -41,20 +48,30 @@ public class WirelessCommand {
 		packetType = receiveData[8];
 		mode = receiveData[9];
 		
+		//System.out.println(Arrays.toString(receiveData));
+		
 		switch(packetType){
-		case Connection.POLL_REPLY_PACKET_ID:
-			switch(dataType = receiveData[10])
+		case Connection.DATA_PACKET_ID:
+			dataType = receiveData[10];
+			switch(dataType)
 			{
 			case Connection.USER_ACTION_DATA:
 				userActionData = receiveData[11];
 				break;
 			case Connection.JOYSTIC_DATA:
-				joystickData = new byte[2];
-				joystickData[0] = receiveData[12]; //X
-				joystickData[1] = receiveData[13]; //Y
+				
+				joystickData = new int[2];
+				joystickData[0] = (receiveData[15] & 0xFF) << 24 | 
+									(receiveData[14] & 0xFF) << 16 |
+									(receiveData[13] & 0xFF) << 8 |
+									(receiveData[12] & 0xFF); //X
+				joystickData[1] = (receiveData[19] & 0xFF) << 24 | 
+									(receiveData[18] & 0xFF) << 16 |
+									(receiveData[17] & 0xFF) << 8 |
+									(receiveData[16] & 0xFF); //Y
 				break;
 			case Connection.GYRO_DATA:
-				gyroData = new byte[2];
+				gyroData = new int[3];
 				//or just a byte of movement percentage?
 				gyroData[0] = receiveData[14]; //X
 				gyroData[1] = receiveData[15]; //Y
@@ -64,13 +81,14 @@ public class WirelessCommand {
 				return parsed = false; //not a valid input packet
 			}
 			break;
-		case Connection.DATA_PACKET_ID:
+		case Connection.POLL_REPLY_PACKET_ID:
+			break;
+		case Connection.POLL_PACKET_ID:
 			break;
 		default:
 			return parsed = false; //not a valid input packet
 		}
-			
-		
+
 		return parsed = true;
 	}
 	
@@ -87,12 +105,12 @@ public class WirelessCommand {
 	}
 	
 	//returns null on error
-	public byte[] getJoystickData(){
+	public int[] getJoystickData(){
 		return joystickData;
 	}
 	
 	//returns null on error
-	public byte[] getGyroData(){
+	public int[] getGyroData(){
 		return gyroData;
 	}
 
@@ -106,8 +124,10 @@ public class WirelessCommand {
 	
 	private boolean verifyPacket() {
 		for (int i = 0; i < Connection.ID.length; i++) {
-		if(receiveData[i] != Connection.ID[i]) return false; }
-
+		if(receiveData[i] != Connection.ID[i]){
+			return false; 
+			}
+		}
 
 		return true;
 	}

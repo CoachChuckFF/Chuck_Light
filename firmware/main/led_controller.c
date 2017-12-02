@@ -22,6 +22,58 @@ void init_led_controller()
 
 }
 
+void set_leds(uint8_t mode)
+{
+  switch(mode)
+  {
+    case CHASE_MODE:
+      gpio_set_level(RED_PIN, LOW);
+      gpio_set_level(GREEN_PIN, LOW);
+      gpio_set_level(BLUE_PIN, HIGH);
+    break;
+    case IDLE_MODE:
+    gpio_set_level(RED_PIN, LOW);
+    gpio_set_level(GREEN_PIN, HIGH);
+    gpio_set_level(BLUE_PIN, LOW);
+    break;
+    case LIGHT_SELECTION_MODE:
+    gpio_set_level(RED_PIN, LOW);
+    gpio_set_level(GREEN_PIN, HIGH);
+    gpio_set_level(BLUE_PIN, HIGH);
+    break;
+    case CONTROL_SELECTION_MODE:
+    gpio_set_level(RED_PIN, HIGH);
+    gpio_set_level(GREEN_PIN, LOW);
+    gpio_set_level(BLUE_PIN, LOW);
+    break;
+    case COLOR_WHEEL_MODE:
+    gpio_set_level(RED_PIN, HIGH);
+    gpio_set_level(GREEN_PIN, LOW);
+    gpio_set_level(BLUE_PIN, HIGH);
+    break;
+    case DMX_MODE:
+    gpio_set_level(RED_PIN, HIGH);
+    gpio_set_level(GREEN_PIN, HIGH);
+    gpio_set_level(BLUE_PIN, LOW);
+    break;
+    case PRESET_MODE:
+    gpio_set_level(RED_PIN, HIGH);
+    gpio_set_level(GREEN_PIN, HIGH);
+    gpio_set_level(BLUE_PIN, HIGH);
+    break;
+    case PARTY_MODE:
+    gpio_set_level(RED_PIN, LOW);
+    gpio_set_level(GREEN_PIN, LOW);
+    gpio_set_level(BLUE_PIN, LOW);
+    break;
+    case SCARY_MODE:
+    gpio_set_level(RED_PIN, LOW);
+    gpio_set_level(GREEN_PIN, LOW);
+    gpio_set_level(BLUE_PIN, LOW);
+    break;
+  }
+}
+
 void set_red(uint8_t level)
 {
   gpio_set_level(RED_PIN, level);

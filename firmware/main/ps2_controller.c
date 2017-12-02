@@ -25,6 +25,8 @@ void init_ps2_controller()
   adc1_config_channel_atten(X_ADC, ADC_ATTEN_11db);
 }
 
+// everthing is flipped becaseu the analog stick is
+// flipped from the prototype version
 uint8_t read_direction(uint8_t continuous_read_enable)
 {
   double x, y;
@@ -78,7 +80,7 @@ uint8_t read_direction(uint8_t continuous_read_enable)
     if(left_count++ > DEBOUNCE_COUNT)
     {
       left_count = -1;
-      return LEFT;
+      return RIGHT; //refer to top to see why
     }
 
     return CENTER;
@@ -95,7 +97,7 @@ uint8_t read_direction(uint8_t continuous_read_enable)
     if(right_count++ > DEBOUNCE_COUNT)
     {
       right_count = -1;
-      return RIGHT;
+      return LEFT; //refer to top to see why
     }
 
     return CENTER;
@@ -112,7 +114,7 @@ uint8_t read_direction(uint8_t continuous_read_enable)
     if(up_count++ > DEBOUNCE_COUNT)
     {
       up_count = -1;
-      return UP;
+      return DOWN; //refer to top to see why
     }
 
     return CENTER;
@@ -129,7 +131,7 @@ uint8_t read_direction(uint8_t continuous_read_enable)
     if(down_count++ > DEBOUNCE_COUNT)
     {
       down_count = -1;
-      return DOWN;
+      return UP; //refer to top to see why
     }
 
     return CENTER;

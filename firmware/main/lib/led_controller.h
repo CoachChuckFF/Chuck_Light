@@ -11,6 +11,7 @@
 #include "freertos/task.h"
 #include "freertos/queue.h"
 #include "driver/gpio.h"
+#include "modes.h"
 #include "esp_log.h"
 
 #define HIGH 1
@@ -23,6 +24,7 @@
 
 void init_led_controller(void);
 
+void set_leds(uint8_t mode);
 void set_red(uint8_t level);
 void set_green(uint8_t level);
 void set_blue(uint8_t level);

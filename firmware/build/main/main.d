@@ -134,6 +134,7 @@ main.o: \
  /home/penguin/Documents/Blizzard/compiling_files/esp-idf/components/lwip/include/lwip/lwip/dns.h \
  /home/penguin/Documents/Blizzard/chuck_light/firmware/main/./lib/data_controller.h \
  /home/penguin/Documents/Blizzard/chuck_light/firmware/main/./lib/led_controller.h \
+ /home/penguin/Documents/Blizzard/chuck_light/firmware/main/./lib/modes.h \
  /home/penguin/Documents/Blizzard/chuck_light/firmware/main/./lib/motion_controllers.h \
  /home/penguin/Documents/Blizzard/compiling_files/esp-idf/components/driver/include/driver/spi_master.h \
  /home/penguin/Documents/Blizzard/compiling_files/esp-idf/components/driver/include/driver/spi_common.h \
@@ -166,7 +167,6 @@ main.o: \
  /home/penguin/Documents/Blizzard/compiling_files/esp-idf/components/lwip/include/lwip/lwip/ip6.h \
  /home/penguin/Documents/Blizzard/chuck_light/firmware/main/./lib/button_controllers.h \
  /home/penguin/Documents/Blizzard/chuck_light/firmware/main/./lib/ps2_controller.h \
- /home/penguin/Documents/Blizzard/chuck_light/firmware/main/./lib/modes.h \
  /home/penguin/Documents/Blizzard/chuck_light/firmware/main/./lib/konami.h \
  /home/penguin/Documents/Blizzard/chuck_light/firmware/main/./lib/modes.h
 
@@ -438,6 +438,8 @@ main.o: \
 
 /home/penguin/Documents/Blizzard/chuck_light/firmware/main/./lib/led_controller.h:
 
+/home/penguin/Documents/Blizzard/chuck_light/firmware/main/./lib/modes.h:
+
 /home/penguin/Documents/Blizzard/chuck_light/firmware/main/./lib/motion_controllers.h:
 
 /home/penguin/Documents/Blizzard/compiling_files/esp-idf/components/driver/include/driver/spi_master.h:
@@ -501,8 +503,6 @@ main.o: \
 /home/penguin/Documents/Blizzard/chuck_light/firmware/main/./lib/button_controllers.h:
 
 /home/penguin/Documents/Blizzard/chuck_light/firmware/main/./lib/ps2_controller.h:
-
-/home/penguin/Documents/Blizzard/chuck_light/firmware/main/./lib/modes.h:
 
 /home/penguin/Documents/Blizzard/chuck_light/firmware/main/./lib/konami.h:
 

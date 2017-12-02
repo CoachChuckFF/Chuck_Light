@@ -30,7 +30,7 @@ void init_udp_controller()
 
     //may have to change
     DATA_PACKET._header = HEADER;
-    DATA_PACKET._header._packet_type = DATA_PACKET_ID;
+    DATA_PACKET._header._packet_type = 0x33;
     POLL_REPLY_PACKET._header = HEADER;
     POLL_REPLY_PACKET._header._packet_type = POLL_REPLY_PACKET_ID;
 
@@ -82,7 +82,8 @@ void udp_recieve(void *arg,
     case POLL_PACKET_ID:
       DEST_IP = &DEST_IP_DATA;
       ip_addr_set(DEST_IP, addr);
-
+      //ESP_LOGI(TAG, "%d.%d.%d.%d", ((uint8_t*)addr)[0], ((uint8_t*)addr)[1], ((uint8_t*)addr)[2], ((uint8_t*)addr)[3]);
+      set_mode(((commandPacket *)(p->payload))->_header._mode); //update mode
       send_poll_reply_packet(get_mode(),
                               0.69,
                               0,
@@ -95,7 +96,7 @@ FREE_P:
   pbuf_free(p);
 }
 
-void send_data_packet(uint8_t data_type, uint8_t *data)
+void send_data_packet(uint8_t data_type, uint8_t user_data, int *other_data)
 {
 
   struct pbuf *p;
@@ -124,15 +125,17 @@ void send_data_packet(uint8_t data_type, uint8_t *data)
   switch(data_type)
   {
     case USER_ACTION_DATA:
-      DATA_PACKET._user_action = data[0];
+      DATA_PACKET._user_action = user_data;
     break;
     case JOYSTICK_DATA:
-      DATA_PACKET._joystick[0] = data[0];
-      DATA_PACKET._joystick[1] = data[1];
+      DATA_PACKET._joystick[0] = other_data[0];
+      DATA_PACKET._joystick[1] = other_data[1];
     break;
     case GYRO_DATA:
       //TODO this
-      DATA_PACKET._gyro[0] = 0x69;
+      DATA_PACKET._gyro[0] = other_data[0];
+      DATA_PACKET._gyro[1] = other_data[1];
+      DATA_PACKET._gyro[2] = other_data[2];
     break;
   }
 
