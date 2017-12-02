@@ -12,9 +12,9 @@ import java.awt.Color;
  */
 public class XYConverter {
 	/**
-	 * Range of values that are expected to be converted
+	 * Range of values that are expected to be converted (after being scaled)
 	 */
-	private static final int VALUE_RANGE = 4096;
+	public static final int VALUE_RANGE = 4096;
 	/**
 	 * Divisor for calculating color wheel size from value range
 	 */
@@ -23,7 +23,7 @@ public class XYConverter {
 	 * HSV value/
 	 */
 	private static final float HSV_VALUE = 1.0f;
-	
+
 	private static final int RADIUS = (VALUE_RANGE / SCALE) / 2;
 	private static final int WHITE_RADIUS = RADIUS / 16;
 
@@ -90,9 +90,9 @@ public class XYConverter {
 	 * @return color (containing RGB values) of the xy location in the color wheel
 	 */
 	public Color getColor(int x, int y) {
-		if (x >= VALUE_RANGE || y >=VALUE_RANGE)
+		if (x >= VALUE_RANGE || y >= VALUE_RANGE)
 			throw new IllegalArgumentException("(x,y) values must be within [0:" + (VALUE_RANGE - 1) + "]");
-		
-		return new Color(red[x/SCALE][y/SCALE], green[x/SCALE][y/SCALE], blue[x/SCALE][y/SCALE]);
+
+		return new Color(red[x / SCALE][y / SCALE], green[x / SCALE][y / SCALE], blue[x / SCALE][y / SCALE]);
 	}
 }

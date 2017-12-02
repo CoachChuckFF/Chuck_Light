@@ -22,10 +22,6 @@ import sun.awt.image.ToolkitImage;
  *
  */
 public class XYConverterTestGUI {
-	/**
-	 * Range of values expected to be converted in xy plane
-	 */
-	private static final int RANGE = 4096;
 
 	/**
 	 * Open a window containing the color wheel.
@@ -84,41 +80,46 @@ public class XYConverterTestGUI {
 			// instantiate the converter
 			XYConverter converter = new XYConverter();
 			// instantiate an image buffer
-			BufferedImage b_img = new BufferedImage(RANGE, RANGE, BufferedImage.TYPE_INT_ARGB);
+			BufferedImage b_img = new BufferedImage(XYConverter.VALUE_RANGE, XYConverter.VALUE_RANGE,
+					BufferedImage.TYPE_INT_ARGB);
 
 			// convert each of the x-y values and put them in an image to display
-			for (int x = 0; x < RANGE; x++) {
-				for (int y = 0; y < RANGE; y++) {
+			for (int x = 0; x < XYConverter.VALUE_RANGE; x++) {
+				for (int y = 0; y < XYConverter.VALUE_RANGE; y++) {
 					b_img.setRGB(x, y, converter.getColor(x, y).getRGB());
 				}
 			}
-			
+
 			// scale image to fit to screen
 			img = (ToolkitImage) b_img.getScaledInstance(1024, 1024, Image.SCALE_SMOOTH);
 		}
-		
-        /* (non-Javadoc)
-         * @see javax.swing.JComponent#getPreferredSize()
-         */
-        @Override
-        public Dimension getPreferredSize() {
-            return img == null ? new Dimension(200, 200) : new Dimension(img.getWidth(), img.getHeight());
-        }
-        
-        /* (non-Javadoc)
-         * @see javax.swing.JComponent#paintComponent(java.awt.Graphics)
-         */
-        @Override
-        protected void paintComponent(Graphics g) {
-        	// call default paint
-            super.paintComponent(g);
-            // cast to g2d for showing image
-            Graphics2D g2d = (Graphics2D) g.create();
-            // draw the colorwheel
-            if (img != null) {
-                g2d.drawImage(img, 0, 0, this);
-            }
-            g2d.dispose();
-        }
+
+		/*
+		 * (non-Javadoc)
+		 * 
+		 * @see javax.swing.JComponent#getPreferredSize()
+		 */
+		@Override
+		public Dimension getPreferredSize() {
+			return img == null ? new Dimension(200, 200) : new Dimension(img.getWidth(), img.getHeight());
+		}
+
+		/*
+		 * (non-Javadoc)
+		 * 
+		 * @see javax.swing.JComponent#paintComponent(java.awt.Graphics)
+		 */
+		@Override
+		protected void paintComponent(Graphics g) {
+			// call default paint
+			super.paintComponent(g);
+			// cast to g2d for showing image
+			Graphics2D g2d = (Graphics2D) g.create();
+			// draw the colorwheel
+			if (img != null) {
+				g2d.drawImage(img, 0, 0, this);
+			}
+			g2d.dispose();
+		}
 	}
 }
