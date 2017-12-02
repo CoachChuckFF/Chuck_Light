@@ -111,11 +111,11 @@ public class DMXTester {
 			throw new IllegalArgumentException("DMX array must be 513 ints long");
 		
 		for (int i = 1 ; i <= 512 ; i++) {
-			if (i % 4 == 1) {
+			if (i % 16 == 1) {
 				System.out.printf("\n");
-				System.out.printf("%4d |\t", i);
+				System.out.printf("%4d:", i);
 			}
-			System.out.printf("%d\t", dmxVals[i]);
+			System.out.printf("%4d", dmxVals[i]);
 		}
 		System.out.println("");
 	}

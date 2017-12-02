@@ -25,6 +25,8 @@ public class DMXDriver {
 	private Path stat;
 
 	private int[] dmxShadow;
+	
+	private static final boolean debug_writes = false;
 
 	/**
 	 * Constructor. Attempt to initialize the driver, checking each sys file
@@ -180,6 +182,7 @@ public class DMXDriver {
 							reg.toString()));
 
 		Files.write(reg, buf, StandardOpenOption.SYNC);
-		System.out.printf("Wrote %08x to %s\n", val, reg.toString());
+		if (debug_writes)
+			System.out.printf("Wrote %08x to %s\n", val, reg.toString());
 	}
 }
