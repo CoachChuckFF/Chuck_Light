@@ -1,9 +1,13 @@
 package chuck;
 
+import java.awt.Color;
+
+import chuck.drivers.DMXDriver;
+
 /**
  * Chuck Lighting Profile Class
  * 
- * TODO: Christian: describe what this class represents, when/how to use it, etc.
+ * Represents a single fixture in the lighting setup.
  *
  * @author Christian Krueger
  */
@@ -21,6 +25,7 @@ public class LightingProfile implements Comparable<LightingProfile> {
 	 * how many channels the fixture has
 	 */
 	private int channels;
+	private DMXDriver dmxDriver;
 
 
 	/*
@@ -47,7 +52,8 @@ public class LightingProfile implements Comparable<LightingProfile> {
 	/**
 	 * Constructor.
 	 */
-	public LightingProfile() {
+	public LightingProfile(DMXDriver dmx) {
+		dmxDriver = dmx;
 		name = "unset";
 		address = 0;
 		channels = 1;
@@ -73,7 +79,10 @@ public class LightingProfile implements Comparable<LightingProfile> {
 	 * @param address
 	 * @param channels
 	 */
-	public LightingProfile(String name, int address, int channels) {
+	public LightingProfile(DMXDriver dmx, String name, int address, int channels) {
+		// populate default values
+		this(dmx);
+		// check arguments
 		if (name == null || name == "")
 			throw new IllegalArgumentException("empty name not allowed");
 		if (address < 1)
@@ -86,19 +95,6 @@ public class LightingProfile implements Comparable<LightingProfile> {
 		this.name = name;
 		this.address = address;
 		this.channels = channels;
-		
-		dimmer = -1;
-		red = -1;
-		green = -1;
-		blue = -1;
-		amber = -1;
-		white = -1;
-		strobe = -1;
-		zoom = -1;
-		pan = -1;
-		pan_fine = -1;
-		tilt = -1;
-		tilt_fine = -1;
 	}
 
 	public String getName() {
@@ -125,100 +121,84 @@ public class LightingProfile implements Comparable<LightingProfile> {
 		this.channels = channels;
 	}
 
-	public int getDimmer() {
-		return this.dimmer;
-	}
-
 	public void setDimmer(int dimmer) {
 		this.dimmer = dimmer;
-	}
-
-	public int getRed() {
-		return this.red;
 	}
 
 	public void setRed(int red) {
 		this.red = red;
 	}
 
-	public int getGreen() {
-		return this.green;
-	}
-
 	public void setGreen(int green) {
 		this.green = green;
-	}
-
-	public int getBlue() {
-		return this.blue;
 	}
 
 	public void setBlue(int blue) {
 		this.blue = blue;
 	}
 
-	public int getAmber() {
-		return this.amber;
-	}
-
 	public void setAmber(int amber) {
 		this.amber = amber;
-	}
-
-	public int getWhite() {
-		return this.white;
 	}
 
 	public void setWhite(int white) {
 		this.white = white;
 	}
 
-	public int getStrobe() {
-		return this.strobe;
-	}
-
 	public void setStrobe(int strobe) {
 		this.strobe = strobe;
-	}
-
-	public int getZoom() {
-		return this.zoom;
 	}
 
 	public void setZoom(int zoom) {
 		this.zoom = zoom;
 	}
 
-	public int getPan() {
-		return this.pan;
-	}
-
 	public void setPan(int pan) {
 		this.pan = pan;
-	}
-
-	public int getPanFine() {
-		return this.pan_fine;
 	}
 
 	public void setPanFine(int pan_fine) {
 		this.pan_fine = pan_fine;
 	}
 
-	public int getTilt() {
-		return this.tilt;
-	}
-
 	public void setTilt(int tilt) {
 		this.tilt = tilt;
 	}
 
-	public int getTiltFine() {
-		return this.tilt_fine;
-	}
-
 	public void setTiltFine(int tilt_fine) {
 		this.tilt_fine = tilt_fine;
+	}
+	
+	/**
+	 * Sets the rgb color of this fixture. Only touches red, green, blue addresses in dmx module.
+	 * 
+	 * @param color
+	 * 	this fixtures new color
+	 */
+	public void setColor(Color color) {
+		
+	}
+	
+	/**
+	 * Sets the dmx dimmer value.
+	 * 
+	 * @param dimmerVal
+	 * 	fixtures new value
+	 */
+	public void setDimmerValue(int dimmerVal) {
+		
+	}
+	
+	/**
+	 * Set the value of one of this fixtures channels. Channel is one-indexed.
+	 * 
+	 * @param channel
+	 * 	relative channel to change (e.g., channel 1 will change this fixtures first value)
+	 * @param value
+	 * 	new value to put at dmx channel
+	 */
+	public void setChannelManual(int channel, int value) {
+		
 	}
 
 	/** 
