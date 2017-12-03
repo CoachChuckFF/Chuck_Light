@@ -27,9 +27,9 @@ public class XYConverter {
 	private static final int RADIUS = (VALUE_RANGE / SCALE) / 2;
 	private static final int WHITE_RADIUS = RADIUS / 16;
 
-	private int red[][] = new int[1024][1024];
-	private int green[][] = new int[1024][1024];
-	private int blue[][] = new int[1024][1024];
+	private int red[][] = new int[2*RADIUS][2*RADIUS];
+	private int green[][] = new int[2*RADIUS][2*RADIUS];
+	private int blue[][] = new int[2*RADIUS][2*RADIUS];
 
 	/**
 	 * Generate the rgb lookup arrays. Adapted from
