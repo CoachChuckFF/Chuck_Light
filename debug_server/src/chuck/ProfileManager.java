@@ -13,6 +13,7 @@ import java.util.Iterator;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import chuck.defines.*;
+import chuck.drivers.DMXDriver;
 
 /**
  * Chuck Lighting Profile Manager Class Contains functions to keep track of
@@ -23,6 +24,11 @@ import chuck.defines.*;
 public class ProfileManager {
 
 	/**
+	 * driver to pass into fixtures for updating dmx values
+	 */
+	private DMXDriver driver;
+	
+	/**
 	 * Lighting profile set. Thread safe for updating.
 	 */
 	private CopyOnWriteArrayList<LightingProfile> set;
@@ -30,7 +36,8 @@ public class ProfileManager {
 	/**
 	 * Constructor. Create an empty profile set.
 	 */
-	public ProfileManager() {
+	public ProfileManager(DMXDriver dmx) {
+		driver = dmx;
 		set = new CopyOnWriteArrayList<LightingProfile>();
 	}
 
@@ -42,7 +49,8 @@ public class ProfileManager {
 	 * @throws IOException
 	 *             if unable to read/parse file
 	 */
-	public ProfileManager(String filepath) throws IOException {
+	public ProfileManager(DMXDriver dmx, String filepath) throws IOException {
+		driver = dmx;
 		parseSetFile(filepath);
 	}
 
@@ -64,7 +72,7 @@ public class ProfileManager {
 			while ((line = br.readLine()) != null) {
 				// use comma as separator
 				String[] lightLine = line.split(cvsSplitBy);
-				light = new LightingProfile(lightLine[0], Integer.parseInt(lightLine[1]),
+				light = new LightingProfile(driver, lightLine[0], Integer.parseInt(lightLine[1]),
 						Integer.parseInt(lightLine[2]));
 				light.setDimmer(Integer.parseInt(lightLine[3]));
 				light.setRed(Integer.parseInt(lightLine[4]));
@@ -184,7 +192,7 @@ public class ProfileManager {
 
 	private void addProfileToSetCLI(BufferedReader reader) throws IOException {
 		String input;
-		LightingProfile light = new LightingProfile();
+		LightingProfile light = new LightingProfile(driver);
 
 		System.out.println("Enter light information");
 		System.out.println("To cancel enter 'q'");
@@ -577,10 +585,7 @@ public class ProfileManager {
 
 		while (iterator.hasNext()) {
 			temp = iterator.next();
-			csv += temp.getName() + "," + temp.getAddress() + "," + temp.getChannels() + "," + temp.getDimmer() + ","
-					+ temp.getRed() + "," + temp.getGreen() + "," + temp.getBlue() + "," + temp.getAmber() + ","
-					+ temp.getWhite() + "," + temp.getStrobe() + "," + temp.getZoom() + "," + temp.getPan() + ","
-					+ temp.getPanFine() + "," + temp.getTilt() + "," + temp.getTiltFine() + "\n";
+			csv += temp.getCSV() + "\n";
 
 		}
 		return csv;

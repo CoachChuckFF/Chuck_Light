@@ -1,6 +1,7 @@
 package chuck;
 
 import java.awt.Color;
+import java.io.IOException;
 
 import chuck.drivers.DMXDriver;
 
@@ -174,8 +175,9 @@ public class LightingProfile implements Comparable<LightingProfile> {
 	 * 
 	 * @param color
 	 * 	this fixtures new color
+	 * @throws IOException if unable to access dmx driver files
 	 */
-	public void setColor(Color color) {
+	public void setColor(Color color) throws IOException {
 		
 	}
 	
@@ -184,8 +186,9 @@ public class LightingProfile implements Comparable<LightingProfile> {
 	 * 
 	 * @param dimmerVal
 	 * 	fixtures new value
+	 * @throws IOException if unable to access dmx driver files
 	 */
-	public void setDimmerValue(int dimmerVal) {
+	public void setDimmerValue(int dimmerVal) throws IOException {
 		
 	}
 	
@@ -196,8 +199,9 @@ public class LightingProfile implements Comparable<LightingProfile> {
 	 * 	relative channel to change (e.g., channel 1 will change this fixtures first value)
 	 * @param value
 	 * 	new value to put at dmx channel
+	 * @throws IOException if unable to access dmx driver files
 	 */
-	public void setChannelManual(int channel, int value) {
+	public void setChannelManual(int channel, int value) throws IOException {
 		
 	}
 
@@ -234,6 +238,16 @@ public class LightingProfile implements Comparable<LightingProfile> {
 		light += "14. Tilt Fine: " + this.tilt_fine + "\n";
 		light += "-------------" + "\n";
 		return light;
+	}
+	
+	/**
+	 * @return csv representation for this fixture
+	 */
+	public String getCSV() {
+		return this.name + "," + this.address + "," + this.channels + "," + this.dimmer + ","
+				+ this.red + "," + this.green + "," + this.blue + "," + this.amber + ","
+				+ this.white + "," + this.strobe + "," + this.zoom + "," + this.pan + ","
+				+ this.pan_fine + "," + this.tilt + "," + this.tilt_fine;
 	}
 
 }

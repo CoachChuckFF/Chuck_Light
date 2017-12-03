@@ -58,7 +58,6 @@ public class ServerApp {
 	}
 	
 	public void init(){
-		profiles = new ProfileManager();
 		/*try {
 			// instantiate dmx driver
 			dmx = new DMXDriver();
@@ -68,6 +67,8 @@ public class ServerApp {
 			ex.printStackTrace();
 			System.exit(-1);
 		}*/
+		
+		profiles = new ProfileManager(dmx);
 	}
 	
 	public void startMainCLI(){
