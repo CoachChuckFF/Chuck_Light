@@ -2,6 +2,9 @@ package chuck;
 
 import java.awt.Color;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+import com.google.common.collect.BiMap;
 
 import chuck.drivers.DMXDriver;
 
@@ -14,196 +17,10 @@ import chuck.drivers.DMXDriver;
  */
 public class LightingProfile implements Comparable<LightingProfile> {
 	
-	public class LightingProfileChannelOffsets {
-		
-		/**
-		 * Maximum number of channels. NOTE: must match the number of private offset variables defined for this class
-		 */
-		private static final int MAX_CHANNELS = 12;
-		
-		/*
-		 * One int for each fixture "function"; the int represents the offset from the
-		 * address where you would find this function's byte in the DMX 512 byte array
-		 * 
-		 * Value is -1 if function does not exist
-		 * 
-		 * e.g., dimmer byte is at getAddress() + getDimmer()
-		 */
-		private int dimmerOffs = -1;
-		private int redOffs = -1;
-		private int greenOffs = -1;
-		private int blueOffs = -1;
-		private int amberOffs = -1;
-		private int whiteOffs = -1;
-		private int strobeOffs = -1;
-		private int zoomOffs = -1;
-		private int panOffs = -1;
-		private int panFineOffs = -1;
-		private int tiltOffs = -1;
-		private int tiltFineOffs = -1;
-		
-		/**
-		 * Get the number of channels set in this description.
-		 * 
-		 * @return
-		 * 	number of channels set for this settings description
-		 */
-		int numChannels() {
-			return 
-			
-			return Math.max(
-					dimmerOffs,
-					redOffs,
-					greenOffs,
-					blueOffs,
-					amberOffs,
-					whiteOffs,
-					strobeOffs,
-					zoomOffs,
-					panOffs,
-					panFineOffs,
-					tiltOffs,
-					tiltFineOffs
-					);
-		}
-
-		/**
-		 * Checks that offset is valid and sets it.
-		 * 
-		 * @param dimmerOffs new dimmer offset
-		 */
-		public void setDimmerOffs(int dimmerOffs) {
-			if (dimmerOffs < 0 || dimmerOffs >= MAX_CHANNELS)
-				throw new IllegalArgumentException("Invalid dimmer offset: " + dimmerOffs);
-			this.dimmerOffs = dimmerOffs;
-		}
-
-		/**
-		 * Checks that offset is valid and sets it.
-		 * 
-		 * @param redOffs new red offset
-		 */
-		public void setRedOffs(int redOffs) {
-			if (redOffs < 0 || redOffs >= MAX_CHANNELS)
-				throw new IllegalArgumentException("Invalid red offset: " + redOffs);
-			this.redOffs = redOffs;
-		}
-
-		/**
-		 * Checks that offset is valid and sets it.
-		 * 
-		 * @param greenOffs new green offset
-		 */
-		public void setGreenOffs(int greenOffs) {
-			if (greenOffs < 0 || greenOffs >= MAX_CHANNELS)
-				throw new IllegalArgumentException("Invalid green offset: " + greenOffs);
-			this.greenOffs = greenOffs;
-		}
-
-		/**
-		 * Checks that offset is valid and sets it.
-		 * 
-		 * @param blueOffs new blue offset
-		 */
-		public void setBlueOffs(int blueOffs) {
-			if (blueOffs < 0 || blueOffs >= MAX_CHANNELS)
-				throw new IllegalArgumentException("Invalid blue offset: " + blueOffs);
-			this.blueOffs = blueOffs;
-		}
-
-		/**
-		 * Checks that offset is valid and sets it.
-		 * 
-		 * @param amberOffs new amber offset
-		 */
-		public void setAmberOffs(int amberOffs) {
-			if (amberOffs < 0 || amberOffs >= MAX_CHANNELS)
-				throw new IllegalArgumentException("Invalid amber offset: " + amberOffs);
-			this.amberOffs = amberOffs;
-		}
-
-		/**
-		 * Checks that offset is valid and sets it.
-		 * 
-		 * @param whiteOffs new white offset
-		 */
-		public void setWhiteOffs(int whiteOffs) {
-			if (whiteOffs < 0 || whiteOffs >= MAX_CHANNELS)
-				throw new IllegalArgumentException("Invalid white offset: " + whiteOffs);
-			this.whiteOffs = whiteOffs;
-		}
-
-		/**
-		 * Checks that offset is valid and sets it.
-		 * 
-		 * @param strobeOffs new strobe offset
-		 */
-		public void setStrobeOffs(int strobeOffs) {
-			if (strobeOffs < 0 || strobeOffs >= MAX_CHANNELS)
-				throw new IllegalArgumentException("Invalid strobe offset: " + strobeOffs);
-			this.strobeOffs = strobeOffs;
-		}
-
-		/**
-		 * Checks that offset is valid and sets it.
-		 * 
-		 * @param zoomOffs new zoom offset
-		 */
-		public void setZoomOffs(int zoomOffs) {
-			if (zoomOffs < 0 || zoomOffs >= MAX_CHANNELS)
-				throw new IllegalArgumentException("Invalid zoom offset: " + zoomOffs);
-			this.zoomOffs = zoomOffs;
-		}
-
-		/**
-		 * Checks that offset is valid and sets it.
-		 * 
-		 * @param panOffs new pan offset
-		 */
-		public void setPanOffs(int panOffs) {
-			if (panOffs < 0 || panOffs >= MAX_CHANNELS)
-				throw new IllegalArgumentException("Invalid pan offset: " + panOffs);
-			this.panOffs = panOffs;
-		}
-
-		/**
-		 * Checks that offset is valid and sets it.
-		 * 
-		 * @param panFineOffs new panFine offset
-		 */
-		public void setPanFineOffs(int panFineOffs) {
-			if (panFineOffs < 0 || panFineOffs >= MAX_CHANNELS)
-				throw new IllegalArgumentException("Invalid panFine offset: " + panFineOffs);
-			this.panFineOffs = panFineOffs;
-		}
-
-		/**
-		 * Checks that offset is valid and sets it.
-		 * 
-		 * @param tiltOffs new tilt offset
-		 */
-		public void setTiltOffs(int tiltOffs) {
-			if (tiltOffs < 0 || tiltOffs >= MAX_CHANNELS)
-				throw new IllegalArgumentException("Invalid tilt offset: " + tiltOffs);
-			this.tiltOffs = tiltOffs;
-		}
-
-		/**
-		 * Checks that offset is valid and sets it.
-		 * 
-		 * @param tiltFineOffs new tiltFine offset
-		 */
-		public void setTiltFineOffs(int tiltFineOffs) {
-			if (tiltFineOffs < 0 || tiltFineOffs >= MAX_CHANNELS)
-				throw new IllegalArgumentException("Invalid tiltFine offset: " + tiltFineOffs);
-			this.tiltFineOffs = tiltFineOffs;
-		}
-	}
-	
 	/**
 	 * Offset settings for this lighting fixture
 	 */
-	private LightingProfileChannelOffsets offsets;
+	private Map<String, Integer> offsets;
 
 	/**
 	 * name of this light fixture
@@ -227,20 +44,20 @@ public class LightingProfile implements Comparable<LightingProfile> {
 	 * @param address
 	 * @param channels
 	 */
-	public LightingProfile(DMXDriver dmx, String name, int address, LightingProfileChannelOffsets channelOffsets) {
+	public LightingProfile(DMXDriver dmx, String name, int address, BiMap<String, Integer> channelOffsets) {
 		if (name == null || name == "")
 			throw new IllegalArgumentException("empty name not allowed");
 		if (address < 1)
 			throw new IllegalArgumentException("address must be at least 1");
-		if (channelOffsets.numChannels() < 1)
+		if (channelOffsets.size() < 1)
 			throw new IllegalArgumentException("must have at least one channel");
-		if (channelOffsets.numChannels() + address > 512)
+		if (channelOffsets.size() + address > 513)
 			throw new IndexOutOfBoundsException("fixture tries to put channel outside of 512 bytes");
 		
 		this.name = name;
 		this.address = address;
-		dmxVals = new int[channelOffsets.numChannels()];
-		offsets = channelOffsets;
+		dmxVals = new int[channelOffsets.size()];
+		offsets = new HashMap<String, Integer>(channelOffsets);
 	}
 
 	public String getName() {
@@ -259,8 +76,8 @@ public class LightingProfile implements Comparable<LightingProfile> {
 		this.address = address;
 	}
 
-	public int getChannels() {
-		return offsets.numChannels();
+	public int getNumChannels() {
+		return offsets.size();
 	}
 	
 	/**
