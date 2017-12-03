@@ -5,6 +5,8 @@
 
 #define DEBOUNCE_COUNT 3
 
+#define LONG_HOLD_COUNT 300
+
 void init_button_controllers()
 {
     gpio_config_t io_conf;
@@ -31,6 +33,7 @@ uint8_t read_button()
   static int b1_count = 0;
   static int b2_count = 0;
   static int b12_count = 0;
+  static int ps2_long_count = 0;
 
   //B1 + B2 pressed
   if(!gpio_get_level(B1_PIN) && !gpio_get_level(B2_PIN))
@@ -92,8 +95,19 @@ uint8_t read_button()
   //PS2 pressed
   if(!gpio_get_level(PS2_PIN))
   {
+
     if(ps2_count == -1)
+    {
+      if(ps2_long_count == -2)
+        return 0;
+
+      if(ps2_long_count++ > LONG_HOLD_COUNT)
+      {
+        ps2_long_count = -2;
+        return PS2_LONG;
+      }
       return 0;
+    }
 
     if(ps2_count++ > DEBOUNCE_COUNT)
     {
@@ -106,6 +120,7 @@ uint8_t read_button()
   else
   {
     ps2_count = 0;
+    ps2_long_count = 0;
   }
 
   return 0;

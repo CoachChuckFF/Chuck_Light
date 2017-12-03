@@ -29,6 +29,7 @@ public class Connection {
 	public static final byte RIGHT = (byte) 0x14;
 	
 	public static final byte PS2 = (byte) 0x01;
+	public static final byte PS2_LONG = (byte) 0x41;
 	public static final byte B1 = (byte) 0x02;
 	public static final byte B2 = (byte) 0x03;
 	public static final byte B12 = (byte) 0x04;

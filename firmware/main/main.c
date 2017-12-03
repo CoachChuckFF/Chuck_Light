@@ -22,6 +22,9 @@
 
 #define TAG "Main"
 
+#define XY_REFRESH_RATE 30
+#define PARTY_REFRESH_RATE 10
+
 extern uint8_t DEBOUNCE_TICK;
 uint8_t MODE = IDLE_MODE;
 
@@ -110,6 +113,10 @@ void app_main()
             button_event = PS2_B;
 	          read_motion_reg(0x0F);
           break;
+          case PS2_LONG:
+            ESP_LOGI(TAG, "PS2 Long Hold");
+            button_event = PS2_LONG;
+          break;
         }
 
         DEBOUNCE_TICK = 0;
@@ -152,7 +159,7 @@ void app_main()
 
         break;
         case COLOR_WHEEL_MODE:
-        if(xy_tick > 30)
+        if(xy_tick > XY_REFRESH_RATE)
         {
           read_xy(joystick_data);
           //print_xy();
@@ -171,7 +178,7 @@ void app_main()
         break;
         case PARTY_MODE:
           //send gyro data
-          if(party_tick > 10)
+          if(party_tick > PARTY_REFRESH_RATE)
           {
             switch(party_sub_mode)
             {

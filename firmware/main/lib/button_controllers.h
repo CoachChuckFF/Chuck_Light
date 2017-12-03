@@ -19,9 +19,11 @@
 #define GPIO_INPUT_PIN_SEL (GPIO_SEL_32 | GPIO_SEL_26 | GPIO_SEL_27)
 
 #define PS2_B 0x01
+#define PS2_LONG 0x41
 #define B1 0x02
 #define B2 0x03
 #define B12 0x04
+
 
 void init_button_controllers(void);
 

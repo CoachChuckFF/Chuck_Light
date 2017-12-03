@@ -10,6 +10,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 import chuck.defines.Connection;
 import chuck.defines.Modes;
 import chuck.drivers.DMXDriver;
+import chuck.threads.ChaseThread;
 import chuck.threads.HeartBeatThread;
 import chuck.threads.UDPServerThread;
 import chuck.threads.UserCLIThread;
@@ -25,15 +26,18 @@ public class ServerApp {
 
 	private DMXDriver dmx;
 	private ProfileManager profiles;
+	private SceneManager sceneManager;
 	private byte[] dmxVals; //1 indexed
 	private byte[] dmxTempVals; //1 indexed
 	private byte currentState;
 	private boolean serverRunning = false;
 	private DatagramSocket serverSocket;
+	private int chaseSceneDelay = 100;
 
 	private HeartBeatThread heartbeat;
 	private UDPServerThread udpListen;
 	private UserCLIThread cli;
+	private ChaseThread chase;
 	
 	private int currentLightIndex;
 
@@ -111,9 +115,13 @@ public class ServerApp {
 		udpListen.setPriority(Thread.MAX_PRIORITY);
 		udpListen.start();
 		System.out.println("UDP Thread Started");
-
-		// TODO: implement state machine and transitions
-
+		
+		//load scenes
+		//sceneManager = new SceneManager(dmx.getDmx());
+		sceneManager = new SceneManager(new int[513]);
+		
+		sceneManager.updateSceneFile();
+		
 		startMainCLI();
 		
 		WirelessCommand currCommand = null;
@@ -188,13 +196,18 @@ public class ServerApp {
 						}
 						switch(currCommand.getUserActionData()){
 						case Connection.UP:
-							//TODO Change Chase Speed Up
+							if(chaseSceneDelay < Modes.MAX_CHASE_DELAY){
+								chase.setSceneDelay(chaseSceneDelay+=100);
+							}
 							break;
 						case Connection.DOWN:
-							//TODO Change Chase Speed Down
+							if(chaseSceneDelay > Modes.MIN_CHASE_DELAY){
+								chase.setSceneDelay(chaseSceneDelay-=100);
+							}
 							break;
 						case Connection.B2:
 							currentState = Modes.IDLE;
+							chase.redrum();
 							sendHeartbeat = true;
 							break;
 						}
@@ -206,19 +219,54 @@ public class ServerApp {
 						}
 						switch(currCommand.getUserActionData()){
 						case Connection.LEFT:
-							//TODO Transition to left scene
+							/*try {
+								dmx.setDMX(sceneManager.getLastScene().getDmxVals());
+							} catch (IOException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}*/
+							System.out.println(Arrays.toString(sceneManager.getLastScene().getDmxVals()));
 							break;
 						case Connection.RIGHT:
-							//TODO Transition to right scene
+							/*try {
+								dmx.setDMX(sceneManager.getNextScene().getDmxVals());
+							} catch (IOException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}*/
+							System.out.println(Arrays.toString(sceneManager.getNextScene().getDmxVals()));
 							break;
 						case Connection.B1:
 							currentState = Modes.LIGHT_SELECTION;
 							//TODO Highlight first Light
+							//sceneManager.setCurrentScene(dmx.getDmx());
+							sceneManager.setCurrentScene(new int[513]);
 							sendHeartbeat = true;
 							break;
 						case Connection.B2:
-							currentState = Modes.CHASE;
-							sendHeartbeat = true;
+							if(sceneManager.getSceneCount() > 1){
+								currentState = Modes.CHASE;
+								chase = new ChaseThread(chaseSceneDelay, sceneManager.getSceneArray(), dmx);
+								chase.start();
+								sendHeartbeat = true;
+							} else {
+								System.out.println("Can't play chase with less than 2 Scenes");
+							}
+							break;
+						case Connection.PS2:
+							//adds scene to list
+							if(sceneManager.currentIndex == -1)
+							{
+								sceneManager.addScene(sceneManager.getCurrentScene());
+								sceneManager.updateSceneFile();
+							}
+							break;
+						case Connection.PS2_LONG:
+							if(sceneManager.currentIndex != -1)
+							{
+								sceneManager.deleteScene();
+								//dmx.setDMX(sceneManager.getCurrentScene().getDmxVals());
+							}
 							break;
 						case Connection.KONAMI:
 							currentState = Modes.PARTY;
@@ -306,7 +354,7 @@ public class ServerApp {
 							break;
 						}
 					break;
-					case Modes.DMX: //TODO needs statful data - current DMX channel selected
+					case Modes.DMX: //TODO needs stateful data - current DMX channel selected
 						if(currCommand.getDataType() != Connection.USER_ACTION_DATA){
 							sendHeartbeat = true;
 							break;
