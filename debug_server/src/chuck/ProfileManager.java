@@ -577,6 +577,10 @@ public class ProfileManager {
 	public int getLightCount() {
 		return set.size();
 	}
+	
+	public LightingProfile getLight(int index) {
+		return set.get(index);
+	}
 
 	public String toString() {
 		String csv = "";
