@@ -2,6 +2,7 @@ package chuck;
 
 import java.awt.Color;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import com.google.common.collect.BiMap;
@@ -20,7 +21,18 @@ public class LightingProfile implements Comparable<LightingProfile> {
 	/**
 	 * Offset settings for this lighting fixture
 	 */
-	private Map<String, Integer> offsets;
+	private int dimmerOffs = -1;
+	private int redOffs = -1;
+	private int greenOffs = -1;
+	private int blueOffs = -1;
+	private int amberOffs = -1;
+	private int whiteOffs = -1;
+	private int strobeOffs = -1;
+	private int zoomOffs = -1;
+	private int panOffs = -1;
+	private int panFineOffs = -1;
+	private int tiltOffs = -1;
+	private int tiltFineOffs = -1;
 
 	/**
 	 * name of this light fixture
@@ -44,20 +56,19 @@ public class LightingProfile implements Comparable<LightingProfile> {
 	 * @param address
 	 * @param channels
 	 */
-	public LightingProfile(DMXDriver dmx, String name, int address, BiMap<String, Integer> channelOffsets) {
+	public LightingProfile(DMXDriver dmx, String name, int address, int[] offsets) {
 		if (name == null || name == "")
 			throw new IllegalArgumentException("empty name not allowed");
 		if (address < 1)
 			throw new IllegalArgumentException("address must be at least 1");
-		if (channelOffsets.size() < 1)
+		if (offsets.length < 1)
 			throw new IllegalArgumentException("must have at least one channel");
-		if (channelOffsets.size() + address > 513)
+		if (Arrays.stream(offsets)).max() + address > 513)
 			throw new IndexOutOfBoundsException("fixture tries to put channel outside of 512 bytes");
 		
 		this.name = name;
 		this.address = address;
 		dmxVals = new int[channelOffsets.size()];
-		offsets = new HashMap<String, Integer>(channelOffsets);
 	}
 
 	public String getName() {
