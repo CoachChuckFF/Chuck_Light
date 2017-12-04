@@ -8,6 +8,8 @@ package chuck.defines;
  */
 
 public class Filepaths {
+
 	public static final String SCENE_DIR = "./files/scenes/";
 	public static final String SET_DIR = "./files/sets/";
+
 }
