@@ -70,6 +70,7 @@ public class LightingProfile implements Comparable<LightingProfile> {
 		if (channels + address > 512)
 			throw new IndexOutOfBoundsException("fixture tries to put channel outside of 512 bytes");
 
+		dmxDriver = dmx;
 		this.name = name;
 		this.address = address;
 		this.channels = channels;
