@@ -6,7 +6,6 @@ import java.util.Arrays;
 import java.util.Collections;
 
 import javax.swing.DefaultListCellRenderer;
-import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.SwingConstants;
@@ -19,21 +18,22 @@ import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 
 /**
- * Dummy driver for testing on non-dev machine. Opens window with up-to-date DMX values.
+ * Dummy driver for testing on non-dev machine. Opens window with up-to-date DMX
+ * values.
  * 
  * @author Joseph Eichenhofer
  *
  */
 public class DMXDummy implements DMXDriver {
-	
-	
+
 	private ObservableList<Integer> dmxVals = FXCollections.observableArrayList(Collections.nCopies(513, 0));
 	private JList<Integer> listView;
-	
+
 	/**
 	 * Constructor. Creates shadow array and hooks with gui window
 	 * 
-	 * @throws IOException never
+	 * @throws IOException
+	 *             never
 	 */
 	public DMXDummy() throws IOException {
 		// make swing invoke the gui thread
@@ -68,9 +68,11 @@ public class DMXDummy implements DMXDriver {
 				frame.setVisible(true);
 			}
 		});
-		// add a listener to the non-fx thread list so that updates are reflected on fx thread list
+		// add a listener to the non-fx thread list so that updates are reflected on fx
+		// thread list
 		dmxVals.addListener(new ListChangeListener<Integer>() {
-			// on change, add a new runnable to the fx thread that will update the fx thread list
+			// on change, add a new runnable to the fx thread that will update the fx thread
+			// list
 			@Override
 			public void onChanged(Change<? extends Integer> change) {
 				EventQueue.invokeLater(new Runnable() {
@@ -78,19 +80,19 @@ public class DMXDummy implements DMXDriver {
 					public void run() {
 						while (change.next()) {
 							if (change.wasReplaced()) {
-								for (int i = change.getFrom() ; i < change.getTo() ; i++) {
+								for (int i = change.getFrom(); i < change.getTo(); i++) {
 									listView.setListData(dmxVals.subList(1, 513).toArray(new Integer[512]));
 								}
 							}
 						}
 					}
-					
+
 				});
 			}
-			
+
 		});
 	}
-	
+
 	@Override
 	public int getDMX(int address) {
 		if (address <= 0 || address > 512)
