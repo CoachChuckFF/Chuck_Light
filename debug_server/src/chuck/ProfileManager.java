@@ -196,8 +196,12 @@ public class ProfileManager {
 
 	private void addProfileToSetCLI(BufferedReader reader) throws IOException {
 		String input;
-		LightingProfile light = new LightingProfile(driver);
-
+		LightingProfile light;
+		
+		String name;
+		int address;
+		int channels;
+		
 		System.out.println("Enter light information");
 		System.out.println("To cancel enter 'q'");
 		System.out.print("Light Name: ");
@@ -206,7 +210,7 @@ public class ProfileManager {
 		if (input.equals("q") || input.equals(""))
 			return;
 
-		light.setName(input);
+		name = input;
 
 		System.out.print("Light Address: ");
 		input = reader.readLine();
@@ -214,7 +218,7 @@ public class ProfileManager {
 		if (input.equals("q") || input.equals(""))
 			return;
 
-		light.setAddress(Integer.parseInt(input));
+		address = Integer.parseInt(input);
 
 		System.out.print("Light Channels: ");
 		input = reader.readLine();
@@ -222,7 +226,9 @@ public class ProfileManager {
 		if (input.equals("q") || input.equals(""))
 			return;
 
-		light.setChannels(Integer.parseInt(input));
+		channels = Integer.parseInt(input);
+		
+		light = new LightingProfile(driver, name, address, channels);
 
 		System.out.println("Enter in the channel number for the following functions");
 		System.out.print("Dimmer: ");
@@ -232,7 +238,7 @@ public class ProfileManager {
 			return;
 
 		if (input.equals(""))
-			light.setDimmer(0);
+			light.setDimmer(-1);
 		else
 			light.setDimmer(Integer.parseInt(input));
 
@@ -243,7 +249,7 @@ public class ProfileManager {
 			return;
 
 		if (input.equals(""))
-			light.setRed(0);
+			light.setRed(-1);
 		else
 			light.setRed(Integer.parseInt(input));
 
@@ -254,7 +260,7 @@ public class ProfileManager {
 			return;
 
 		if (input.equals(""))
-			light.setGreen(0);
+			light.setGreen(-1);
 		else
 			light.setGreen(Integer.parseInt(input));
 
@@ -265,7 +271,7 @@ public class ProfileManager {
 			return;
 
 		if (input.equals(""))
-			light.setBlue(0);
+			light.setBlue(-1);
 		else
 			light.setBlue(Integer.parseInt(input));
 
@@ -276,7 +282,7 @@ public class ProfileManager {
 			return;
 
 		if (input.equals(""))
-			light.setAmber(0);
+			light.setAmber(-1);
 		else
 			light.setAmber(Integer.parseInt(input));
 
@@ -287,7 +293,7 @@ public class ProfileManager {
 			return;
 
 		if (input.equals(""))
-			light.setWhite(0);
+			light.setWhite(-1);
 		else
 			light.setWhite(Integer.parseInt(input));
 
@@ -298,7 +304,7 @@ public class ProfileManager {
 			return;
 
 		if (input.equals(""))
-			light.setStrobe(0);
+			light.setStrobe(-1);
 		else
 			light.setStrobe(Integer.parseInt(input));
 
@@ -309,7 +315,7 @@ public class ProfileManager {
 			return;
 
 		if (input.equals(""))
-			light.setZoom(0);
+			light.setZoom(-1);
 		else
 			light.setZoom(Integer.parseInt(input));
 
@@ -320,7 +326,7 @@ public class ProfileManager {
 			return;
 
 		if (input.equals(""))
-			light.setPan(0);
+			light.setPan(-1);
 		else
 			light.setPan(Integer.parseInt(input));
 
@@ -331,7 +337,7 @@ public class ProfileManager {
 			return;
 
 		if (input.equals(""))
-			light.setPanFine(0);
+			light.setPanFine(-1);
 		else
 			light.setPanFine(Integer.parseInt(input));
 
@@ -342,7 +348,7 @@ public class ProfileManager {
 			return;
 
 		if (input.equals(""))
-			light.setTilt(0);
+			light.setTilt(-1);
 		else
 			light.setTilt(Integer.parseInt(input));
 

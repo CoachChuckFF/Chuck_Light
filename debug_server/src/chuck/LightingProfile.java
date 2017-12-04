@@ -54,37 +54,12 @@ public class LightingProfile implements Comparable<LightingProfile> {
 
 	/**
 	 * Constructor.
-	 */
-	public LightingProfile(DMXDriver dmx) {
-		dmxDriver = dmx;
-		name = "unset";
-		address = 0;
-		channels = 1;
-		
-		dimmerOffs = -1;
-		redOffs = -1;
-		greenOffs = -1;
-		blueOffs = -1;
-		amberOffs = -1;
-		whiteOffs = -1;
-		strobeOffs = -1;
-		zoomOffs = -1;
-		panOffs = -1;
-		panFineOffs = -1;
-		tiltOffs = -1;
-		tiltFineOffs = -1;
-	}
-
-	/**
-	 * Constructor.
 	 * 
 	 * @param name
 	 * @param address
 	 * @param channels
 	 */
 	public LightingProfile(DMXDriver dmx, String name, int address, int channels) {
-		// populate default values
-		this(dmx);
 		// check arguments
 		if (name == null || name == "")
 			throw new IllegalArgumentException("empty name not allowed");
@@ -98,6 +73,19 @@ public class LightingProfile implements Comparable<LightingProfile> {
 		this.name = name;
 		this.address = address;
 		this.channels = channels;
+		
+		dimmerOffs = -1;
+		redOffs = -1;
+		greenOffs = -1;
+		blueOffs = -1;
+		amberOffs = -1;
+		whiteOffs = -1;
+		strobeOffs = -1;
+		zoomOffs = -1;
+		panOffs = -1;
+		panFineOffs = -1;
+		tiltOffs = -1;
+		tiltFineOffs = -1;
 		
 		dmxVals = new int[channels];
 	}
