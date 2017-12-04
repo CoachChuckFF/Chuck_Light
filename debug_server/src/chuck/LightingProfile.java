@@ -37,18 +37,20 @@ public class LightingProfile implements Comparable<LightingProfile> {
 	 * 
 	 * e.g., dimmer byte is at getAddress() + getDimmer()
 	 */
-	private int dimmer;
-	private int red;
-	private int green;
-	private int blue;
-	private int amber;
-	private int white;
-	private int strobe;
-	private int zoom;
-	private int pan;
-	private int pan_fine;
-	private int tilt;
-	private int tilt_fine;
+	private int dimmerOffs;
+	private int redOffs;
+	private int greenOffs;
+	private int blueOffs;
+	private int amberOffs;
+	private int whiteOffs;
+	private int strobeOffs;
+	private int zoomOffs;
+	private int panOffs;
+	private int panFineOffs;
+	private int tiltOffs;
+	private int tiltFineOffs;
+	
+	private int[] dmxVals;
 
 	/**
 	 * Constructor.
@@ -59,18 +61,18 @@ public class LightingProfile implements Comparable<LightingProfile> {
 		address = 0;
 		channels = 1;
 		
-		dimmer = -1;
-		red = -1;
-		green = -1;
-		blue = -1;
-		amber = -1;
-		white = -1;
-		strobe = -1;
-		zoom = -1;
-		pan = -1;
-		pan_fine = -1;
-		tilt = -1;
-		tilt_fine = -1;
+		dimmerOffs = -1;
+		redOffs = -1;
+		greenOffs = -1;
+		blueOffs = -1;
+		amberOffs = -1;
+		whiteOffs = -1;
+		strobeOffs = -1;
+		zoomOffs = -1;
+		panOffs = -1;
+		panFineOffs = -1;
+		tiltOffs = -1;
+		tiltFineOffs = -1;
 	}
 
 	/**
@@ -96,6 +98,8 @@ public class LightingProfile implements Comparable<LightingProfile> {
 		this.name = name;
 		this.address = address;
 		this.channels = channels;
+		
+		dmxVals = new int[channels];
 	}
 
 	public String getName() {
@@ -123,86 +127,113 @@ public class LightingProfile implements Comparable<LightingProfile> {
 	}
 
 	public void setDimmer(int dimmer) {
-		this.dimmer = dimmer;
+		this.dimmerOffs = dimmer;
 	}
 
 	public void setRed(int red) {
-		this.red = red;
+		this.redOffs = red;
 	}
 
 	public void setGreen(int green) {
-		this.green = green;
+		this.greenOffs = green;
 	}
 
 	public void setBlue(int blue) {
-		this.blue = blue;
+		this.blueOffs = blue;
 	}
 
 	public void setAmber(int amber) {
-		this.amber = amber;
+		this.amberOffs = amber;
 	}
 
 	public void setWhite(int white) {
-		this.white = white;
+		this.whiteOffs = white;
 	}
 
 	public void setStrobe(int strobe) {
-		this.strobe = strobe;
+		this.strobeOffs = strobe;
 	}
 
 	public void setZoom(int zoom) {
-		this.zoom = zoom;
+		this.zoomOffs = zoom;
 	}
 
 	public void setPan(int pan) {
-		this.pan = pan;
+		this.panOffs = pan;
 	}
 
 	public void setPanFine(int pan_fine) {
-		this.pan_fine = pan_fine;
+		this.panFineOffs = pan_fine;
 	}
 
 	public void setTilt(int tilt) {
-		this.tilt = tilt;
+		this.tiltOffs = tilt;
 	}
 
 	public void setTiltFine(int tilt_fine) {
-		this.tilt_fine = tilt_fine;
+		this.tiltFineOffs = tilt_fine;
 	}
 	
 	/**
-	 * Sets the rgb color of this fixture. Only touches red, green, blue addresses in dmx module.
+	 * Get the dmx values associated with this fixture
+	 * 
+	 * @return int array containing the dmx values set for this fixture (length == #channels)
+	 */
+	public int[] getDMXVals() {
+		return dmxVals.clone();
+	}
+
+	/**
+	 * Sets the rgb color of this fixture. Only touches red, green, blue addresses
+	 * in dmx module.
 	 * 
 	 * @param color
-	 * 	this fixtures new color
-	 * @throws IOException if unable to access dmx driver files
+	 *            this fixtures new color
+	 * @throws IOException
+	 *             if unable to access dmx driver files
 	 */
 	public void setColor(Color color) throws IOException {
-		
+		// make sure rgb addresses are set
+		if (!(checkRange(redOffs) && checkRange(blueOffs) && checkRange(greenOffs)))
+			throw new IllegalStateException(
+					String.format("Called set color on fixture without rgb; (addr,r,g,b) = (%d,%d,%d)\n", address, redOffs,
+							greenOffs, blueOffs));
+		// check for default case for optimal write speed
+		if (redOffs == 1 && greenOffs == 2 && blueOffs == 3) {
+			dmxDriver.setDMX(address + redOffs, color.getRed(), color.getGreen(), color.getBlue());
+			return;
+		}
+		// otherwise just set them individually
+		dmxDriver.setDMX(address + redOffs, color.getRed());
+		dmxDriver.setDMX(address + greenOffs, color.getGreen());
+		dmxDriver.setDMX(address + blueOffs, color.getBlue());
 	}
-	
+
 	/**
 	 * Sets the dmx dimmer value.
 	 * 
 	 * @param dimmerVal
-	 * 	fixtures new value
-	 * @throws IOException if unable to access dmx driver files
+	 *            fixtures new value
+	 * @throws IOException
+	 *             if unable to access dmx driver files
 	 */
 	public void setDimmerValue(int dimmerVal) throws IOException {
-		
+		dmxDriver.setDMX(address + dimmerOffs, dimmerVal);
 	}
-	
+
 	/**
-	 * Set the value of one of this fixtures channels. Channel is one-indexed.
+	 * Set the value of one of this fixtures channels. Channel is zero-indexed.
 	 * 
 	 * @param channel
-	 * 	relative channel to change (e.g., channel 1 will change this fixtures first value)
+	 *            relative channel to change (e.g., channel 0 will change this
+	 *            fixtures first value)
 	 * @param value
-	 * 	new value to put at dmx channel
-	 * @throws IOException if unable to access dmx driver files
+	 *            new value to put at dmx channel
+	 * @throws IOException
+	 *             if unable to access dmx driver files
 	 */
 	public void setChannelManual(int channel, int value) throws IOException {
-		
+		dmxDriver.setDMX(address + channel, value);
 	}
 
 	/** 
@@ -224,18 +255,18 @@ public class LightingProfile implements Comparable<LightingProfile> {
 		light += "----- " + this.name + " -----\n";
 		light += "1. Address: " + this.address + "\n";
 		light += "2. Channels: " + this.channels + "\n";
-		light += "3. Dimmer: " + this.dimmer + "\n";
-		light += "4. Red: " + this.red + "\n";
-		light += "5. Green: " + this.green + "\n";
-		light += "6. Blue: " + this.blue + "\n";
-		light += "7. Amber: " + this.amber + "\n";
-		light += "8. White: " + this.white + "\n";
-		light += "9. Strobe: " + this.strobe + "\n";
-		light += "10. Zoom: " + this.zoom + "\n";
-		light += "11. Pan: " + this.pan + "\n";
-		light += "12. Pan Fine: " + this.pan_fine + "\n";
-		light += "13. Tilt: " + this.tilt + "\n";
-		light += "14. Tilt Fine: " + this.tilt_fine + "\n";
+		light += "3. Dimmer: " + this.dimmerOffs + "\n";
+		light += "4. Red: " + this.redOffs + "\n";
+		light += "5. Green: " + this.greenOffs + "\n";
+		light += "6. Blue: " + this.blueOffs + "\n";
+		light += "7. Amber: " + this.amberOffs + "\n";
+		light += "8. White: " + this.whiteOffs + "\n";
+		light += "9. Strobe: " + this.strobeOffs + "\n";
+		light += "10. Zoom: " + this.zoomOffs + "\n";
+		light += "11. Pan: " + this.panOffs + "\n";
+		light += "12. Pan Fine: " + this.panFineOffs + "\n";
+		light += "13. Tilt: " + this.tiltOffs + "\n";
+		light += "14. Tilt Fine: " + this.tiltFineOffs + "\n";
 		light += "-------------" + "\n";
 		return light;
 	}
@@ -244,10 +275,10 @@ public class LightingProfile implements Comparable<LightingProfile> {
 	 * @return csv representation for this fixture
 	 */
 	public String getCSV() {
-		return this.name + "," + this.address + "," + this.channels + "," + this.dimmer + ","
-				+ this.red + "," + this.green + "," + this.blue + "," + this.amber + ","
-				+ this.white + "," + this.strobe + "," + this.zoom + "," + this.pan + ","
-				+ this.pan_fine + "," + this.tilt + "," + this.tilt_fine;
+		return this.name + "," + this.address + "," + this.channels + "," + this.dimmerOffs + ","
+				+ this.redOffs + "," + this.greenOffs + "," + this.blueOffs + "," + this.amberOffs + ","
+				+ this.whiteOffs + "," + this.strobeOffs + "," + this.zoomOffs + "," + this.panOffs + ","
+				+ this.panFineOffs + "," + this.tiltOffs + "," + this.tiltFineOffs;
 	}
 
 	/**
