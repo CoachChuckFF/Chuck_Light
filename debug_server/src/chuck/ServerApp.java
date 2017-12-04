@@ -13,6 +13,7 @@ import chuck.defines.Connection;
 import chuck.defines.LightingDefines;
 import chuck.defines.Modes;
 import chuck.drivers.DMXDriver;
+import chuck.drivers.DMXDummy;
 import chuck.threads.ChaseThread;
 import chuck.threads.HeartBeatThread;
 import chuck.threads.HighlightThread;
@@ -67,7 +68,7 @@ public class ServerApp {
 	public void init(){
 		try {
 			// instantiate dmx driver
-			dmx = new DMXDriver();
+			dmx = new DMXDummy();
 			System.out.println("DMX Driver Initialized");
 		} catch (IOException ex) {
 			// fatal error if unable to instantiate driver
