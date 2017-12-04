@@ -97,7 +97,13 @@ public class ServerAppThread extends Thread {
 		
 		//load scenes
 		//sceneManager = new SceneManager(dmx.getDmx());
-		sceneManager = new SceneManager(new int[513]);
+		try {
+			sceneManager = new SceneManager(new int[513]);
+		} catch (IOException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+			System.exit(-1);
+		}
 		
 		sceneManager.updateSceneFile();
 				

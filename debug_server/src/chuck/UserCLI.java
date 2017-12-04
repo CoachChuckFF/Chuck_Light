@@ -20,13 +20,13 @@ public class UserCLI {
 			// instantiate dmx driver
 			dmx = new DMXDummy();
 			System.out.println("DMX Driver Initialized");
+			profiles = new ProfileManager(dmx);
+			System.out.println("default profile loaded");
 		} catch (IOException ex) {
 			// fatal error if unable to instantiate driver
 			ex.printStackTrace();
 			System.exit(-1);
 		}
-		
-		profiles = new ProfileManager(dmx);
 	}
 	
 	public static void main(String[] args) {
