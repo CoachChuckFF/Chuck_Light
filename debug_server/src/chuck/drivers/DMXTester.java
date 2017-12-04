@@ -16,7 +16,7 @@ public class DMXTester {
 		int[] dmx = null;
 
 		try {
-			driver = new DMXDriver();
+			driver = new DMXDummy();
 		} catch (IOException ex) {
 			ex.printStackTrace();
 			System.out.println("Make sure you ran insmod and started this program as root.");
@@ -93,6 +93,8 @@ public class DMXTester {
 				System.out.println("invalid command");
 			}
 		} while (!quit);
+		
+		System.exit(0);
 	}
 
 	public static void printHelp() {
