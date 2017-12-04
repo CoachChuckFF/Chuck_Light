@@ -1,4 +1,4 @@
-package chuck;
+package chuck.threads;
 
 import java.awt.Color;
 import java.io.IOException;
@@ -8,18 +8,16 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.TimeUnit;
 
+import chuck.LightingProfile;
+import chuck.ProfileManager;
+import chuck.SceneManager;
+import chuck.WirelessCommand;
 import chuck.defines.Connection;
 import chuck.defines.LightingDefines;
 import chuck.defines.Modes;
 import chuck.drivers.DMXDriver;
-import chuck.drivers.DMXDummy;
-import chuck.threads.ChaseThread;
-import chuck.threads.HeartBeatThread;
-import chuck.threads.HighlightThread;
-import chuck.threads.PresetVisualThread;
-import chuck.threads.UDPServerThread;
-import chuck.threads.UserCLIThread;
 
 /**
  * Chuck Light server application. Starts heartbeat thread and udp listener
@@ -28,7 +26,7 @@ import chuck.threads.UserCLIThread;
  * 
  * @author Joseph Eichenhofer and Christian Krueger
  */
-public class ServerApp {
+public class ServerAppThread extends Thread {
 
 	private DMXDriver dmx;
 	private ProfileManager profiles;
@@ -39,12 +37,11 @@ public class ServerApp {
 	private DatagramSocket serverSocket;
 	private int chaseSceneDelay = 100;
 
-	private HeartBeatThread heartbeat;
-	private UDPServerThread udpListen;
-	private UserCLIThread cli;
-	private ChaseThread chase;
-	private HighlightThread highlight;
-	private PresetVisualThread presetVisual;
+	private HeartBeatThread heartbeat = null;
+	private UDPServerThread udpListen = null;
+	private ChaseThread chase = null;
+	private HighlightThread highlight = null;
+	private PresetVisualThread presetVisual = null;
 	
 	private int currentLightIndex;
 	private int currentPresetIndex;
@@ -54,44 +51,19 @@ public class ServerApp {
 	 */
 	private BlockingQueue<WirelessCommand> commandQ;
 
-	/**
-	 * Start the server program.
-	 * 
-	 * @param args n/a
-	 */
-	public static void main(String[] args) {
-		ServerApp serv = new ServerApp();
-		serv.init();
-		serv.startMainCLI();
+	public ServerAppThread(DMXDriver driver, ProfileManager profManager) {
+		super();
+		dmx = driver;
+		profiles = profManager;
 	}
 	
-	public void init(){
-		try {
-			// instantiate dmx driver
-			dmx = new DMXDummy();
-			System.out.println("DMX Driver Initialized");
-		} catch (IOException ex) {
-			// fatal error if unable to instantiate driver
-			ex.printStackTrace();
-			System.exit(-1);
-		}
-		
-		profiles = new ProfileManager(dmx);
-	}
-	
-	public void startMainCLI(){
-		cli = new UserCLIThread(profiles, this);
-		cli.setPriority(Thread.MIN_PRIORITY);
-		cli.start();
-	}
-
 	/**
 	 * Instantiate the DMX driver, datagram socket, and two threads. Then wait for
 	 * commands from the wireless controller (via udp thread). Parses the command
 	 * bytes, then interprets the change of state based on current state and the
 	 * type of command.
 	 */
-	public void startServer() throws InterruptedException {
+	public void run() {
 		
 		currentState = Modes.IDLE;
 		currentLightIndex = 0;
@@ -147,10 +119,14 @@ public class ServerApp {
 		while (serverRunning) {
 			// take element from queue, blocking until something is there
 			try {
-				currCommand = commandQ.take();
+				currCommand = commandQ.poll(1, TimeUnit.SECONDS);
+				
+				if (currCommand == null)
+					continue;
+				
 				if(!heartbeat.getConnected())
 				{
-					heartbeat.setAddress(currCommand.sender_ip);
+					heartbeat.setAddress(currCommand.getSender_ip());
 				}
 			} catch (InterruptedException ex) {
 				// for now, treat interruptedexception as fatal error
@@ -226,7 +202,13 @@ public class ServerApp {
 						case Connection.B2:
 							currentState = Modes.IDLE;
 							chase.redrum();
-							chase.join();
+							try {
+								chase.join();
+							} catch (InterruptedException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+								System.exit(-1);
+							}
 							sendHeartbeat = true;
 							break;
 						}
@@ -277,14 +259,14 @@ public class ServerApp {
 							break;
 						case Connection.PS2:
 							//adds scene to list
-							if(sceneManager.currentIndex == -1)
+							if(sceneManager.getCurrentIndex() == -1)
 							{
 								sceneManager.addScene(sceneManager.getCurrentScene());
 								sceneManager.updateSceneFile();
 							}
 							break;
 						case Connection.PS2_LONG:
-							if(sceneManager.currentIndex != -1)
+							if(sceneManager.getCurrentIndex() != -1)
 							{
 								sceneManager.deleteScene();
 								//dmx.setDMX(sceneManager.getCurrentScene().getDmxVals());
@@ -321,7 +303,13 @@ public class ServerApp {
 							//TODO start colorwheel visualization
 							sendHeartbeat = true;
 							selectedLights = highlight.redrum();
-							highlight.join();
+							try {
+								highlight.join();
+							} catch (InterruptedException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+								System.exit(-1);
+							}
 							//TODO join threads
 							System.out.println("Selected lights # = " + selectedLights.size());
 							presetVisual = new PresetVisualThread(dmx, selectedLights);
@@ -329,7 +317,13 @@ public class ServerApp {
 							break;
 						case Connection.B2:
 							highlight.redrum();
-							highlight.join();
+							try {
+								highlight.join();
+							} catch (InterruptedException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+								System.exit(-1);
+							}
 							currentState = Modes.IDLE;
 							sendHeartbeat = true;
 							break;
@@ -352,7 +346,13 @@ public class ServerApp {
 							currentState = Modes.PRESET;
 
 							presetVisual.redrum();
-							presetVisual.join();
+							try {
+								presetVisual.join();
+							} catch (InterruptedException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+								System.exit(-1);
+							}
 							sendHeartbeat = true;
 							break;
 						case Connection.B2:
@@ -514,7 +514,7 @@ public class ServerApp {
 	}
 	
 	public void stopServer(){
-		if(!udpListen.equals(null))
+		if(udpListen != null)
 			try {
 				udpListen.redrum();
 				udpListen.join();
@@ -522,7 +522,8 @@ public class ServerApp {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		if(!heartbeat.equals(null))
+		
+		if(heartbeat != null)
 			try {
 				heartbeat.redrum();
 				heartbeat.join();
@@ -530,7 +531,8 @@ public class ServerApp {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		if(!serverSocket.equals(null))
+		
+		if(serverSocket != null)
 			serverSocket.close();
 		
 		/*try {

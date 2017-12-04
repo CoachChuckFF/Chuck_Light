@@ -13,7 +13,7 @@ public class WirelessCommand {
 	private boolean parsed = false;
 	
 	//general
-	InetAddress sender_ip;
+	private InetAddress sender_ip;
 	
 	//Poll Reply Packet Specific
 	private float batteryLevel;
@@ -130,5 +130,9 @@ public class WirelessCommand {
 		}
 
 		return true;
+	}
+
+	public InetAddress getSender_ip() {
+		return sender_ip;
 	}
 }

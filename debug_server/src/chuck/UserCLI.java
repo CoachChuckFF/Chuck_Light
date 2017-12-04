@@ -1,29 +1,46 @@
-package chuck.threads;
+package chuck;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-import chuck.ProfileManager;
-import chuck.ServerApp;
-import chuck.WirelessCommand;
+import chuck.drivers.DMXDriver;
+import chuck.drivers.DMXDummy;
+import chuck.threads.ServerAppThread;
 
-public class UserCLIThread extends Thread {
+public class UserCLI {
 
-	private int[] dmxVals;
-	private ProfileManager profiles;
-	private ServerApp app;
+	private DMXDriver dmx;
 	
-	public UserCLIThread(ProfileManager profiles, ServerApp app) {
-		this.profiles = profiles;
-		this.app = app;
+	private ProfileManager profiles;
+	private ServerAppThread app;
+	
+	public UserCLI() {
+		try {
+			// instantiate dmx driver
+			dmx = new DMXDummy();
+			System.out.println("DMX Driver Initialized");
+		} catch (IOException ex) {
+			// fatal error if unable to instantiate driver
+			ex.printStackTrace();
+			System.exit(-1);
+		}
+		
+		profiles = new ProfileManager(dmx);
 	}
 	
-	public void run() {
+	public static void main(String[] args) {
+		UserCLI cli = new UserCLI();
+		cli.startCLI();
+	}
+	
+	public void startCLI() {
 		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 		boolean quit = false;
 		String input = null;
 		String[] splitInput = null;
+		
+		app = new ServerAppThread(dmx, profiles);
 
 		printMainHelp();
 
@@ -38,6 +55,12 @@ public class UserCLIThread extends Thread {
 			}
 			if (splitInput[0].startsWith("q")) {
 				app.stopServer();
+				try {
+					app.join();
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				System.out.println("Goodbye");
 				System.exit(0);
 			} else if (splitInput[0].startsWith("c")) {
@@ -59,17 +82,18 @@ public class UserCLIThread extends Thread {
 			} else if (splitInput[0].startsWith("s")) {
 				if(app.isServerRunning()){
 					app.stopServer();
-					System.out.println("Server Stopped");
-				}
-				else
-				{
 					try {
-						app.startServer();
+						app.join();
 					} catch (InterruptedException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 						System.exit(-1);
 					}
+					System.out.println("Server Stopped");
+				}
+				else
+				{
+					app.start();
 				}
 			} else if (splitInput[0].startsWith("n")) {
 				if(app.isServerRunning()){
