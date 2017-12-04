@@ -70,8 +70,6 @@ public class UserCLIThread extends Thread {
 						e.printStackTrace();
 						System.exit(-1);
 					}
-					quit = true;
-
 				}
 			} else if (splitInput[0].startsWith("n")) {
 				if(app.isServerRunning()){

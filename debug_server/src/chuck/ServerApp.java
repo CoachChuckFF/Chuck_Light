@@ -61,13 +61,7 @@ public class ServerApp {
 	public static void main(String[] args) {
 		ServerApp serv = new ServerApp();
 		serv.init();
-		try {
-			serv.startServer();
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			System.exit(-1);
-		}
+		serv.startMainCLI();
 	}
 	
 	public void init(){
@@ -88,7 +82,6 @@ public class ServerApp {
 		cli = new UserCLIThread(profiles, this);
 		cli.setPriority(Thread.MIN_PRIORITY);
 		cli.start();
-
 	}
 
 	/**
@@ -134,9 +127,7 @@ public class ServerApp {
 		sceneManager = new SceneManager(new int[513]);
 		
 		sceneManager.updateSceneFile();
-		
-		startMainCLI();
-		
+				
 		WirelessCommand currCommand = null;
 		serverRunning = true;
 		

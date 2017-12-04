@@ -1,12 +1,16 @@
 package chuck.threads;
 
-import java.io.IOException;
+import java.awt.Color;
+import java.io.*;
+import java.net.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.concurrent.Semaphore;
 
 import chuck.LightingProfile;
-import chuck.defines.LightingDefines;
+import chuck.defines.*;
 import chuck.drivers.DMXDriver;
+import chuck.lighting.Scene;
 
 public class PresetVisualThread extends Thread {
 	private boolean running = false;
@@ -23,9 +27,8 @@ public class PresetVisualThread extends Thread {
 
 	public void run() {
 		int i = 0;
-		
+
 		running = true;
-		
 		while(running){
 
 			for (LightingProfile light: lights) {
@@ -38,28 +41,28 @@ public class PresetVisualThread extends Thread {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				
+
 				try {
 					Thread.sleep(LightingDefines.PRESET_VISUAL_DELAY);
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-			
+
 			}
-			
+
 			if(++i >= LightingDefines.PRESETS.length){
 				i = 0;
 			}
-			
+
 		}
-		
+
 	}
-	
+
 	public void redrum()
 	{
 		running = false;
 	}
-	
+
 
 }
