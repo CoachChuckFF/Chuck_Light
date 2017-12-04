@@ -10,12 +10,11 @@ import chuck.WirelessCommand;
 
 public class UserCLIThread extends Thread {
 
-	private byte[] dmxVals;
+	private int[] dmxVals;
 	private ProfileManager profiles;
 	private ServerApp app;
 	
-	public UserCLIThread(byte[] dmxVals, ProfileManager profiles, ServerApp app) {
-		this.dmxVals = dmxVals;
+	public UserCLIThread(ProfileManager profiles, ServerApp app) {
 		this.profiles = profiles;
 		this.app = app;
 	}

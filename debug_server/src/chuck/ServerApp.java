@@ -3,15 +3,19 @@ package chuck;
 import java.io.IOException;
 import java.net.DatagramSocket;
 import java.net.SocketException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
 import chuck.defines.Connection;
+import chuck.defines.LightingDefines;
 import chuck.defines.Modes;
 import chuck.drivers.DMXDriver;
 import chuck.threads.ChaseThread;
 import chuck.threads.HeartBeatThread;
+import chuck.threads.HighlightThread;
+import chuck.threads.PresetVisualThread;
 import chuck.threads.UDPServerThread;
 import chuck.threads.UserCLIThread;
 
@@ -27,8 +31,7 @@ public class ServerApp {
 	private DMXDriver dmx;
 	private ProfileManager profiles;
 	private SceneManager sceneManager;
-	private byte[] dmxVals; //1 indexed
-	private byte[] dmxTempVals; //1 indexed
+	private ArrayList<LightingProfile> selectedLights;
 	private byte currentState;
 	private boolean serverRunning = false;
 	private DatagramSocket serverSocket;
@@ -38,8 +41,11 @@ public class ServerApp {
 	private UDPServerThread udpListen;
 	private UserCLIThread cli;
 	private ChaseThread chase;
+	private HighlightThread highlight;
+	private PresetVisualThread presetVisual;
 	
 	private int currentLightIndex;
+	private int currentPresetIndex;
 
 	/**
 	 * Shared synchronous queue of commands to process. Producer is UDPServerThread, consumer is main execution.
@@ -72,7 +78,7 @@ public class ServerApp {
 	}
 	
 	public void startMainCLI(){
-		cli = new UserCLIThread(dmxVals, profiles, this);
+		cli = new UserCLIThread(profiles, this);
 		cli.setPriority(Thread.MIN_PRIORITY);
 		cli.start();
 
@@ -86,10 +92,9 @@ public class ServerApp {
 	 */
 	public void startServer() {
 		
-		dmxVals = new byte[513];
-		dmxTempVals = new byte[513];
 		currentState = Modes.IDLE;
 		currentLightIndex = 0;
+		currentPresetIndex = 0;
 		boolean sendHeartbeat = false;
 		
 		try {
@@ -197,18 +202,19 @@ public class ServerApp {
 						}
 						switch(currCommand.getUserActionData()){
 						case Connection.UP:
-							if(chaseSceneDelay < Modes.MAX_CHASE_DELAY){
+							if(chaseSceneDelay < LightingDefines.MAX_CHASE_DELAY){
 								chase.setSceneDelay(chaseSceneDelay+=100);
 							}
 							break;
 						case Connection.DOWN:
-							if(chaseSceneDelay > Modes.MIN_CHASE_DELAY){
+							if(chaseSceneDelay > LightingDefines.MIN_CHASE_DELAY){
 								chase.setSceneDelay(chaseSceneDelay-=100);
 							}
 							break;
 						case Connection.B2:
 							currentState = Modes.IDLE;
 							chase.redrum();
+							chase.join();
 							sendHeartbeat = true;
 							break;
 						}
@@ -242,6 +248,9 @@ public class ServerApp {
 							//TODO Highlight first Light
 							//sceneManager.setCurrentScene(dmx.getDmx());
 							sceneManager.setCurrentScene(new int[513]);
+							highlight = new HighlightThread(dmx);
+							highlight.addLight(profiles.getLight(currentLightIndex));
+							highlight.run();
 							sendHeartbeat = true;
 							break;
 						case Connection.B2:
@@ -291,14 +300,23 @@ public class ServerApp {
 						case Connection.RIGHT:
 							//TODO Highlight Next Light
 							break;
+						case Connection.PS2:
+							//TODO Highlight add light to selected lights
+							break;
 						case Connection.B1:
 							currentState = Modes.CONTROL_SELECTION;
 							//creates carbon copy of lights as is
-							System.arraycopy(dmxVals, 0, dmxTempVals, 0, 513);
 							//TODO start colorwheel visualization
 							sendHeartbeat = true;
+							selectedLights = highlight.redrum();
+							highlight.join();
+							//TODO join threads
+							presetVisual = new PresetVisualThread(dmx, selectedLights);
+							presetVisual.run();
 							break;
 						case Connection.B2:
+							highlight.redrum();
+							highlight.join();
 							currentState = Modes.IDLE;
 							sendHeartbeat = true;
 							break;
@@ -318,11 +336,15 @@ public class ServerApp {
 							break;
 						case Connection.B1:
 							//TODO Position Dependant
-							currentState = Modes.COLOR_WHEEL;
+							currentState = Modes.PRESET;
+
+							presetVisual.redrum();
+							presetVisual.join();
 							sendHeartbeat = true;
 							break;
 						case Connection.B2:
 							currentState = Modes.LIGHT_SELECTION;
+							dmx.setDMX(sceneManager.getCurrentScene().getDmxVals());
 							//TODO copy dmxTempVals to Light
 							sendHeartbeat = true;
 							break;
@@ -388,19 +410,30 @@ public class ServerApp {
 					case Modes.PRESET:
 						switch(currCommand.getUserActionData()){
 						case Connection.LEFT:
-							//TODO Last Preset
+							if(--currentPresetIndex < 0){
+								currentPresetIndex = LightingDefines.PRESETS.length - 1;
+							}
+							for (LightingProfile light : selectedLights) {
+								light.setColor(LightingDefines.PRESETS[currentPresetIndex]);
+							}
 							break;
 						case Connection.RIGHT:
-							//TODO Next Preset
+							if(++currentPresetIndex >= LightingDefines.PRESETS.length){
+								currentPresetIndex = 0;
+							}
+							for (LightingProfile light : selectedLights) {
+								light.setColor(LightingDefines.PRESETS[currentPresetIndex]);
+							}
 							break;
 						case Connection.B1:
 							//TODO Save
+							sceneManager.setCurrentScene(dmx.getDmx());
 							currentState = Modes.LIGHT_SELECTION;
 							sendHeartbeat = true;
 							break;
 						case Connection.B2:
 							currentState = Modes.CONTROL_SELECTION;
-							//start Preset visulization
+							presetVisual.run();
 							sendHeartbeat = true;
 							break;
 						}
@@ -481,10 +514,6 @@ public class ServerApp {
 	
 	public ProfileManager getProfileManager(){
 		return profiles;
-	}
-	
-	public byte[] getDMXVals(){
-		return dmxVals;
 	}
 	
 	public boolean isServerRunning()
