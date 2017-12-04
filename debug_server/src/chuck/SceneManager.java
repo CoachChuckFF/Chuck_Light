@@ -38,8 +38,9 @@ public class SceneManager {
 		}
 	}
 	
-	public void updateSceneFile(){
+	public void updateSceneFile() throws IOException {
 		String line = "";
+		Files.deleteIfExists(scene);
 		try (BufferedWriter writer = Files.newBufferedWriter(scene)) {
 			for (Scene scene : scenes) {
 				for(int i = 0; i < 513; i++) {
@@ -57,12 +58,8 @@ public class SceneManager {
 			}
 		} catch (IOException e) {
 			// failed to write, try to cleanup
-			try {
-				Files.delete(scene);
-			} catch (IOException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
+			Files.delete(scene);
+			throw e;
 		}
 	}
 	

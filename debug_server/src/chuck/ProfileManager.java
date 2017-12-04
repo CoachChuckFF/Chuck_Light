@@ -109,7 +109,10 @@ public class ProfileManager {
 	 *             if unable to write
 	 */
 	public void writeSetFile(Path filepath) throws IOException {
-
+		if (Files.isDirectory(filepath))
+			throw new IllegalArgumentException("set file cannot be directory");
+		Files.deleteIfExists(filepath);
+		Files.createFile(filepath);
 		try (BufferedWriter writer = Files.newBufferedWriter(filepath)) {
 			writer.write(this.toString());
 		} catch (IOException e) {
