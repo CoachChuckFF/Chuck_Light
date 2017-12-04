@@ -2,11 +2,9 @@ package chuck;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Collections;
 import java.util.Iterator;
@@ -23,6 +21,10 @@ import chuck.drivers.DMXDriver;
  */
 public class ProfileManager {
 
+	private static final String DEFAULT_SET = "default.set";
+	
+	Path profile;
+	
 	/**
 	 * driver to pass into fixtures for updating dmx values
 	 */
@@ -32,26 +34,25 @@ public class ProfileManager {
 	 * Lighting profile set. Thread safe for updating.
 	 */
 	private CopyOnWriteArrayList<LightingProfile> set;
-
+	
 	/**
 	 * Constructor. Create an empty profile set.
+	 * 
+	 * @throws IOException if unable to create default directories
 	 */
-	public ProfileManager(DMXDriver dmx) {
+	public ProfileManager(DMXDriver dmx) throws IOException {
 		driver = dmx;
 		set = new CopyOnWriteArrayList<LightingProfile>();
-	}
-
-	/**
-	 * Constructor. Create a profile set from given file.
-	 * 
-	 * @param filepath
-	 *            "Set file" to load into manager
-	 * @throws IOException
-	 *             if unable to read/parse file
-	 */
-	public ProfileManager(DMXDriver dmx, String filepath) throws IOException {
-		driver = dmx;
-		parseSetFile(filepath);
+		profile = Paths.get(Filepaths.SET_DIR, DEFAULT_SET);
+		Files.createDirectories(profile.getParent());
+		
+		LightingProfile defaultLight = new LightingProfile(dmx, "test", 1, 11);
+		defaultLight.setDimmer(0);
+		defaultLight.setRed(1);
+		defaultLight.setGreen(2);
+		defaultLight.setBlue(3);
+		
+		set.add(defaultLight);
 	}
 
 	/**
@@ -62,13 +63,13 @@ public class ProfileManager {
 	 * @throws IOException
 	 *             if unable to read/parse file
 	 */
-	public void parseSetFile(String filepath) throws IOException {
+	public void parseSetFile(Path filepath) throws IOException {
 		String line = "";
 		String cvsSplitBy = ",";
 		LightingProfile light;
 		set = new CopyOnWriteArrayList<LightingProfile>();
 
-		try (BufferedReader br = new BufferedReader(new FileReader(filepath))) {
+		try (BufferedReader br = Files.newBufferedReader(filepath)) {
 			while ((line = br.readLine()) != null) {
 				// use comma as separator
 				String[] lightLine = line.split(cvsSplitBy);
@@ -107,13 +108,16 @@ public class ProfileManager {
 	 * @throws IOException
 	 *             if unable to write
 	 */
-	public void writeSetFile(String filepath) throws IOException {
-
-		try (BufferedWriter writer = new BufferedWriter(new FileWriter(filepath))) {
+	public void writeSetFile(Path filepath) throws IOException {
+		if (Files.isDirectory(filepath))
+			throw new IllegalArgumentException("set file cannot be directory");
+		Files.deleteIfExists(filepath);
+		Files.createFile(filepath);
+		try (BufferedWriter writer = Files.newBufferedWriter(filepath)) {
 			writer.write(this.toString());
 		} catch (IOException e) {
 			// failed to write, try to cleanup
-			Files.delete(Paths.get(filepath));
+			Files.delete(filepath);
 			throw e;
 		}
 	}
@@ -192,8 +196,12 @@ public class ProfileManager {
 
 	private void addProfileToSetCLI(BufferedReader reader) throws IOException {
 		String input;
-		LightingProfile light = new LightingProfile(driver);
-
+		LightingProfile light;
+		
+		String name;
+		int address;
+		int channels;
+		
 		System.out.println("Enter light information");
 		System.out.println("To cancel enter 'q'");
 		System.out.print("Light Name: ");
@@ -202,7 +210,7 @@ public class ProfileManager {
 		if (input.equals("q") || input.equals(""))
 			return;
 
-		light.setName(input);
+		name = input;
 
 		System.out.print("Light Address: ");
 		input = reader.readLine();
@@ -210,7 +218,7 @@ public class ProfileManager {
 		if (input.equals("q") || input.equals(""))
 			return;
 
-		light.setAddress(Integer.parseInt(input));
+		address = Integer.parseInt(input);
 
 		System.out.print("Light Channels: ");
 		input = reader.readLine();
@@ -218,7 +226,9 @@ public class ProfileManager {
 		if (input.equals("q") || input.equals(""))
 			return;
 
-		light.setChannels(Integer.parseInt(input));
+		channels = Integer.parseInt(input);
+		
+		light = new LightingProfile(driver, name, address, channels);
 
 		System.out.println("Enter in the channel number for the following functions");
 		System.out.print("Dimmer: ");
@@ -228,7 +238,7 @@ public class ProfileManager {
 			return;
 
 		if (input.equals(""))
-			light.setDimmer(0);
+			light.setDimmer(-1);
 		else
 			light.setDimmer(Integer.parseInt(input));
 
@@ -239,7 +249,7 @@ public class ProfileManager {
 			return;
 
 		if (input.equals(""))
-			light.setRed(0);
+			light.setRed(-1);
 		else
 			light.setRed(Integer.parseInt(input));
 
@@ -250,7 +260,7 @@ public class ProfileManager {
 			return;
 
 		if (input.equals(""))
-			light.setGreen(0);
+			light.setGreen(-1);
 		else
 			light.setGreen(Integer.parseInt(input));
 
@@ -261,7 +271,7 @@ public class ProfileManager {
 			return;
 
 		if (input.equals(""))
-			light.setBlue(0);
+			light.setBlue(-1);
 		else
 			light.setBlue(Integer.parseInt(input));
 
@@ -272,7 +282,7 @@ public class ProfileManager {
 			return;
 
 		if (input.equals(""))
-			light.setAmber(0);
+			light.setAmber(-1);
 		else
 			light.setAmber(Integer.parseInt(input));
 
@@ -283,7 +293,7 @@ public class ProfileManager {
 			return;
 
 		if (input.equals(""))
-			light.setWhite(0);
+			light.setWhite(-1);
 		else
 			light.setWhite(Integer.parseInt(input));
 
@@ -294,7 +304,7 @@ public class ProfileManager {
 			return;
 
 		if (input.equals(""))
-			light.setStrobe(0);
+			light.setStrobe(-1);
 		else
 			light.setStrobe(Integer.parseInt(input));
 
@@ -305,7 +315,7 @@ public class ProfileManager {
 			return;
 
 		if (input.equals(""))
-			light.setZoom(0);
+			light.setZoom(-1);
 		else
 			light.setZoom(Integer.parseInt(input));
 
@@ -316,7 +326,7 @@ public class ProfileManager {
 			return;
 
 		if (input.equals(""))
-			light.setPan(0);
+			light.setPan(-1);
 		else
 			light.setPan(Integer.parseInt(input));
 
@@ -327,7 +337,7 @@ public class ProfileManager {
 			return;
 
 		if (input.equals(""))
-			light.setPanFine(0);
+			light.setPanFine(-1);
 		else
 			light.setPanFine(Integer.parseInt(input));
 
@@ -338,7 +348,7 @@ public class ProfileManager {
 			return;
 
 		if (input.equals(""))
-			light.setTilt(0);
+			light.setTilt(-1);
 		else
 			light.setTilt(Integer.parseInt(input));
 
@@ -502,20 +512,17 @@ public class ProfileManager {
 	}
 
 	private void saveSetCLI(BufferedReader reader) throws IOException {
-		File folder = new File(Filepaths.INFO_FULL_FP + Filepaths.SET_REL_FP);
-		File[] listOfFiles = folder.listFiles();
 		String input = "";
 
 		System.out.println("Current Set Files");
 		System.out.println("'q' to quit");
 
-		for (int i = 0, j = 0; i < listOfFiles.length; i++) {
-			if (listOfFiles[i].isFile()) {
-				System.out.println(j++ + ". " + listOfFiles[i].getName());
-			} else if (listOfFiles[i].isDirectory()) {
-				System.out.println("Directory " + listOfFiles[i].getName());
-			}
-		}
+		Files.list(Paths.get(Filepaths.SET_DIR)).forEach(file -> {
+			if (Files.isDirectory(file))
+				System.out.println("Directory " + file.getFileName());
+			else
+				System.out.println(file.getFileName());
+		});
 
 		System.out.print("Enter filename: ");
 
@@ -524,13 +531,12 @@ public class ProfileManager {
 		if (input.equals("q") || input.equals(""))
 			return;
 
-		writeSetFile(Filepaths.INFO_FULL_FP + Filepaths.SET_REL_FP + "/" + input);
+		writeSetFile(Paths.get(Filepaths.SET_DIR).resolve(input));
 
 	}
 
 	private void loadSetCLI(BufferedReader reader) throws IOException {
-		File folder = new File(Filepaths.INFO_FULL_FP + Filepaths.SET_REL_FP);
-		File[] listOfFiles = folder.listFiles();
+		Path[] listOfFiles = Files.list(Paths.get(Filepaths.SET_DIR)).toArray(Path[]::new);
 		String input = "";
 
 		System.out.println("Current Set Files");
@@ -538,10 +544,10 @@ public class ProfileManager {
 		System.out.println("'q' to quit");
 
 		for (int i = 0; i < listOfFiles.length; i++) {
-			if (listOfFiles[i].isFile()) {
-				System.out.println(i + ". " + listOfFiles[i].getName());
-			} else if (listOfFiles[i].isDirectory()) {
-				System.out.println("Directory " + listOfFiles[i].getName());
+			if (Files.isRegularFile(listOfFiles[i])) {
+				System.out.println(i + ". " + listOfFiles[i].getFileName());
+			} else if (Files.isDirectory(listOfFiles[i])) {
+				System.out.println("Directory " + listOfFiles[i].getFileName());
 			}
 		}
 
@@ -558,7 +564,7 @@ public class ProfileManager {
 			return;
 		}
 
-		parseSetFile(listOfFiles[Integer.parseInt(input)].getAbsolutePath());
+		parseSetFile(listOfFiles[Integer.parseInt(input)]);
 
 	}
 

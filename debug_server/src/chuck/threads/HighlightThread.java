@@ -55,6 +55,13 @@ public class HighlightThread extends Thread {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+				
+				try {
+					Thread.sleep(LightingDefines.HIGHLIGHT_VISUAL_DELAY);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			
 			}
 			

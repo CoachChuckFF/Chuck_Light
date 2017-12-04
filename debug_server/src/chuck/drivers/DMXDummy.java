@@ -40,7 +40,7 @@ public class DMXDummy implements DMXDriver {
 		EventQueue.invokeLater(new Runnable() {
 			@Override
 			public void run() {
-				try {
+				/*try {
 					// set look and feel to default
 					UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 				} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
@@ -48,7 +48,7 @@ public class DMXDummy implements DMXDriver {
 					// fatal error if unable to set look and feel
 					e.printStackTrace();
 					System.exit(-1);
-				}
+				}*/
 
 				// create the frame to hold the listview
 				JFrame frame = new JFrame("DMX Values");
@@ -58,9 +58,9 @@ public class DMXDummy implements DMXDriver {
 				listView = new JList<Integer>(dmxVals.subList(1, 513).toArray(new Integer[512]));
 				listView.setLayoutOrientation(JList.HORIZONTAL_WRAP);
 				listView.setVisibleRowCount(32);
-				listView.setFixedCellWidth(25);
+				listView.setFixedCellWidth(40);
 				listView.setBorder(new EmptyBorder(15, 15, 15, 15));
-				((DefaultListCellRenderer) listView.getCellRenderer()).setHorizontalAlignment(SwingConstants.RIGHT);
+				//((DefaultListCellRenderer) listView.getCellRenderer()).setHorizontalAlignment(SwingConstants.RIGHT);
 				frame.add(listView);
 				// display the window
 				frame.pack();

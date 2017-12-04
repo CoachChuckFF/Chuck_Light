@@ -97,9 +97,21 @@ public class ServerAppThread extends Thread {
 		
 		//load scenes
 		//sceneManager = new SceneManager(dmx.getDmx());
-		sceneManager = new SceneManager(new int[513]);
+		try {
+			sceneManager = new SceneManager(new int[513]);
+		} catch (IOException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+			System.exit(-1);
+		}
 		
-		sceneManager.updateSceneFile();
+		try {
+			sceneManager.updateSceneFile();
+		} catch (IOException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+			System.exit(-1);
+		}
 				
 		WirelessCommand currCommand = null;
 		serverRunning = true;
@@ -262,7 +274,13 @@ public class ServerAppThread extends Thread {
 							if(sceneManager.getCurrentIndex() == -1)
 							{
 								sceneManager.addScene(sceneManager.getCurrentScene());
-								sceneManager.updateSceneFile();
+								try {
+									sceneManager.updateSceneFile();
+								} catch (IOException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+									System.exit(-1);
+								}
 							}
 							break;
 						case Connection.PS2_LONG:

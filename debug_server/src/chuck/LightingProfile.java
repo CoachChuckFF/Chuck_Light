@@ -54,12 +54,26 @@ public class LightingProfile implements Comparable<LightingProfile> {
 
 	/**
 	 * Constructor.
+	 * 
+	 * @param name
+	 * @param address
+	 * @param channels
 	 */
-	public LightingProfile(DMXDriver dmx) {
+	public LightingProfile(DMXDriver dmx, String name, int address, int channels) {
+		// check arguments
+		if (name == null || name == "")
+			throw new IllegalArgumentException("empty name not allowed");
+		if (address < 1)
+			throw new IllegalArgumentException("address must be at least 1");
+		if (channels < 1)
+			throw new IllegalArgumentException("must have at least one channel");
+		if (channels + address > 512)
+			throw new IndexOutOfBoundsException("fixture tries to put channel outside of 512 bytes");
+
 		dmxDriver = dmx;
-		name = "unset";
-		address = 0;
-		channels = 1;
+		this.name = name;
+		this.address = address;
+		this.channels = channels;
 		
 		dimmerOffs = -1;
 		redOffs = -1;
@@ -73,31 +87,6 @@ public class LightingProfile implements Comparable<LightingProfile> {
 		panFineOffs = -1;
 		tiltOffs = -1;
 		tiltFineOffs = -1;
-	}
-
-	/**
-	 * Constructor.
-	 * 
-	 * @param name
-	 * @param address
-	 * @param channels
-	 */
-	public LightingProfile(DMXDriver dmx, String name, int address, int channels) {
-		// populate default values
-		this(dmx);
-		// check arguments
-		if (name == null || name == "")
-			throw new IllegalArgumentException("empty name not allowed");
-		if (address < 1)
-			throw new IllegalArgumentException("address must be at least 1");
-		if (channels < 1)
-			throw new IllegalArgumentException("must have at least one channel");
-		if (channels + address > 512)
-			throw new IndexOutOfBoundsException("fixture tries to put channel outside of 512 bytes");
-
-		this.name = name;
-		this.address = address;
-		this.channels = channels;
 		
 		dmxVals = new int[channels];
 	}
