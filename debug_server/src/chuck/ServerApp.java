@@ -1,5 +1,6 @@
 package chuck;
 
+import java.awt.Color;
 import java.io.IOException;
 import java.net.DatagramSocket;
 import java.net.SocketException;
@@ -138,6 +139,19 @@ public class ServerApp {
 		
 		WirelessCommand currCommand = null;
 		serverRunning = true;
+		
+		if(profiles.getLightCount() != 0) {
+			try {
+				profiles.getLight(0).setDimmerValue(255);
+				profiles.getLight(0).setColor(Color.BLUE);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		} else {
+			System.out.println("No lights");
+		}
 		while (serverRunning) {
 			// take element from queue, blocking until something is there
 			try {
@@ -317,6 +331,7 @@ public class ServerApp {
 							selectedLights = highlight.redrum();
 							highlight.join();
 							//TODO join threads
+							System.out.println("Selected lights # = " + selectedLights.size());
 							presetVisual = new PresetVisualThread(dmx, selectedLights);
 							presetVisual.start();
 							break;

@@ -1,16 +1,12 @@
 package chuck.threads;
 
-import java.awt.Color;
-import java.io.*;
-import java.net.*;
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.concurrent.Semaphore;
 
 import chuck.LightingProfile;
-import chuck.defines.*;
+import chuck.defines.LightingDefines;
 import chuck.drivers.DMXDriver;
-import chuck.lighting.Scene;
 
 public class PresetVisualThread extends Thread {
 	private boolean running = false;
@@ -28,6 +24,8 @@ public class PresetVisualThread extends Thread {
 	public void run() {
 		int i = 0;
 		
+		running = true;
+		
 		while(running){
 
 			for (LightingProfile light: lights) {
@@ -35,6 +33,7 @@ public class PresetVisualThread extends Thread {
 					break;
 				try {
 					light.setColor(LightingDefines.PRESETS[i]);
+					light.setDimmer(255);
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
