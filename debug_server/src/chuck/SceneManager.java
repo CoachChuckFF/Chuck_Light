@@ -44,6 +44,7 @@ public class SceneManager {
 	
 	public void createSceneFile(){
 		try {
+			sceneFile.getParentFile().mkdirs();
 			sceneFile.createNewFile();
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block

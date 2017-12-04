@@ -8,7 +8,7 @@ package chuck.defines;
  */
 
 public class Filepaths {
-	public static final String INFO_FULL_FP = "/home/ece453/info";
+	public static final String INFO_FULL_FP = "C:/shared/info";
 
 	public static final String SET_REL_FP = "/set_files";
 
