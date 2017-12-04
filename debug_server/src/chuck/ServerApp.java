@@ -60,11 +60,17 @@ public class ServerApp {
 	public static void main(String[] args) {
 		ServerApp serv = new ServerApp();
 		serv.init();
-		serv.startServer();
+		try {
+			serv.startServer();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.exit(-1);
+		}
 	}
 	
 	public void init(){
-		/*try {
+		try {
 			// instantiate dmx driver
 			dmx = new DMXDriver();
 			System.out.println("DMX Driver Initialized");
@@ -72,7 +78,7 @@ public class ServerApp {
 			// fatal error if unable to instantiate driver
 			ex.printStackTrace();
 			System.exit(-1);
-		}*/
+		}
 		
 		profiles = new ProfileManager(dmx);
 	}
@@ -90,7 +96,7 @@ public class ServerApp {
 	 * bytes, then interprets the change of state based on current state and the
 	 * type of command.
 	 */
-	public void startServer() {
+	public void startServer() throws InterruptedException {
 		
 		currentState = Modes.IDLE;
 		currentLightIndex = 0;
@@ -250,7 +256,7 @@ public class ServerApp {
 							sceneManager.setCurrentScene(new int[513]);
 							highlight = new HighlightThread(dmx);
 							highlight.addLight(profiles.getLight(currentLightIndex));
-							highlight.run();
+							highlight.start();
 							sendHeartbeat = true;
 							break;
 						case Connection.B2:
@@ -312,7 +318,7 @@ public class ServerApp {
 							highlight.join();
 							//TODO join threads
 							presetVisual = new PresetVisualThread(dmx, selectedLights);
-							presetVisual.run();
+							presetVisual.start();
 							break;
 						case Connection.B2:
 							highlight.redrum();
@@ -344,7 +350,13 @@ public class ServerApp {
 							break;
 						case Connection.B2:
 							currentState = Modes.LIGHT_SELECTION;
-							dmx.setDMX(sceneManager.getCurrentScene().getDmxVals());
+							try {
+								dmx.setDMX(sceneManager.getCurrentScene().getDmxVals());
+							} catch (IOException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+								System.exit(-1);
+							}
 							//TODO copy dmxTempVals to Light
 							sendHeartbeat = true;
 							break;
@@ -414,7 +426,13 @@ public class ServerApp {
 								currentPresetIndex = LightingDefines.PRESETS.length - 1;
 							}
 							for (LightingProfile light : selectedLights) {
-								light.setColor(LightingDefines.PRESETS[currentPresetIndex]);
+								try {
+									light.setColor(LightingDefines.PRESETS[currentPresetIndex]);
+								} catch (IOException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+									System.exit(-1);
+								}
 							}
 							break;
 						case Connection.RIGHT:
@@ -422,7 +440,13 @@ public class ServerApp {
 								currentPresetIndex = 0;
 							}
 							for (LightingProfile light : selectedLights) {
-								light.setColor(LightingDefines.PRESETS[currentPresetIndex]);
+								try {
+									light.setColor(LightingDefines.PRESETS[currentPresetIndex]);
+								} catch (IOException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+									System.exit(-1);
+								}
 							}
 							break;
 						case Connection.B1:
@@ -433,7 +457,7 @@ public class ServerApp {
 							break;
 						case Connection.B2:
 							currentState = Modes.CONTROL_SELECTION;
-							presetVisual.run();
+							presetVisual.start();
 							sendHeartbeat = true;
 							break;
 						}

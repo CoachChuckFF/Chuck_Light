@@ -63,7 +63,13 @@ public class UserCLIThread extends Thread {
 				}
 				else
 				{
-					app.startServer();
+					try {
+						app.startServer();
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+						System.exit(-1);
+					}
 					quit = true;
 
 				}

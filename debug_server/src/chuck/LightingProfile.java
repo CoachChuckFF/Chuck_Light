@@ -198,6 +198,10 @@ public class LightingProfile implements Comparable<LightingProfile> {
 			throw new IllegalStateException(
 					String.format("Called set color on fixture without rgb; (addr,r,g,b) = (%d,%d,%d)\n", address, redOffs,
 							greenOffs, blueOffs));
+		dmxVals[redOffs] = color.getRed();
+		dmxVals[greenOffs] = color.getGreen();
+		dmxVals[blueOffs] = color.getBlue();
+		
 		// check for default case for optimal write speed
 		if (redOffs == 1 && greenOffs == 2 && blueOffs == 3) {
 			dmxDriver.setDMX(address + redOffs, color.getRed(), color.getGreen(), color.getBlue());
@@ -218,6 +222,7 @@ public class LightingProfile implements Comparable<LightingProfile> {
 	 *             if unable to access dmx driver files
 	 */
 	public void setDimmerValue(int dimmerVal) throws IOException {
+		dmxVals[dimmerOffs] = dimmerVal;
 		dmxDriver.setDMX(address + dimmerOffs, dimmerVal);
 	}
 
@@ -233,6 +238,7 @@ public class LightingProfile implements Comparable<LightingProfile> {
 	 *             if unable to access dmx driver files
 	 */
 	public void setChannelManual(int channel, int value) throws IOException {
+		dmxVals[channel] = value;
 		dmxDriver.setDMX(address + channel, value);
 	}
 
