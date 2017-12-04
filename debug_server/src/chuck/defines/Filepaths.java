@@ -8,7 +8,7 @@ package chuck.defines;
  */
 
 public class Filepaths {
-	public static final String INFO_FULL_FP = "C:/shared/info";
+	public static final String INFO_FULL_FP = "/home/penguin/Documents/Blizzard/chuck_light/debug_server/src/chuck/information_files/";
 
 	public static final String SET_REL_FP = "/set_files";
 

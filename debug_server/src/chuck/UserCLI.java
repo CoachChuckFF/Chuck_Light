@@ -93,6 +93,7 @@ public class UserCLI {
 				}
 				else
 				{
+					app = new ServerAppThread(dmx, profiles);
 					app.start();
 				}
 			} else if (splitInput[0].startsWith("n")) {
