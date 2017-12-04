@@ -250,4 +250,20 @@ public class LightingProfile implements Comparable<LightingProfile> {
 				+ this.pan_fine + "," + this.tilt + "," + this.tilt_fine;
 	}
 
+	/**
+	 * Check if the given address and offset are valid dmx parameters.
+	 * 
+	 * @param offs
+	 *            feature offset
+	 * @return true if and only if the sum of offset and address is within [1:512]
+	 *         and offset is not negative
+	 */
+	private boolean checkRange(int offs) {
+		// negative offset not valid
+		if (offs < 0)
+			return false;
+		// check that sum is within [1:512]
+		int newAddr = address + offs;
+		return newAddr >= 1 && newAddr <= 512;
+	}
 }
