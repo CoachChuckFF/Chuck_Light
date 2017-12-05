@@ -2,6 +2,7 @@ package chuck;
 
 import java.awt.Color;
 import java.io.IOException;
+import java.util.Arrays;
 
 import chuck.drivers.DMXDriver;
 
@@ -50,6 +51,8 @@ public class LightingProfile implements Comparable<LightingProfile> {
 	private int tiltOffs;
 	private int tiltFineOffs;
 	
+	private int defaultColorOffs;
+	
 	private int[] dmxVals;
 
 	/**
@@ -87,6 +90,8 @@ public class LightingProfile implements Comparable<LightingProfile> {
 		panFineOffs = -1;
 		tiltOffs = -1;
 		tiltFineOffs = -1;
+		
+		defaultColorOffs = 0;
 		
 		dmxVals = new int[channels];
 	}
@@ -171,6 +176,10 @@ public class LightingProfile implements Comparable<LightingProfile> {
 	public int[] getDMXVals() {
 		return dmxVals.clone();
 	}
+	
+	public void setDMXVals(int[] dmxVals) {
+		this.dmxVals = dmxVals.clone();
+	}
 
 	/**
 	 * Sets the rgb color of this fixture. Only touches red, green, blue addresses
@@ -231,6 +240,62 @@ public class LightingProfile implements Comparable<LightingProfile> {
 		dmxDriver.setDMX(address + channel, value);
 	}
 
+	public boolean hasColor() {
+		
+		if(redOffs != -1)
+		{
+			if(dmxVals[redOffs] != 0)
+				return true;
+		}
+		if(greenOffs != -1)
+		{
+			if(dmxVals[greenOffs] != 0)
+				return true;
+		}
+		if(blueOffs != -1)
+		{
+			if(dmxVals[blueOffs] != 0)
+				return true;
+		}
+		if(amberOffs != -1)
+		{
+			if(dmxVals[amberOffs] != 0)
+				return true;
+		}
+		if(whiteOffs != -1)
+		{
+			if(dmxVals[whiteOffs] != 0)
+				return true;
+		}
+
+		
+		return false;
+		
+	}
+	
+	public void setDefaultColorOffest (){
+		if(whiteOffs != -1){
+			defaultColorOffs = whiteOffs;
+		}else if(redOffs != -1){
+			defaultColorOffs = redOffs;
+		} else if(greenOffs != -1){
+			defaultColorOffs = greenOffs;
+		}else if(blueOffs != -1){
+			defaultColorOffs = blueOffs;
+		}else if(amberOffs != -1){
+			defaultColorOffs = amberOffs;
+		}
+	}
+	
+	//reads DMX shadow array and updates lights DMX array
+	public void syncLight(){
+		System.arraycopy(this.dmxDriver.getDmx(), this.address, this.dmxVals, 0, this.channels);
+	}
+	
+	public int getDefaultColorOffest (){
+		return this.defaultColorOffs;
+	}
+	
 	/** 
 	 * Comparison based on address; used for sorting in correct addressable order.
 	 * 

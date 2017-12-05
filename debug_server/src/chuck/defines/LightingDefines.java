@@ -11,5 +11,5 @@ public class LightingDefines {
 	
 	public static final int HIGHLIGHT_VISUAL_DELAY = 300;
 	
-	public static final Color[] PRESETS = {Color.WHITE, Color.BLACK ,Color.RED, Color.YELLOW, Color.GREEN, Color.CYAN, Color.BLUE, Color.MAGENTA, Color.BLACK};
+	public static final Color[] PRESETS = {Color.WHITE, Color.BLACK ,Color.RED, Color.YELLOW, Color.GREEN, Color.CYAN, Color.BLUE, Color.MAGENTA};
 }

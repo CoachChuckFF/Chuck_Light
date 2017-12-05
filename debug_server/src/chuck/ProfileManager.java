@@ -51,6 +51,7 @@ public class ProfileManager {
 		defaultLight.setRed(1);
 		defaultLight.setGreen(2);
 		defaultLight.setBlue(3);
+		defaultLight.setDefaultColorOffest();
 		
 		set.add(defaultLight);
 	}
@@ -88,6 +89,8 @@ public class ProfileManager {
 				light.setTilt(Integer.parseInt(lightLine[13]));
 				light.setTiltFine(Integer.parseInt(lightLine[14]));
 
+				light.setDefaultColorOffest();
+				
 				set.add(light);
 			}
 		} catch (IOException e) {
@@ -362,11 +365,13 @@ public class ProfileManager {
 			light.setTiltFine(0);
 		else
 			light.setTiltFine(Integer.parseInt(input));
+		
+		light.setDefaultColorOffest();
 
 		set.add(light);
 		Collections.sort(set);
 	}
-
+	
 	private void editProfileInSetCLI(BufferedReader reader) throws IOException {
 		Iterator<LightingProfile> iterator;
 		String input;

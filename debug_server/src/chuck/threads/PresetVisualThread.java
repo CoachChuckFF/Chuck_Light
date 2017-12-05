@@ -36,7 +36,7 @@ public class PresetVisualThread extends Thread {
 					break;
 				try {
 					light.setColor(LightingDefines.PRESETS[i]);
-					light.setDimmer(255);
+					light.setDimmerValue(255);
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

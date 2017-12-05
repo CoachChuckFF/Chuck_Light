@@ -21,14 +21,14 @@ public class SceneManager {
 	
 	private Path scene;
 	
-	int currentIndex;
+	private int currentIndex;
 	
 	public SceneManager(int[] dmxVals) throws IOException {
 		scene = Paths.get(Filepaths.SCENE_DIR, DEFAULT_SCENE);
 		Files.createDirectories(scene.getParent());
 		
 		scenes = new ArrayList<Scene>();
-		currentIndex = 0;
+		currentIndex = -1;
 		currentScene = new Scene(dmxVals);
 		
 		try {
@@ -90,6 +90,7 @@ public class SceneManager {
 	public void deleteScene() {
 		if(getCurrentIndex() != -1){
 			scenes.remove(currentIndex);
+			currentIndex = -1;
 		}
 	}
 	
@@ -113,9 +114,14 @@ public class SceneManager {
 	}
 	
 	public Scene getLastScene(){
-		if(--currentIndex <= 0 || scenes.size() == 0){
+		if(currentIndex == -1)
+		{
+			currentIndex = scenes.size() - 1;
+			return scenes.get(currentIndex);
+		}
+		if(--currentIndex < 0 || scenes.size() == 0){
 
-			currentIndex = scenes.size();
+			currentIndex = -1;
 			return currentScene;
 		}
 		
@@ -133,9 +139,6 @@ public class SceneManager {
 	}
 	
 	public int getCurrentIndex(){
-		if(currentIndex == -1 || currentIndex == scenes.size()){
-			return -1; //this means currentScene is on
-		}
 		
 		return currentIndex;
 		

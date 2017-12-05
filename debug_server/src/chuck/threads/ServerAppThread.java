@@ -32,6 +32,7 @@ public class ServerAppThread extends Thread {
 	private ProfileManager profiles;
 	private SceneManager sceneManager;
 	private ArrayList<LightingProfile> selectedLights;
+	private ArrayList<int[]> prevousLightValues;
 	private byte currentState;
 	private boolean serverRunning = false;
 	private DatagramSocket serverSocket;
@@ -98,7 +99,7 @@ public class ServerAppThread extends Thread {
 		//load scenes
 		//sceneManager = new SceneManager(dmx.getDmx());
 		try {
-			sceneManager = new SceneManager(new int[513]);
+			sceneManager = new SceneManager(dmx.getDmx());
 		} catch (IOException e2) {
 			// TODO Auto-generated catch block
 			e2.printStackTrace();
@@ -115,19 +116,7 @@ public class ServerAppThread extends Thread {
 				
 		WirelessCommand currCommand = null;
 		serverRunning = true;
-		
-		if(profiles.getLightCount() != 0) {
-			try {
-				profiles.getLight(0).setDimmerValue(255);
-				profiles.getLight(0).setColor(Color.BLUE);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-		} else {
-			System.out.println("No lights");
-		}
+				
 		while (serverRunning) {
 			// take element from queue, blocking until something is there
 			try {
@@ -180,6 +169,9 @@ public class ServerAppThread extends Thread {
 				case Connection.PS2:
 					System.out.println("ps2");
 					break;
+				case Connection.PS2_LONG:
+					System.out.println("ps2 long");
+					break;
 				case Connection.B12:
 					System.out.println("b12");
 					break;
@@ -213,14 +205,11 @@ public class ServerAppThread extends Thread {
 							break;
 						case Connection.B2:
 							currentState = Modes.IDLE;
-							chase.redrum();
-							try {
-								chase.join();
-							} catch (InterruptedException e1) {
-								// TODO Auto-generated catch block
-								e1.printStackTrace();
-								System.exit(-1);
-							}
+
+							redrumChase();
+							
+							revertScene();
+							
 							sendHeartbeat = true;
 							break;
 						}
@@ -232,38 +221,35 @@ public class ServerAppThread extends Thread {
 						}
 						switch(currCommand.getUserActionData()){
 						case Connection.LEFT:
-							/*try {
+							try {
 								dmx.setDMX(sceneManager.getLastScene().getDmxVals());
 							} catch (IOException e) {
 								// TODO Auto-generated catch block
 								e.printStackTrace();
-							}*/
-							System.out.println(Arrays.toString(sceneManager.getLastScene().getDmxVals()));
+							}
+							System.out.println(sceneManager.getCurrentIndex());
 							break;
 						case Connection.RIGHT:
-							/*try {
+							try {
 								dmx.setDMX(sceneManager.getNextScene().getDmxVals());
 							} catch (IOException e) {
 								// TODO Auto-generated catch block
 								e.printStackTrace();
-							}*/
-							System.out.println(Arrays.toString(sceneManager.getNextScene().getDmxVals()));
+							}
+							System.out.println(sceneManager.getCurrentIndex());
 							break;
 						case Connection.B1:
 							currentState = Modes.LIGHT_SELECTION;
 							//TODO Highlight first Light
 							//sceneManager.setCurrentScene(dmx.getDmx());
-							sceneManager.setCurrentScene(new int[513]);
-							highlight = new HighlightThread(dmx);
-							highlight.addLight(profiles.getLight(currentLightIndex));
-							highlight.start();
+							sceneManager.setCurrentScene(dmx.getDmx());
+							startHighlight();
 							sendHeartbeat = true;
 							break;
 						case Connection.B2:
 							if(sceneManager.getSceneCount() > 1){
 								currentState = Modes.CHASE;
-								chase = new ChaseThread(chaseSceneDelay, sceneManager.getSceneArray(), dmx);
-								chase.start();
+								startChase();
 								sendHeartbeat = true;
 							} else {
 								System.out.println("Can't play chase with less than 2 Scenes");
@@ -273,7 +259,7 @@ public class ServerAppThread extends Thread {
 							//adds scene to list
 							if(sceneManager.getCurrentIndex() == -1)
 							{
-								sceneManager.addScene(sceneManager.getCurrentScene());
+								sceneManager.addScene(dmx.getDmx());
 								try {
 									sceneManager.updateSceneFile();
 								} catch (IOException e) {
@@ -287,7 +273,16 @@ public class ServerAppThread extends Thread {
 							if(sceneManager.getCurrentIndex() != -1)
 							{
 								sceneManager.deleteScene();
-								//dmx.setDMX(sceneManager.getCurrentScene().getDmxVals());
+
+								try {
+									sceneManager.updateSceneFile();
+								} catch (IOException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+									System.exit(-1);
+								}
+								
+								revertScene();
 							}
 							break;
 						case Connection.KONAMI:
@@ -319,29 +314,19 @@ public class ServerAppThread extends Thread {
 							currentState = Modes.CONTROL_SELECTION;
 							//creates carbon copy of lights as is
 							//TODO start colorwheel visualization
+							
+							selectedLights = redrumHighlight();
+							// TODO Auto-generated catch block
+							revertScene();
+							
+							startPresetVisual();
 							sendHeartbeat = true;
-							selectedLights = highlight.redrum();
-							try {
-								highlight.join();
-							} catch (InterruptedException e1) {
-								// TODO Auto-generated catch block
-								e1.printStackTrace();
-								System.exit(-1);
-							}
-							//TODO join threads
-							System.out.println("Selected lights # = " + selectedLights.size());
-							presetVisual = new PresetVisualThread(dmx, selectedLights);
-							presetVisual.start();
 							break;
 						case Connection.B2:
-							highlight.redrum();
-							try {
-								highlight.join();
-							} catch (InterruptedException e1) {
-								// TODO Auto-generated catch block
-								e1.printStackTrace();
-								System.exit(-1);
-							}
+							redrumHighlight();
+							
+							revertScene();
+							
 							currentState = Modes.IDLE;
 							sendHeartbeat = true;
 							break;
@@ -362,28 +347,20 @@ public class ServerAppThread extends Thread {
 						case Connection.B1:
 							//TODO Position Dependant
 							currentState = Modes.PRESET;
-
-							presetVisual.redrum();
-							try {
-								presetVisual.join();
-							} catch (InterruptedException e1) {
-								// TODO Auto-generated catch block
-								e1.printStackTrace();
-								System.exit(-1);
-							}
+							redrumPresetVisual();
+							
 							sendHeartbeat = true;
 							break;
 						case Connection.B2:
 							currentState = Modes.LIGHT_SELECTION;
-							try {
-								dmx.setDMX(sceneManager.getCurrentScene().getDmxVals());
-							} catch (IOException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-								System.exit(-1);
-							}
-							//TODO copy dmxTempVals to Light
+							redrumPresetVisual();
+							
+							revertScene();
+							
+							startHighlight();
+
 							sendHeartbeat = true;
+
 							break;
 						}	
 					break;
@@ -475,14 +452,20 @@ public class ServerAppThread extends Thread {
 							}
 							break;
 						case Connection.B1:
-							//TODO Save
+							//saves scene
 							sceneManager.setCurrentScene(dmx.getDmx());
+							
 							currentState = Modes.LIGHT_SELECTION;
+							
+							startHighlight();
+							
 							sendHeartbeat = true;
 							break;
 						case Connection.B2:
 							currentState = Modes.CONTROL_SELECTION;
-							presetVisual.start();
+							
+							startPresetVisual();
+							
 							sendHeartbeat = true;
 							break;
 						}
@@ -531,7 +514,82 @@ public class ServerAppThread extends Thread {
 		}
 	}
 	
+	private void revertScene() {
+		try {
+			dmx.setDMX(sceneManager.getCurrentScene().getDmxVals());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		if(selectedLights != null) {
+			for (LightingProfile light : selectedLights) {
+				light.syncLight();
+			}
+		}
+
+	}
+	
+	private void startChase() {
+		chase = new ChaseThread(chaseSceneDelay, sceneManager.getSceneArray(), dmx);
+		chase.start();
+	}
+	
+	private void redrumChase() {
+		chase.redrum();
+		try {
+			chase.join();
+		} catch (InterruptedException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+			System.exit(-1);
+		}
+		chase = null;
+	}
+	
+	private void startHighlight() {
+		highlight = new HighlightThread(dmx);
+		highlight.addLight(profiles.getLight(currentLightIndex));
+		highlight.start();
+	}
+	
+	private ArrayList<LightingProfile> redrumHighlight() {
+		ArrayList<LightingProfile> temp;
+		temp = highlight.redrum();
+		try {
+			highlight.join();
+		} catch (InterruptedException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		highlight = null;
+		return temp;
+	}
+	
+	private void startPresetVisual() {
+		presetVisual = new PresetVisualThread(dmx, selectedLights);
+		presetVisual.start();
+	}
+	
+	private void redrumPresetVisual() {
+		presetVisual.redrum();
+		try {
+			presetVisual.join();
+		} catch (InterruptedException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		presetVisual = null;
+	}
+	
 	public void stopServer(){
+		if(highlight != null){
+			redrumHighlight();
+		}
+		
+		if(presetVisual != null){
+			redrumPresetVisual();
+		}
+		
 		if(udpListen != null)
 			try {
 				udpListen.redrum();
@@ -552,6 +610,8 @@ public class ServerAppThread extends Thread {
 		
 		if(serverSocket != null)
 			serverSocket.close();
+
+
 		
 		/*try {
 			dmx.clearDMX();

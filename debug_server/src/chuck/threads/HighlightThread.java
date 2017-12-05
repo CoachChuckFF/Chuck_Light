@@ -73,6 +73,7 @@ public class HighlightThread extends Thread {
 	
 	
 	public void addLight(LightingProfile light){
+		
 		if(!lights.contains(light)){
 			try {
 				semaphore.acquire();
@@ -81,7 +82,19 @@ public class HighlightThread extends Thread {
 				e.printStackTrace();
 			}
 			lights.add(light);
-			//savedValues.add(light.getDMXVals());
+			savedValues.add(light.getDMXVals());
+			System.out.println(light.hasColor());
+			System.out.println(light.getDefaultColorOffest());
+			if(!light.hasColor()) {
+				try {
+					light.setChannelManual(light.getDefaultColorOffest(), 255);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					System.exit(-1);
+				}	
+			}
+
 			semaphore.release();
 		}
 	}
@@ -96,7 +109,7 @@ public class HighlightThread extends Thread {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			//light.setDMXVals(savedValues.remove(lights.indexOf(light)));
+			light.setDMXVals(savedValues.remove(lights.indexOf(light)));
 			lights.remove(light);
 			semaphore.release();
 		}
