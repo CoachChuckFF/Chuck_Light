@@ -195,12 +195,12 @@ public class ServerAppThread extends Thread {
 						switch(currCommand.getUserActionData()){
 						case Connection.UP:
 							if(chaseSceneDelay < LightingDefines.MAX_CHASE_DELAY){
-								chase.setSceneDelay(chaseSceneDelay+=100);
+								chase.setSceneDelay(chaseSceneDelay+=LightingDefines.CHASE_STEP);
 							}
 							break;
 						case Connection.DOWN:
 							if(chaseSceneDelay > LightingDefines.MIN_CHASE_DELAY){
-								chase.setSceneDelay(chaseSceneDelay-=100);
+								chase.setSceneDelay(chaseSceneDelay-=LightingDefines.CHASE_STEP);
 							}
 							break;
 						case Connection.B2:
@@ -302,13 +302,41 @@ public class ServerAppThread extends Thread {
 						}
 						switch(currCommand.getUserActionData()){
 						case Connection.LEFT:
-							//TODO Highlight Prevous Light
+							if(!profiles.getLight(currentLightIndex).isSelected()) {
+								highlight.removeLight(profiles.getLight(currentLightIndex));
+								revertScene();
+								highlight.updateDefaultColor();
+							}
+							
+							if(--currentLightIndex < 0)
+								currentLightIndex = profiles.getLightCount() - 1;
+							
+							if(!profiles.getLight(currentLightIndex).isSelected())
+								highlight.addLight(profiles.getLight(currentLightIndex));
 							break;
 						case Connection.RIGHT:
-							//TODO Highlight Next Light
+							if(!profiles.getLight(currentLightIndex).isSelected()) {
+								highlight.removeLight(profiles.getLight(currentLightIndex));
+								revertScene();
+								highlight.updateDefaultColor();
+							}
+							
+							if(--currentLightIndex < 0)
+								currentLightIndex = profiles.getLightCount() - 1;
+							
+							if(!profiles.getLight(currentLightIndex).isSelected())
+								highlight.addLight(profiles.getLight(currentLightIndex));
 							break;
 						case Connection.PS2:
-							//TODO Highlight add light to selected lights
+							if(profiles.getLight(currentLightIndex).isSelected()) {
+								profiles.getLight(currentLightIndex).setSelected(false);
+							} else {
+								profiles.getLight(currentLightIndex).setSelected(true);
+							}
+							break;
+						case Connection.PS2_LONG:
+								clearSelected();
+								highlight.addLight(profiles.getLight(currentLightIndex));
 							break;
 						case Connection.B1:
 							currentState = Modes.CONTROL_SELECTION;
@@ -316,6 +344,7 @@ public class ServerAppThread extends Thread {
 							//TODO start colorwheel visualization
 							
 							selectedLights = redrumHighlight();
+							clearSelected();
 							// TODO Auto-generated catch block
 							revertScene();
 							
@@ -324,6 +353,8 @@ public class ServerAppThread extends Thread {
 							break;
 						case Connection.B2:
 							redrumHighlight();
+							
+							clearSelected();
 							
 							revertScene();
 							
@@ -529,6 +560,12 @@ public class ServerAppThread extends Thread {
 
 	}
 	
+	private void clearSelected() {
+		for (int i = 0; i < profiles.getLightCount(); i++) {
+			profiles.getLight(i).setSelected(false);
+		}
+	}
+	
 	private void startChase() {
 		chase = new ChaseThread(chaseSceneDelay, sceneManager.getSceneArray(), dmx);
 		chase.start();
@@ -536,6 +573,7 @@ public class ServerAppThread extends Thread {
 	
 	private void redrumChase() {
 		chase.redrum();
+		chase.interrupt();
 		try {
 			chase.join();
 		} catch (InterruptedException e1) {
@@ -555,6 +593,7 @@ public class ServerAppThread extends Thread {
 	private ArrayList<LightingProfile> redrumHighlight() {
 		ArrayList<LightingProfile> temp;
 		temp = highlight.redrum();
+		highlight.interrupt();
 		try {
 			highlight.join();
 		} catch (InterruptedException e1) {
@@ -572,6 +611,7 @@ public class ServerAppThread extends Thread {
 	
 	private void redrumPresetVisual() {
 		presetVisual.redrum();
+		presetVisual.interrupt();
 		try {
 			presetVisual.join();
 		} catch (InterruptedException e1) {
@@ -593,6 +633,7 @@ public class ServerAppThread extends Thread {
 		if(udpListen != null)
 			try {
 				udpListen.redrum();
+				udpListen.interrupt();
 				udpListen.join();
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
@@ -602,6 +643,7 @@ public class ServerAppThread extends Thread {
 		if(heartbeat != null)
 			try {
 				heartbeat.redrum();
+				heartbeat.interrupt();
 				heartbeat.join();
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block

@@ -53,7 +53,23 @@ public class ProfileManager {
 		defaultLight.setBlue(3);
 		defaultLight.setDefaultColorOffest();
 		
+		LightingProfile defaultLight1 = new LightingProfile(dmx, "test1", 12, 11);
+		defaultLight1.setDimmer(0);
+		defaultLight1.setRed(1);
+		defaultLight1.setGreen(2);
+		defaultLight1.setBlue(3);
+		defaultLight1.setDefaultColorOffest();
+		
+		LightingProfile defaultLight2 = new LightingProfile(dmx, "test2", 24, 11);
+		defaultLight2.setDimmer(0);
+		defaultLight2.setRed(1);
+		defaultLight2.setGreen(2);
+		defaultLight2.setBlue(3);
+		defaultLight2.setDefaultColorOffest();
+		
 		set.add(defaultLight);
+		set.add(defaultLight1);
+		set.add(defaultLight2);
 	}
 
 	/**

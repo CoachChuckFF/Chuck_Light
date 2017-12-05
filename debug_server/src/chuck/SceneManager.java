@@ -45,14 +45,11 @@ public class SceneManager {
 			for (Scene scene : scenes) {
 				for(int i = 0; i < 513; i++) {
 					if(i != 512){
-						System.out.print(scene.getDmxVals()[i] + ",");
 						line += scene.getDmxVals()[i] + ",";
 					} else { 
-						System.out.print(scene.getDmxVals()[i]);
 						line += scene.getDmxVals()[i] + "\n";
 					}
 				}
-				System.out.println("");
 				writer.write(line);
 				line = "";
 			}

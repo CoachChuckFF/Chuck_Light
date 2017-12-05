@@ -43,8 +43,7 @@ public class ChaseThread extends Thread {
 				try {
 					Thread.sleep(sceneDelay);
 				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					continue;
 				}
 			}
 		}

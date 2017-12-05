@@ -41,6 +41,7 @@ public class UserCLI {
 		String[] splitInput = null;
 		
 		app = new ServerAppThread(dmx, profiles);
+		app.start();
 
 		printMainHelp();
 

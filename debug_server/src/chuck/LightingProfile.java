@@ -53,6 +53,8 @@ public class LightingProfile implements Comparable<LightingProfile> {
 	
 	private int defaultColorOffs;
 	
+	private boolean isSelected = false;
+	
 	private int[] dmxVals;
 
 	/**
@@ -294,6 +296,14 @@ public class LightingProfile implements Comparable<LightingProfile> {
 	
 	public int getDefaultColorOffest (){
 		return this.defaultColorOffs;
+	}
+	
+	public boolean isSelected() {
+		return this.isSelected;
+	}
+	
+	public void setSelected(boolean selected) {
+		this.isSelected = selected;
 	}
 	
 	/** 
