@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 import chuck.drivers.DMXDriver;
+import chuck.drivers.DMXDummy;
 import chuck.drivers.DefaultDMX;
 import chuck.threads.ServerAppThread;
 
@@ -18,7 +19,7 @@ public class UserCLI {
 	public UserCLI() {
 		try {
 			// instantiate dmx driver
-			dmx = new DefaultDMX();
+			dmx = new DMXDummy();
 			System.out.println("DMX Driver Initialized");
 			profiles = new ProfileManager(dmx);
 			System.out.println("default profile loaded");

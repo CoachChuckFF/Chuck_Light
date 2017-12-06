@@ -9,6 +9,7 @@ public class LightingDefines {
 	public static final int CHASE_STEP = 10;
 	
 	public static final int PRESET_VISUAL_DELAY = 400;
+	public static final int RAINBOW_VISUAL_DELAY = 100;
 	
 	public static final int HIGHLIGHT_VISUAL_DELAY = 50;
 	public static final int HIGHLIGHT_DIMMER_STEP = 5;

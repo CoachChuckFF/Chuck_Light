@@ -43,6 +43,7 @@ public class ServerAppThread extends Thread {
 	private ChaseThread chase = null;
 	private HighlightThread highlight = null;
 	private PresetVisualThread presetVisual = null;
+	private RainbowThread rainbowVisual = null;
 	
 	private int currentLightIndex;
 	private int currentPresetIndex;
@@ -348,7 +349,7 @@ public class ServerAppThread extends Thread {
 							// TODO Auto-generated catch block
 							revertScene();
 							
-							startPresetVisual();
+							startRainbow();
 							sendHeartbeat = true;
 							break;
 						case Connection.B2:
@@ -378,13 +379,15 @@ public class ServerAppThread extends Thread {
 						case Connection.B1:
 							//TODO Position Dependant
 							currentState = Modes.PRESET;
-							redrumPresetVisual();
+							//redrumPresetVisual();
+							redrumRainbow();
 							
 							sendHeartbeat = true;
 							break;
 						case Connection.B2:
 							currentState = Modes.LIGHT_SELECTION;
-							redrumPresetVisual();
+							//redrumPresetVisual();
+							redrumRainbow();
 							
 							revertScene();
 							
@@ -566,6 +569,21 @@ public class ServerAppThread extends Thread {
 		}
 	}
 	
+	private void startRainbow() {
+		rainbowVisual = new RainbowThread(selectedLights);
+	}
+	
+	private void redrumRainbow() {
+		try {
+			rainbowVisual.kill();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			// e.printStackTrace();
+			// gonna die anyway
+		}
+		rainbowVisual = null;
+	}
+	
 	private void startChase() {
 		chase = new ChaseThread(chaseSceneDelay, sceneManager.getSceneArray(), dmx);
 		chase.start();
@@ -605,7 +623,7 @@ public class ServerAppThread extends Thread {
 	}
 	
 	private void startPresetVisual() {
-		presetVisual = new PresetVisualThread(dmx, selectedLights);
+		presetVisual = new PresetVisualThread(selectedLights);
 		presetVisual.start();
 	}
 	

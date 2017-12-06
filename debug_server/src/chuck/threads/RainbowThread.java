@@ -7,6 +7,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import chuck.LightingProfile;
+import chuck.defines.LightingDefines;
 
 /**
  * Thread that takes a lighting profile object and changes that fixture's color
@@ -19,10 +20,9 @@ public class RainbowThread extends Thread {
 
 	private static final int RAINBOW_RESOLUTION = 100;
 
-	private LightingProfile fixture;
+	private List<LightingProfile> fixtures;
 	private List<Color> rainbow;
-	private int[] prevVals;
-	private static boolean running = true;
+	private static boolean running = false;
 
 	/**
 	 * Constructor. Prepares for rotating colors on fixture. <br />
@@ -31,8 +31,8 @@ public class RainbowThread extends Thread {
 	 * @param fixture
 	 *            fixture to highlight
 	 */
-	public RainbowThread(LightingProfile fixture) {
-		this.fixture = fixture;
+	public RainbowThread(List<LightingProfile> fixtures) {
+		this.fixtures = fixtures;
 
 		rainbow = new LinkedList<Color>();
 		for (int r = 0; r < RAINBOW_RESOLUTION; r++)
@@ -57,29 +57,29 @@ public class RainbowThread extends Thread {
 	 */
 	@Override
 	public void run() {
-		prevVals = fixture.getDMXVals();
 		Iterator<Color> colors = rainbow.iterator();
+		running = true;
 
 		while (running) {
 			if (!colors.hasNext())
 				colors = rainbow.iterator();
+			
+			Color currColor = colors.next();
+			fixtures.forEach(fixture -> {
+				try {
+					fixture.setColor(currColor);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			});
+			
 			try {
-				fixture.setColor(colors.next());
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				System.exit(-1);
+				Thread.sleep(LightingDefines.RAINBOW_VISUAL_DELAY);
+			} catch (InterruptedException e) {
+				// probably interrupted by main thread, just continue
+				continue;
 			}
-		}
-
-		try {
-			for (int i = 0; i < prevVals.length; i++) {
-				fixture.setChannelManual(i, prevVals[i]);
-			}
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			System.exit(-1);
 		}
 	}
 
@@ -89,6 +89,7 @@ public class RainbowThread extends Thread {
 	 */
 	public void kill() throws InterruptedException {
 		running = false;
+		this.interrupt();
 		this.join();
 	}
 }
