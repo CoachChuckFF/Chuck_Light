@@ -1,3 +1,3 @@
 find . -type f -name '*.class' -delete
-javac chuck/ServerApp.java
-sudo java chuck.ServerApp
+javac chuck/UserCLI.java
+sudo java chuck.UserCLI

@@ -16,7 +16,7 @@ public class DMXTester {
 		int[] dmx = null;
 
 		try {
-			driver = new DMXDummy();
+			driver = new DefaultDMX();
 		} catch (IOException ex) {
 			ex.printStackTrace();
 			System.out.println("Make sure you ran insmod and started this program as root.");
