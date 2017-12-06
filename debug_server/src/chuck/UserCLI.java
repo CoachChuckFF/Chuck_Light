@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 import chuck.drivers.DMXDriver;
-import chuck.drivers.DMXDummy;
+import chuck.drivers.DefaultDMX;
 import chuck.threads.ServerAppThread;
 
 public class UserCLI {
@@ -18,15 +18,15 @@ public class UserCLI {
 	public UserCLI() {
 		try {
 			// instantiate dmx driver
-			dmx = new DMXDummy();
+			dmx = new DefaultDMX();
 			System.out.println("DMX Driver Initialized");
+			profiles = new ProfileManager(dmx);
+			System.out.println("default profile loaded");
 		} catch (IOException ex) {
 			// fatal error if unable to instantiate driver
 			ex.printStackTrace();
 			System.exit(-1);
 		}
-		
-		profiles = new ProfileManager(dmx);
 	}
 	
 	public static void main(String[] args) {
@@ -41,6 +41,7 @@ public class UserCLI {
 		String[] splitInput = null;
 		
 		app = new ServerAppThread(dmx, profiles);
+		app.start();
 
 		printMainHelp();
 
@@ -62,6 +63,13 @@ public class UserCLI {
 					e.printStackTrace();
 				}
 				System.out.println("Goodbye");
+				try {
+					dmx.clearDMX();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					System.exit(-1);
+				}
 				System.exit(0);
 			} else if (splitInput[0].startsWith("c")) {
 				quit = true;
@@ -93,6 +101,7 @@ public class UserCLI {
 				}
 				else
 				{
+					app = new ServerAppThread(dmx, profiles);
 					app.start();
 				}
 			} else if (splitInput[0].startsWith("n")) {

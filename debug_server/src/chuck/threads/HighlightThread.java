@@ -17,6 +17,7 @@ public class HighlightThread extends Thread {
 	private ArrayList<LightingProfile> lights;
 	private ArrayList<int[]> savedValues;
 	private DMXDriver dmx;
+	private boolean updateDefaultColor = false;
 
 	public HighlightThread(DMXDriver dmx) {
 		this.lights = new ArrayList<LightingProfile>();
@@ -29,24 +30,32 @@ public class HighlightThread extends Thread {
 
 	public void run() {
 		running = true;
-		int direction = -1;
+		int direction = -1 * LightingDefines.HIGHLIGHT_DIMMER_STEP;
 		int dimmerValue = 255;
 		
 		while(running){
-			try {
-				semaphore.acquire();
-			} catch (InterruptedException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
+			semaphore.acquireUninterruptibly();
 			for (LightingProfile light: lights) {
 				if(!running)
 					break;
 
-				if(direction == -1 && dimmerValue < 100){
-					direction = 1;
-				} else if (direction == 1 && dimmerValue >= 255){
-					direction = -1;
+				if(updateDefaultColor) {
+					light.syncLight();
+					if(!light.hasColor()) {
+						try {
+							light.setChannelManual(light.getDefaultColorOffest(), 255);
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+							System.exit(-1);
+						}	
+					}
+				}
+				
+				if(direction == -1 * LightingDefines.HIGHLIGHT_DIMMER_STEP && dimmerValue < LightingDefines.HIGHLIGHT_DIMMER_LOW_VAL){
+					direction = LightingDefines.HIGHLIGHT_DIMMER_STEP;
+				} else if (direction == LightingDefines.HIGHLIGHT_DIMMER_STEP && dimmerValue >= LightingDefines.HIGHLIGHT_DIMMER_HIGH_VAL){
+					direction = -1 * LightingDefines.HIGHLIGHT_DIMMER_STEP;
 				}
 				
 				try {
@@ -58,7 +67,14 @@ public class HighlightThread extends Thread {
 			
 			}
 			
+			updateDefaultColor = false;
 			semaphore.release();
+			
+			try {
+				Thread.sleep(LightingDefines.HIGHLIGHT_VISUAL_DELAY);
+			} catch (InterruptedException e) {
+				continue;
+			}
 			
 		}
 		
@@ -66,32 +82,32 @@ public class HighlightThread extends Thread {
 	
 	
 	public void addLight(LightingProfile light){
+		
 		if(!lights.contains(light)){
-			try {
-				semaphore.acquire();
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			semaphore.acquireUninterruptibly();
 			lights.add(light);
-			//savedValues.add(light.getDMXVals());
+			savedValues.add(light.getDMXVals());
+			updateDefaultColor = true;
 			semaphore.release();
+
 		}
+	}
+	
+	public void updateDefaultColor() {
+		semaphore.acquireUninterruptibly();
+		updateDefaultColor = true;
+		semaphore.release();
 	}
 	
 	//restore prevous value
 	public void removeLight(LightingProfile light){
 		if(lights.contains(light))
 		{
-			try {
-				semaphore.acquire();
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			//light.setDMXVals(savedValues.remove(lights.indexOf(light)));
+			semaphore.acquireUninterruptibly();
+			light.setDMXVals(savedValues.remove(lights.indexOf(light)));
 			lights.remove(light);
 			semaphore.release();
+
 		}
 	}
 	
@@ -105,6 +121,14 @@ public class HighlightThread extends Thread {
 		}
 		//return (ArrayList<LightingProfile>) lights.clone();
 		return temp;
+	}
+	
+	public void clearHighlighted()
+	{
+		semaphore.acquireUninterruptibly();
+			lights.clear();
+			savedValues.clear();
+		semaphore.release();
 	}
 	
 

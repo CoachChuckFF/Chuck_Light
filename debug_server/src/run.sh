@@ -1,2 +1,2 @@
-sudo javac chuck/ServerApp.java
-sudo java chuck.ServerApp
+sudo javac chuck/UserCLI.java
+sudo java chuck.UserCLI

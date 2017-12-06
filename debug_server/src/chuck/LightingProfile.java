@@ -2,6 +2,7 @@ package chuck;
 
 import java.awt.Color;
 import java.io.IOException;
+import java.util.Arrays;
 
 import chuck.drivers.DMXDriver;
 
@@ -50,16 +51,34 @@ public class LightingProfile implements Comparable<LightingProfile> {
 	private int tiltOffs;
 	private int tiltFineOffs;
 	
+	private int defaultColorOffs;
+	
+	private boolean isSelected = false;
+	
 	private int[] dmxVals;
 
 	/**
 	 * Constructor.
+	 * 
+	 * @param name
+	 * @param address
+	 * @param channels
 	 */
-	public LightingProfile(DMXDriver dmx) {
+	public LightingProfile(DMXDriver dmx, String name, int address, int channels) {
+		// check arguments
+		if (name == null || name == "")
+			throw new IllegalArgumentException("empty name not allowed");
+		if (address < 1)
+			throw new IllegalArgumentException("address must be at least 1");
+		if (channels < 1)
+			throw new IllegalArgumentException("must have at least one channel");
+		if (channels + address > 512)
+			throw new IndexOutOfBoundsException("fixture tries to put channel outside of 512 bytes");
+
 		dmxDriver = dmx;
-		name = "unset";
-		address = 0;
-		channels = 1;
+		this.name = name;
+		this.address = address;
+		this.channels = channels;
 		
 		dimmerOffs = -1;
 		redOffs = -1;
@@ -73,31 +92,8 @@ public class LightingProfile implements Comparable<LightingProfile> {
 		panFineOffs = -1;
 		tiltOffs = -1;
 		tiltFineOffs = -1;
-	}
-
-	/**
-	 * Constructor.
-	 * 
-	 * @param name
-	 * @param address
-	 * @param channels
-	 */
-	public LightingProfile(DMXDriver dmx, String name, int address, int channels) {
-		// populate default values
-		this(dmx);
-		// check arguments
-		if (name == null || name == "")
-			throw new IllegalArgumentException("empty name not allowed");
-		if (address < 1)
-			throw new IllegalArgumentException("address must be at least 1");
-		if (channels < 1)
-			throw new IllegalArgumentException("must have at least one channel");
-		if (channels + address > 512)
-			throw new IndexOutOfBoundsException("fixture tries to put channel outside of 512 bytes");
-
-		this.name = name;
-		this.address = address;
-		this.channels = channels;
+		
+		defaultColorOffs = 0;
 		
 		dmxVals = new int[channels];
 	}
@@ -182,6 +178,10 @@ public class LightingProfile implements Comparable<LightingProfile> {
 	public int[] getDMXVals() {
 		return dmxVals.clone();
 	}
+	
+	public void setDMXVals(int[] dmxVals) {
+		this.dmxVals = dmxVals.clone();
+	}
 
 	/**
 	 * Sets the rgb color of this fixture. Only touches red, green, blue addresses
@@ -242,6 +242,70 @@ public class LightingProfile implements Comparable<LightingProfile> {
 		dmxDriver.setDMX(address + channel, value);
 	}
 
+	public boolean hasColor() {
+		
+		if(redOffs != -1)
+		{
+			if(dmxVals[redOffs] != 0)
+				return true;
+		}
+		if(greenOffs != -1)
+		{
+			if(dmxVals[greenOffs] != 0)
+				return true;
+		}
+		if(blueOffs != -1)
+		{
+			if(dmxVals[blueOffs] != 0)
+				return true;
+		}
+		if(amberOffs != -1)
+		{
+			if(dmxVals[amberOffs] != 0)
+				return true;
+		}
+		if(whiteOffs != -1)
+		{
+			if(dmxVals[whiteOffs] != 0)
+				return true;
+		}
+
+		
+		return false;
+		
+	}
+	
+	public void setDefaultColorOffest (){
+		if(whiteOffs != -1){
+			defaultColorOffs = whiteOffs;
+		}else if(redOffs != -1){
+			defaultColorOffs = redOffs;
+		} else if(greenOffs != -1){
+			defaultColorOffs = greenOffs;
+		}else if(blueOffs != -1){
+			defaultColorOffs = blueOffs;
+		}else if(amberOffs != -1){
+			defaultColorOffs = amberOffs;
+		}
+	}
+	
+	//reads DMX shadow array and updates lights DMX array
+	public void syncLight(){
+		System.arraycopy(this.dmxDriver.getDmx(), this.address, this.dmxVals, 0, this.channels);
+	}
+	
+	public int getDefaultColorOffest (){
+		return this.defaultColorOffs;
+	}
+	
+	public boolean isSelected() {
+		return this.isSelected;
+	}
+	
+	public void setSelected(boolean selected) {
+		this.isSelected = selected;
+	}
+	
 	/** 
 	 * Comparison based on address; used for sorting in correct addressable order.
 	 * 

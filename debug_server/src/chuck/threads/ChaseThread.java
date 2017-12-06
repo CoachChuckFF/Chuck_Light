@@ -34,13 +34,16 @@ public class ChaseThread extends Thread {
 			for (Scene scene : scenes) {
 				if(!running)
 					break;
-				System.out.println(Arrays.toString(scene.getDmxVals()));
-				//dmx.setDMX(scene.getDmxVals());
+				try {
+					dmx.setDMX(scene.getDmxVals());
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				try {
 					Thread.sleep(sceneDelay);
 				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					continue;
 				}
 			}
 		}
