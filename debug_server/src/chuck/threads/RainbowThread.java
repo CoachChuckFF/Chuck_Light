@@ -12,13 +12,13 @@ import chuck.defines.LightingDefines;
 /**
  * Thread that takes a lighting profile object and changes that fixture's color
  * to indicate the color selection mode.
- * 
+ *
  * @author Joseph Eichenhofer
  *
  */
 public class RainbowThread extends Thread {
 
-	private static final int RAINBOW_RESOLUTION = 25;
+	private static final int RAINBOW_RESOLUTION = 50;
 
 	private List<LightingProfile> fixtures;
 	private List<Color> rainbow;
@@ -27,7 +27,7 @@ public class RainbowThread extends Thread {
 	/**
 	 * Constructor. Prepares for rotating colors on fixture. <br />
 	 * Creates rainbow based on logic found https://stackoverflow.com/a/22973823
-	 * 
+	 *
 	 * @param fixture
 	 *            fixture to highlight
 	 */
@@ -52,7 +52,7 @@ public class RainbowThread extends Thread {
 
 	/**
 	 * Starts rotating the colors on the fixture.
-	 * 
+	 *
 	 * @see java.lang.Thread#run()
 	 */
 	@Override
@@ -63,7 +63,7 @@ public class RainbowThread extends Thread {
 		while (running) {
 			if (!colors.hasNext())
 				colors = rainbow.iterator();
-			
+
 			Color currColor = colors.next();
 			fixtures.forEach(fixture -> {
 				try {
@@ -74,7 +74,7 @@ public class RainbowThread extends Thread {
 					e.printStackTrace();
 				}
 			});
-			
+
 			try {
 				Thread.sleep(LightingDefines.RAINBOW_VISUAL_DELAY);
 			} catch (InterruptedException e) {
