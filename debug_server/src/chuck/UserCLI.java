@@ -5,16 +5,17 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 import chuck.drivers.DMXDriver;
+// import chuck.drivers.DMXDummy;
 import chuck.drivers.DefaultDMX;
 import chuck.threads.ServerAppThread;
 
 public class UserCLI {
 
 	private DMXDriver dmx;
-	
+
 	private ProfileManager profiles;
 	private ServerAppThread app;
-	
+
 	public UserCLI() {
 		try {
 			// instantiate dmx driver
@@ -28,18 +29,18 @@ public class UserCLI {
 			System.exit(-1);
 		}
 	}
-	
+
 	public static void main(String[] args) {
 		UserCLI cli = new UserCLI();
 		cli.startCLI();
 	}
-	
+
 	public void startCLI() {
 		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 		boolean quit = false;
 		String input = null;
 		String[] splitInput = null;
-		
+
 		app = new ServerAppThread(dmx, profiles);
 		app.start();
 
@@ -81,12 +82,12 @@ public class UserCLI {
 					System.out.println("stop server first");
 				else
 					profiles.managerCLI(reader);
-				
+
 			} else if (splitInput[0].startsWith("z")) {
 				System.out.println(profiles.toString());
 			} else if (splitInput[0].startsWith("d")) {
 				System.out.println("add in DMX veiwer");
-				
+
 			} else if (splitInput[0].startsWith("s")) {
 				if(app.isServerRunning()){
 					app.stopServer();
@@ -111,7 +112,7 @@ public class UserCLI {
 				else {
 					System.out.println("Server needs to be running");
 				}
-				
+
 			} else if (input.startsWith("h")) {
 				printMainHelp();
 			} else {
@@ -121,7 +122,7 @@ public class UserCLI {
 		} while (!quit);
 
 	}
-	
+
 	public void printMainHelp(){
 		System.out.println("DMX Controller Commands:");
 		System.out.println("\tp: profile manager");
@@ -129,7 +130,7 @@ public class UserCLI {
 		System.out.println("\td: dmx viewer");
 		if(app.isServerRunning())
 		{
-			System.out.println("\ts: stop server");	
+			System.out.println("\ts: stop server");
 			System.out.println("\tn: network info");
 		}
 		else
@@ -138,5 +139,5 @@ public class UserCLI {
 		System.out.println("\tc: close only CLI");
 		System.out.println("\tq: quit all");
 	}
-	
+
 }

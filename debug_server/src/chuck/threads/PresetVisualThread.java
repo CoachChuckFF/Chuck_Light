@@ -1,27 +1,19 @@
 package chuck.threads;
 
-import java.awt.Color;
 import java.io.*;
-import java.net.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.concurrent.Semaphore;
 
 import chuck.LightingProfile;
 import chuck.defines.*;
-import chuck.drivers.DMXDriver;
-import chuck.lighting.Scene;
 
 public class PresetVisualThread extends Thread {
 	private boolean running = false;
 	Semaphore semaphore = null;
 	private ArrayList<LightingProfile> lights;
-	private DMXDriver dmx;
-
-	public PresetVisualThread(DMXDriver dmx, ArrayList<LightingProfile> lights) {
+	
+	public PresetVisualThread(ArrayList<LightingProfile> lights) {
 		this.lights = lights;
-		this.dmx = dmx;
-
 	}
 
 
