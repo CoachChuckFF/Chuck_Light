@@ -571,6 +571,7 @@ public class ServerAppThread extends Thread {
 	
 	private void startRainbow() {
 		rainbowVisual = new RainbowThread(selectedLights);
+		rainbowVisual.start();
 	}
 	
 	private void redrumRainbow() {

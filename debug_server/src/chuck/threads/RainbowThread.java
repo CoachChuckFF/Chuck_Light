@@ -18,7 +18,7 @@ import chuck.defines.LightingDefines;
  */
 public class RainbowThread extends Thread {
 
-	private static final int RAINBOW_RESOLUTION = 100;
+	private static final int RAINBOW_RESOLUTION = 25;
 
 	private List<LightingProfile> fixtures;
 	private List<Color> rainbow;
@@ -68,6 +68,7 @@ public class RainbowThread extends Thread {
 			fixtures.forEach(fixture -> {
 				try {
 					fixture.setColor(currColor);
+					fixture.setDimmerValue(255);
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
