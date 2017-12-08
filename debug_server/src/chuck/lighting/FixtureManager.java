@@ -443,7 +443,7 @@ public class FixtureManager {
 					set.get(choice).setAddress(Integer.parseInt(edit[1]));
 					break;
 				case 2:
-					set.get(choice).setChannels(Integer.parseInt(edit[1]));
+					set.get(choice).setNumChannels(Integer.parseInt(edit[1]));
 					break;
 				case 3:
 					set.get(choice).setDimmer(Integer.parseInt(edit[1]));

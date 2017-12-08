@@ -2,7 +2,6 @@ package chuck.lighting;
 
 import java.awt.Color;
 import java.io.IOException;
-import java.util.Arrays;
 
 import chuck.dmx.DMXDriver;
 
@@ -26,7 +25,7 @@ public class FixtureProfile implements Comparable<FixtureProfile> {
 	/**
 	 * how many channels the fixture has
 	 */
-	private int channels;
+	private int numChannels;
 	private DMXDriver dmxDriver;
 
 	/*
@@ -61,23 +60,23 @@ public class FixtureProfile implements Comparable<FixtureProfile> {
 	 * 
 	 * @param name
 	 * @param address
-	 * @param channels
+	 * @param numChannels
 	 */
-	public FixtureProfile(DMXDriver dmx, String name, int address, int channels) {
+	public FixtureProfile(DMXDriver dmx, String name, int address, int numChannels) {
 		// check arguments
 		if (name == null || name == "")
 			throw new IllegalArgumentException("empty name not allowed");
 		if (address < 1)
 			throw new IllegalArgumentException("address must be at least 1");
-		if (channels < 1)
+		if (numChannels < 1)
 			throw new IllegalArgumentException("must have at least one channel");
-		if (channels + address > 512)
+		if (numChannels + address > 512)
 			throw new IndexOutOfBoundsException("fixture tries to put channel outside of 512 bytes");
 
 		dmxDriver = dmx;
 		this.name = name;
 		this.address = address;
-		this.channels = channels;
+		this.numChannels = numChannels;
 
 		dimmerOffs = -1;
 		redOffs = -1;
@@ -94,7 +93,7 @@ public class FixtureProfile implements Comparable<FixtureProfile> {
 
 		defaultColorOffs = 0;
 
-		dmxVals = new int[channels];
+		dmxVals = new int[numChannels];
 	}
 
 	public String getName() {
@@ -113,12 +112,12 @@ public class FixtureProfile implements Comparable<FixtureProfile> {
 		this.address = address;
 	}
 
-	public int getChannels() {
-		return this.channels;
+	public int getNumChannels() {
+		return this.numChannels;
 	}
 
-	public void setChannels(int channels) {
-		this.channels = channels;
+	public void setNumChannels(int channels) {
+		this.numChannels = channels;
 	}
 
 	public void setDimmer(int dimmer) {
@@ -285,7 +284,7 @@ public class FixtureProfile implements Comparable<FixtureProfile> {
 
 	// reads DMX shadow array and updates lights DMX array
 	public void syncLight() {
-		System.arraycopy(this.dmxDriver.getDmx(), this.address, this.dmxVals, 0, this.channels);
+		System.arraycopy(this.dmxDriver.getDmx(), this.address, this.dmxVals, 0, this.numChannels);
 	}
 
 	public int getDefaultColorOffest() {
@@ -320,7 +319,7 @@ public class FixtureProfile implements Comparable<FixtureProfile> {
 		String light = "";
 		light += "----- " + this.name + " -----\n";
 		light += "1. Address: " + this.address + "\n";
-		light += "2. Channels: " + this.channels + "\n";
+		light += "2. Channels: " + this.numChannels + "\n";
 		light += "3. Dimmer: " + this.dimmerOffs + "\n";
 		light += "4. Red: " + this.redOffs + "\n";
 		light += "5. Green: " + this.greenOffs + "\n";
@@ -341,7 +340,7 @@ public class FixtureProfile implements Comparable<FixtureProfile> {
 	 * @return csv representation for this fixture
 	 */
 	public String getCSV() {
-		return this.name + "," + this.address + "," + this.channels + "," + this.dimmerOffs + "," + this.redOffs + ","
+		return this.name + "," + this.address + "," + this.numChannels + "," + this.dimmerOffs + "," + this.redOffs + ","
 				+ this.greenOffs + "," + this.blueOffs + "," + this.amberOffs + "," + this.whiteOffs + ","
 				+ this.strobeOffs + "," + this.zoomOffs + "," + this.panOffs + "," + this.panFineOffs + ","
 				+ this.tiltOffs + "," + this.tiltFineOffs;
