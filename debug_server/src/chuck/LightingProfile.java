@@ -11,25 +11,9 @@ import chuck.drivers.DMXDriver;
  * 
  * Represents a single fixture in the lighting setup.
  *
- * @author Christian Krueger and Joseph Eichenhofer
+ * @author Christian Krueger
  */
 public class LightingProfile implements Comparable<LightingProfile> {
-	
-	/**
-	 * Offset settings for this lighting fixture
-	 */
-	private int dimmerOffs = -1;
-	private int redOffs = -1;
-	private int greenOffs = -1;
-	private int blueOffs = -1;
-	private int amberOffs = -1;
-	private int whiteOffs = -1;
-	private int strobeOffs = -1;
-	private int zoomOffs = -1;
-	private int panOffs = -1;
-	private int panFineOffs = -1;
-	private int tiltOffs = -1;
-	private int tiltFineOffs = -1;
 
 	/**
 	 * name of this light fixture
@@ -40,14 +24,11 @@ public class LightingProfile implements Comparable<LightingProfile> {
 	 */
 	private int address;
 	/**
-	 * Up-to-date copy of this fixture's dmx values
+	 * how many channels the fixture has
 	 */
-	private int[] dmxVals;
-	
+	private int channels;
 	private DMXDriver dmxDriver;
 
-<<<<<<< HEAD
-=======
 
 	/*
 	 * One int for each fixture "function"; the int represents the offset from the address
@@ -76,7 +57,6 @@ public class LightingProfile implements Comparable<LightingProfile> {
 	
 	private int[] dmxVals;
 
->>>>>>> 48b09309e5d2ddb45279cceb613ce902d114fb33
 	/**
 	 * Constructor.
 	 * 
@@ -84,26 +64,16 @@ public class LightingProfile implements Comparable<LightingProfile> {
 	 * @param address
 	 * @param channels
 	 */
-<<<<<<< HEAD
-	public LightingProfile(DMXDriver dmx, String name, int address, int[] offsets) {
-=======
 	public LightingProfile(DMXDriver dmx, String name, int address, int channels) {
 		// check arguments
->>>>>>> 48b09309e5d2ddb45279cceb613ce902d114fb33
 		if (name == null || name == "")
 			throw new IllegalArgumentException("empty name not allowed");
 		if (address < 1)
 			throw new IllegalArgumentException("address must be at least 1");
-		if (offsets.length < 1)
+		if (channels < 1)
 			throw new IllegalArgumentException("must have at least one channel");
-		if (Arrays.stream(offsets)).max() + address > 513)
+		if (channels + address > 512)
 			throw new IndexOutOfBoundsException("fixture tries to put channel outside of 512 bytes");
-<<<<<<< HEAD
-		
-		this.name = name;
-		this.address = address;
-		dmxVals = new int[channelOffsets.size()];
-=======
 
 		dmxDriver = dmx;
 		this.name = name;
@@ -144,21 +114,6 @@ public class LightingProfile implements Comparable<LightingProfile> {
 		this.address = address;
 	}
 
-<<<<<<< HEAD
-	public int getNumChannels() {
-		return offsets.size();
-	}
-	
-	/**
-	 * Get the dmx values associated with this fixture
-	 * 
-	 * @return int array containing the dmx values set for this fixture (length == #channels)
-	 */
-	public int[] getDMXVals() {
-		return dmxVals.clone();
-	}
-
-=======
 	public int getChannels() {
 		return this.channels;
 	}
@@ -352,7 +307,6 @@ public class LightingProfile implements Comparable<LightingProfile> {
 	}
 	
 	/** 
->>>>>>> 48b09309e5d2ddb45279cceb613ce902d114fb33
 	 * Comparison based on address; used for sorting in correct addressable order.
 	 * 
 	 * @see java.lang.Comparable#compareTo(java.lang.Object)
@@ -362,9 +316,7 @@ public class LightingProfile implements Comparable<LightingProfile> {
 		return this.address - light.getAddress();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
+	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
@@ -388,7 +340,7 @@ public class LightingProfile implements Comparable<LightingProfile> {
 		light += "-------------" + "\n";
 		return light;
 	}
-
+	
 	/**
 	 * @return csv representation for this fixture
 	 */
