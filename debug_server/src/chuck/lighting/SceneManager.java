@@ -1,4 +1,4 @@
-package chuck;
+package chuck.lighting;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -10,7 +10,6 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 
 import chuck.defines.Filepaths;
-import chuck.lighting.Scene;
 
 public class SceneManager {
 	

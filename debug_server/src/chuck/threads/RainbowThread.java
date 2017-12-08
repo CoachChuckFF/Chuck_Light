@@ -6,8 +6,8 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
-import chuck.LightingProfile;
 import chuck.defines.LightingDefines;
+import chuck.lighting.FixtureProfile;
 
 /**
  * Thread that takes a lighting profile object and changes that fixture's color
@@ -20,7 +20,7 @@ public class RainbowThread extends Thread {
 
 	private static final int RAINBOW_RESOLUTION = 50;
 
-	private List<LightingProfile> fixtures;
+	private List<FixtureProfile> fixtures;
 	private List<Color> rainbow;
 	private static boolean running = false;
 
@@ -31,7 +31,7 @@ public class RainbowThread extends Thread {
 	 * @param fixture
 	 *            fixture to highlight
 	 */
-	public RainbowThread(List<LightingProfile> fixtures) {
+	public RainbowThread(List<FixtureProfile> fixtures) {
 		this.fixtures = fixtures;
 
 		rainbow = new LinkedList<Color>();

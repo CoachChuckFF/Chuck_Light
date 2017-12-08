@@ -4,7 +4,7 @@ import java.io.*;
 import java.net.*;
 import java.util.concurrent.BlockingQueue;
 
-import chuck.WirelessCommand;
+import chuck.defines.WirelessCommand;
 
 /**
  * Listens for UDP packets from the wireless controller and inserts them into queue for processing.

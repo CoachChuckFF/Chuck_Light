@@ -1,10 +1,7 @@
-package chuck;
+package chuck.defines;
 
 import java.net.InetAddress;
 import java.util.Arrays;
-
-import chuck.defines.Connection;
-import chuck.defines.Modes;
 
 public class WirelessCommand {
 	private byte[] receiveData;

@@ -4,16 +4,16 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-import chuck.drivers.DMXDriver;
-// import chuck.drivers.DMXDummy;
-import chuck.drivers.DefaultDMX;
+import chuck.dmx.DMXDriver;
+import chuck.dmx.DefaultDMX;
+import chuck.lighting.FixtureManager;
 import chuck.threads.ServerAppThread;
 
 public class UserCLI {
 
 	private DMXDriver dmx;
 
-	private ProfileManager profiles;
+	private FixtureManager profiles;
 	private ServerAppThread app;
 
 	public UserCLI() {
@@ -21,7 +21,7 @@ public class UserCLI {
 			// instantiate dmx driver
 			dmx = new DefaultDMX();
 			System.out.println("DMX Driver Initialized");
-			profiles = new ProfileManager(dmx);
+			profiles = new FixtureManager(dmx);
 			System.out.println("default profile loaded");
 		} catch (IOException ex) {
 			// fatal error if unable to instantiate driver

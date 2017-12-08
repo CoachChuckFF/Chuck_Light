@@ -1,4 +1,4 @@
-package chuck;
+package chuck.lighting;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -11,15 +11,17 @@ import java.util.Iterator;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import chuck.defines.*;
-import chuck.drivers.DMXDriver;
+import chuck.dmx.DMXDriver;
 
 /**
  * Chuck Lighting Profile Manager Class Contains functions to keep track of
  * current profiles and to add profiles to set.
  * 
+ * Manager class for keeping track of a set of fixtures (current setup).
+ * 
  * @author Christian Krueger
  */
-public class ProfileManager {
+public class FixtureManager {
 
 	private static final String DEFAULT_SET = "default.set";
 	
@@ -33,34 +35,34 @@ public class ProfileManager {
 	/**
 	 * Lighting profile set. Thread safe for updating.
 	 */
-	private CopyOnWriteArrayList<LightingProfile> set;
+	private CopyOnWriteArrayList<FixtureProfile> set;
 	
 	/**
 	 * Constructor. Create an empty profile set.
 	 * 
 	 * @throws IOException if unable to create default directories
 	 */
-	public ProfileManager(DMXDriver dmx) throws IOException {
+	public FixtureManager(DMXDriver dmx) throws IOException {
 		driver = dmx;
-		set = new CopyOnWriteArrayList<LightingProfile>();
+		set = new CopyOnWriteArrayList<FixtureProfile>();
 		profile = Paths.get(Filepaths.SET_DIR, DEFAULT_SET);
 		Files.createDirectories(profile.getParent());
 		
-		LightingProfile defaultLight = new LightingProfile(dmx, "test", 1, 11);
+		FixtureProfile defaultLight = new FixtureProfile(dmx, "test", 1, 11);
 		defaultLight.setDimmer(0);
 		defaultLight.setRed(1);
 		defaultLight.setGreen(2);
 		defaultLight.setBlue(3);
 		defaultLight.setDefaultColorOffest();
 		
-		LightingProfile defaultLight1 = new LightingProfile(dmx, "test1", 12, 11);
+		FixtureProfile defaultLight1 = new FixtureProfile(dmx, "test1", 12, 11);
 		defaultLight1.setDimmer(0);
 		defaultLight1.setRed(1);
 		defaultLight1.setGreen(2);
 		defaultLight1.setBlue(3);
 		defaultLight1.setDefaultColorOffest();
 		
-		LightingProfile defaultLight2 = new LightingProfile(dmx, "test2", 24, 11);
+		FixtureProfile defaultLight2 = new FixtureProfile(dmx, "test2", 24, 11);
 		defaultLight2.setDimmer(0);
 		defaultLight2.setRed(1);
 		defaultLight2.setGreen(2);
@@ -83,14 +85,14 @@ public class ProfileManager {
 	public void parseSetFile(Path filepath) throws IOException {
 		String line = "";
 		String cvsSplitBy = ",";
-		LightingProfile light;
-		set = new CopyOnWriteArrayList<LightingProfile>();
+		FixtureProfile light;
+		set = new CopyOnWriteArrayList<FixtureProfile>();
 
 		try (BufferedReader br = Files.newBufferedReader(filepath)) {
 			while ((line = br.readLine()) != null) {
 				// use comma as separator
 				String[] lightLine = line.split(cvsSplitBy);
-				light = new LightingProfile(driver, lightLine[0], Integer.parseInt(lightLine[1]),
+				light = new FixtureProfile(driver, lightLine[0], Integer.parseInt(lightLine[1]),
 						Integer.parseInt(lightLine[2]));
 				light.setDimmer(Integer.parseInt(lightLine[3]));
 				light.setRed(Integer.parseInt(lightLine[4]));
@@ -215,7 +217,7 @@ public class ProfileManager {
 
 	private void addProfileToSetCLI(BufferedReader reader) throws IOException {
 		String input;
-		LightingProfile light;
+		FixtureProfile light;
 		
 		String name;
 		int address;
@@ -247,7 +249,7 @@ public class ProfileManager {
 
 		channels = Integer.parseInt(input);
 		
-		light = new LightingProfile(driver, name, address, channels);
+		light = new FixtureProfile(driver, name, address, channels);
 
 		System.out.println("Enter in the channel number for the following functions");
 		System.out.print("Dimmer: ");
@@ -389,7 +391,7 @@ public class ProfileManager {
 	}
 	
 	private void editProfileInSetCLI(BufferedReader reader) throws IOException {
-		Iterator<LightingProfile> iterator;
+		Iterator<FixtureProfile> iterator;
 		String input;
 		int choice = 0;
 
@@ -491,7 +493,7 @@ public class ProfileManager {
 	}
 
 	private void deleteProfileInSetCLI(BufferedReader reader) throws IOException {
-		Iterator<LightingProfile> iterator;
+		Iterator<FixtureProfile> iterator;
 		String input;
 		int choice = 0;
 
@@ -605,14 +607,14 @@ public class ProfileManager {
 		return set.size();
 	}
 	
-	public LightingProfile getLight(int index) {
+	public FixtureProfile getLight(int index) {
 		return set.get(index);
 	}
 
 	public String toString() {
 		String csv = "";
-		LightingProfile temp;
-		Iterator<LightingProfile> iterator = set.iterator();
+		FixtureProfile temp;
+		Iterator<FixtureProfile> iterator = set.iterator();
 
 		while (iterator.hasNext()) {
 			temp = iterator.next();

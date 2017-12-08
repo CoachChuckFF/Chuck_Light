@@ -1,4 +1,4 @@
-package chuck.drivers;
+package chuck.dmx;
 
 import java.io.IOException;
 

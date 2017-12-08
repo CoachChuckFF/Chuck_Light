@@ -10,14 +10,14 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
 
-import chuck.LightingProfile;
-import chuck.ProfileManager;
-import chuck.SceneManager;
-import chuck.WirelessCommand;
 import chuck.defines.Connection;
 import chuck.defines.LightingDefines;
 import chuck.defines.Modes;
-import chuck.drivers.DMXDriver;
+import chuck.defines.WirelessCommand;
+import chuck.dmx.DMXDriver;
+import chuck.lighting.FixtureManager;
+import chuck.lighting.FixtureProfile;
+import chuck.lighting.SceneManager;
 
 /**
  * Chuck Light server application. Starts heartbeat thread and udp listener
@@ -29,9 +29,9 @@ import chuck.drivers.DMXDriver;
 public class ServerAppThread extends Thread {
 
 	private DMXDriver dmx;
-	private ProfileManager profiles;
+	private FixtureManager profiles;
 	private SceneManager sceneManager;
-	private ArrayList<LightingProfile> selectedLights;
+	private ArrayList<FixtureProfile> selectedLights;
 	private ArrayList<int[]> prevousLightValues;
 	private byte currentState;
 	private boolean serverRunning = false;
@@ -53,7 +53,7 @@ public class ServerAppThread extends Thread {
 	 */
 	private BlockingQueue<WirelessCommand> commandQ;
 
-	public ServerAppThread(DMXDriver driver, ProfileManager profManager) {
+	public ServerAppThread(DMXDriver driver, FixtureManager profManager) {
 		super();
 		dmx = driver;
 		profiles = profManager;
@@ -461,7 +461,7 @@ public class ServerAppThread extends Thread {
 							if(--currentPresetIndex < 0){
 								currentPresetIndex = LightingDefines.PRESETS.length - 1;
 							}
-							for (LightingProfile light : selectedLights) {
+							for (FixtureProfile light : selectedLights) {
 								try {
 									light.setColor(LightingDefines.PRESETS[currentPresetIndex]);
 								} catch (IOException e) {
@@ -475,7 +475,7 @@ public class ServerAppThread extends Thread {
 							if(++currentPresetIndex >= LightingDefines.PRESETS.length){
 								currentPresetIndex = 0;
 							}
-							for (LightingProfile light : selectedLights) {
+							for (FixtureProfile light : selectedLights) {
 								try {
 									light.setColor(LightingDefines.PRESETS[currentPresetIndex]);
 								} catch (IOException e) {
@@ -556,7 +556,7 @@ public class ServerAppThread extends Thread {
 			e.printStackTrace();
 		}
 		if(selectedLights != null) {
-			for (LightingProfile light : selectedLights) {
+			for (FixtureProfile light : selectedLights) {
 				light.syncLight();
 			}
 		}
@@ -609,8 +609,8 @@ public class ServerAppThread extends Thread {
 		highlight.start();
 	}
 	
-	private ArrayList<LightingProfile> redrumHighlight() {
-		ArrayList<LightingProfile> temp;
+	private ArrayList<FixtureProfile> redrumHighlight() {
+		ArrayList<FixtureProfile> temp;
 		temp = highlight.redrum();
 		highlight.interrupt();
 		try {
@@ -684,7 +684,7 @@ public class ServerAppThread extends Thread {
 		serverRunning = false;
 	}
 	
-	public ProfileManager getProfileManager(){
+	public FixtureManager getProfileManager(){
 		return profiles;
 	}
 	

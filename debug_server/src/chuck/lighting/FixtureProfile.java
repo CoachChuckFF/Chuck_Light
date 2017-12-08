@@ -1,10 +1,10 @@
-package chuck;
+package chuck.lighting;
 
 import java.awt.Color;
 import java.io.IOException;
 import java.util.Arrays;
 
-import chuck.drivers.DMXDriver;
+import chuck.dmx.DMXDriver;
 
 /**
  * Chuck Lighting Profile Class
@@ -13,7 +13,7 @@ import chuck.drivers.DMXDriver;
  *
  * @author Christian Krueger
  */
-public class LightingProfile implements Comparable<LightingProfile> {
+public class FixtureProfile implements Comparable<FixtureProfile> {
 
 	/**
 	 * name of this light fixture
@@ -29,10 +29,9 @@ public class LightingProfile implements Comparable<LightingProfile> {
 	private int channels;
 	private DMXDriver dmxDriver;
 
-
 	/*
-	 * One int for each fixture "function"; the int represents the offset from the address
-	 * where you would find this function's byte in the DMX 512 byte array
+	 * One int for each fixture "function"; the int represents the offset from the
+	 * address where you would find this function's byte in the DMX 512 byte array
 	 * 
 	 * Value is -1 if function does not exist
 	 * 
@@ -50,11 +49,11 @@ public class LightingProfile implements Comparable<LightingProfile> {
 	private int panFineOffs;
 	private int tiltOffs;
 	private int tiltFineOffs;
-	
+
 	private int defaultColorOffs;
-	
+
 	private boolean isSelected = false;
-	
+
 	private int[] dmxVals;
 
 	/**
@@ -64,7 +63,7 @@ public class LightingProfile implements Comparable<LightingProfile> {
 	 * @param address
 	 * @param channels
 	 */
-	public LightingProfile(DMXDriver dmx, String name, int address, int channels) {
+	public FixtureProfile(DMXDriver dmx, String name, int address, int channels) {
 		// check arguments
 		if (name == null || name == "")
 			throw new IllegalArgumentException("empty name not allowed");
@@ -79,7 +78,7 @@ public class LightingProfile implements Comparable<LightingProfile> {
 		this.name = name;
 		this.address = address;
 		this.channels = channels;
-		
+
 		dimmerOffs = -1;
 		redOffs = -1;
 		greenOffs = -1;
@@ -92,9 +91,9 @@ public class LightingProfile implements Comparable<LightingProfile> {
 		panFineOffs = -1;
 		tiltOffs = -1;
 		tiltFineOffs = -1;
-		
+
 		defaultColorOffs = 0;
-		
+
 		dmxVals = new int[channels];
 	}
 
@@ -169,16 +168,17 @@ public class LightingProfile implements Comparable<LightingProfile> {
 	public void setTiltFine(int tilt_fine) {
 		this.tiltFineOffs = tilt_fine;
 	}
-	
+
 	/**
 	 * Get the dmx values associated with this fixture
 	 * 
-	 * @return int array containing the dmx values set for this fixture (length == #channels)
+	 * @return int array containing the dmx values set for this fixture (length ==
+	 *         #channels)
 	 */
 	public int[] getDMXVals() {
 		return dmxVals.clone();
 	}
-	
+
 	public void setDMXVals(int[] dmxVals) {
 		this.dmxVals = dmxVals.clone();
 	}
@@ -196,12 +196,12 @@ public class LightingProfile implements Comparable<LightingProfile> {
 		// make sure rgb addresses are set
 		if (!(checkRange(redOffs) && checkRange(blueOffs) && checkRange(greenOffs)))
 			throw new IllegalStateException(
-					String.format("Called set color on fixture without rgb; (addr,r,g,b) = (%d,%d,%d)\n", address, redOffs,
-							greenOffs, blueOffs));
+					String.format("Called set color on fixture without rgb; (addr,r,g,b) = (%d,%d,%d)\n", address,
+							redOffs, greenOffs, blueOffs));
 		dmxVals[redOffs] = color.getRed();
 		dmxVals[greenOffs] = color.getGreen();
 		dmxVals[blueOffs] = color.getBlue();
-		
+
 		// check for default case for optimal write speed
 		if (redOffs == 1 && greenOffs == 2 && blueOffs == 3) {
 			dmxDriver.setDMX(address + redOffs, color.getRed(), color.getGreen(), color.getBlue());
@@ -243,80 +243,76 @@ public class LightingProfile implements Comparable<LightingProfile> {
 	}
 
 	public boolean hasColor() {
-		
-		if(redOffs != -1)
-		{
-			if(dmxVals[redOffs] != 0)
+
+		if (redOffs != -1) {
+			if (dmxVals[redOffs] != 0)
 				return true;
 		}
-		if(greenOffs != -1)
-		{
-			if(dmxVals[greenOffs] != 0)
+		if (greenOffs != -1) {
+			if (dmxVals[greenOffs] != 0)
 				return true;
 		}
-		if(blueOffs != -1)
-		{
-			if(dmxVals[blueOffs] != 0)
+		if (blueOffs != -1) {
+			if (dmxVals[blueOffs] != 0)
 				return true;
 		}
-		if(amberOffs != -1)
-		{
-			if(dmxVals[amberOffs] != 0)
+		if (amberOffs != -1) {
+			if (dmxVals[amberOffs] != 0)
 				return true;
 		}
-		if(whiteOffs != -1)
-		{
-			if(dmxVals[whiteOffs] != 0)
+		if (whiteOffs != -1) {
+			if (dmxVals[whiteOffs] != 0)
 				return true;
 		}
 
-		
 		return false;
-		
+
 	}
-	
-	public void setDefaultColorOffest (){
-		if(whiteOffs != -1){
+
+	public void setDefaultColorOffest() {
+		if (whiteOffs != -1) {
 			defaultColorOffs = whiteOffs;
-		}else if(redOffs != -1){
+		} else if (redOffs != -1) {
 			defaultColorOffs = redOffs;
-		} else if(greenOffs != -1){
+		} else if (greenOffs != -1) {
 			defaultColorOffs = greenOffs;
-		}else if(blueOffs != -1){
+		} else if (blueOffs != -1) {
 			defaultColorOffs = blueOffs;
-		}else if(amberOffs != -1){
+		} else if (amberOffs != -1) {
 			defaultColorOffs = amberOffs;
 		}
 	}
-	
-	//reads DMX shadow array and updates lights DMX array
-	public void syncLight(){
+
+	// reads DMX shadow array and updates lights DMX array
+	public void syncLight() {
 		System.arraycopy(this.dmxDriver.getDmx(), this.address, this.dmxVals, 0, this.channels);
 	}
-	
-	public int getDefaultColorOffest (){
+
+	public int getDefaultColorOffest() {
 		return this.defaultColorOffs;
 	}
-	
+
 	public boolean isSelected() {
 		return this.isSelected;
 	}
-	
+
 	public void setSelected(boolean selected) {
 		this.isSelected = selected;
 	}
-	
-	/** 
+
+	/**
 	 * Comparison based on address; used for sorting in correct addressable order.
 	 * 
 	 * @see java.lang.Comparable#compareTo(java.lang.Object)
 	 */
 	@Override
-	public int compareTo(LightingProfile light) {
+	public int compareTo(FixtureProfile light) {
 		return this.address - light.getAddress();
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
@@ -340,15 +336,15 @@ public class LightingProfile implements Comparable<LightingProfile> {
 		light += "-------------" + "\n";
 		return light;
 	}
-	
+
 	/**
 	 * @return csv representation for this fixture
 	 */
 	public String getCSV() {
-		return this.name + "," + this.address + "," + this.channels + "," + this.dimmerOffs + ","
-				+ this.redOffs + "," + this.greenOffs + "," + this.blueOffs + "," + this.amberOffs + ","
-				+ this.whiteOffs + "," + this.strobeOffs + "," + this.zoomOffs + "," + this.panOffs + ","
-				+ this.panFineOffs + "," + this.tiltOffs + "," + this.tiltFineOffs;
+		return this.name + "," + this.address + "," + this.channels + "," + this.dimmerOffs + "," + this.redOffs + ","
+				+ this.greenOffs + "," + this.blueOffs + "," + this.amberOffs + "," + this.whiteOffs + ","
+				+ this.strobeOffs + "," + this.zoomOffs + "," + this.panOffs + "," + this.panFineOffs + ","
+				+ this.tiltOffs + "," + this.tiltFineOffs;
 	}
 
 	/**

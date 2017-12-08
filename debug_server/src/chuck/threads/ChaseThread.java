@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import chuck.defines.*;
-import chuck.drivers.DMXDriver;
+import chuck.dmx.DMXDriver;
 import chuck.lighting.Scene;
 
 public class ChaseThread extends Thread {

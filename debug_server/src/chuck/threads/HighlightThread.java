@@ -6,21 +6,21 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.concurrent.Semaphore;
 
-import chuck.LightingProfile;
 import chuck.defines.*;
-import chuck.drivers.DMXDriver;
+import chuck.dmx.DMXDriver;
+import chuck.lighting.FixtureProfile;
 import chuck.lighting.Scene;
 
 public class HighlightThread extends Thread {
 	private boolean running = false;
 	Semaphore semaphore = null;
-	private ArrayList<LightingProfile> lights;
+	private ArrayList<FixtureProfile> lights;
 	private ArrayList<int[]> savedValues;
 	private DMXDriver dmx;
 	private boolean updateDefaultColor = false;
 
 	public HighlightThread(DMXDriver dmx) {
-		this.lights = new ArrayList<LightingProfile>();
+		this.lights = new ArrayList<FixtureProfile>();
 		this.savedValues = new ArrayList<int[]>();
 		this.dmx = dmx;
 		this.semaphore = new Semaphore(1);
@@ -35,7 +35,7 @@ public class HighlightThread extends Thread {
 		
 		while(running){
 			semaphore.acquireUninterruptibly();
-			for (LightingProfile light: lights) {
+			for (FixtureProfile light: lights) {
 				if(!running)
 					break;
 
@@ -81,7 +81,7 @@ public class HighlightThread extends Thread {
 	}
 	
 	
-	public void addLight(LightingProfile light){
+	public void addLight(FixtureProfile light){
 		
 		if(!lights.contains(light)){
 			semaphore.acquireUninterruptibly();
@@ -100,7 +100,7 @@ public class HighlightThread extends Thread {
 	}
 	
 	//restore prevous value
-	public void removeLight(LightingProfile light){
+	public void removeLight(FixtureProfile light){
 		if(lights.contains(light))
 		{
 			semaphore.acquireUninterruptibly();
@@ -111,10 +111,10 @@ public class HighlightThread extends Thread {
 		}
 	}
 	
-	public ArrayList<LightingProfile> redrum()
+	public ArrayList<FixtureProfile> redrum()
 	{
 		running = false;
-		ArrayList<LightingProfile> temp = (ArrayList<LightingProfile>) lights.clone();
+		ArrayList<FixtureProfile> temp = (ArrayList<FixtureProfile>) lights.clone();
 		while(lights.size() != 0)
 		{
 			removeLight(lights.get(0));
