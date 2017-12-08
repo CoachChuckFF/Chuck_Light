@@ -15,6 +15,8 @@ public class Connection {
 	public static final byte COMMAND_PACKET_ID = (byte) 0x36;
 	public static final byte POLL_PACKET_ID = (byte) 0x87;
 	public static final byte POLL_REPLY_PACKET_ID = (byte) 0x1E;
+	
+	public static final int HEARTBEAT_INTERVAL = 3000;
 
 	public static final byte HARD_RESET_COMMAND = (byte) 0x99;
 	public static final byte SOFT_RESET_COMMAND = (byte) 0x39;

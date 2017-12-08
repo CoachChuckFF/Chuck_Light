@@ -2,86 +2,67 @@ package chuck;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import chuck.defines.Filepaths;
 import chuck.lighting.Scene;
 
 public class SceneManager {
 	
+	private static final String DEFAULT_SCENE = "default";
+	
 	private ArrayList<Scene> scenes;
-	private File sceneFile;
 	private Scene currentScene;
 	
-	int currentIndex;
+	private Path scene;
 	
-	public static final String filepath = Filepaths.INFO_FULL_FP + Filepaths.SCENE_REL_FP;
+	private int currentIndex;
 	
-	public SceneManager(int[] dmxVals){
-		sceneFile = new File(filepath);
+	public SceneManager(int[] dmxVals) throws IOException {
+		scene = Paths.get(Filepaths.SCENE_DIR, DEFAULT_SCENE);
+		Files.createDirectories(scene.getParent());
+		
 		scenes = new ArrayList<Scene>();
-		currentIndex = 0;
+		currentIndex = -1;
 		currentScene = new Scene(dmxVals);
 		
-		if(!sceneFile.exists())
-		{
-			//create scene file
-			createSceneFile();
-		}
-		else
-		{
-			//parse and populate scenes
+		try {
+			Files.createFile(scene);
+		} catch (FileAlreadyExistsException ex) {
 			parseSceneFile();
 		}
 	}
 	
-	public void createSceneFile(){
-		try {
-			sceneFile.createNewFile();
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-	}
-	
-	public void updateSceneFile(){
+	public void updateSceneFile() throws IOException {
 		String line = "";
-		try (BufferedWriter writer = new BufferedWriter(new FileWriter(filepath))) {
+		Files.deleteIfExists(scene);
+		try (BufferedWriter writer = Files.newBufferedWriter(scene)) {
 			for (Scene scene : scenes) {
 				for(int i = 0; i < 513; i++) {
 					if(i != 512){
-						System.out.print(scene.getDmxVals()[i] + ",");
 						line += scene.getDmxVals()[i] + ",";
 					} else { 
-						System.out.print(scene.getDmxVals()[i]);
 						line += scene.getDmxVals()[i] + "\n";
 					}
 				}
-				System.out.println("");
 				writer.write(line);
 				line = "";
 			}
 		} catch (IOException e) {
 			// failed to write, try to cleanup
-			try {
-				Files.delete(Paths.get(filepath));
-			} catch (IOException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
+			Files.delete(scene);
+			throw e;
 		}
 	}
 	
-	public void parseSceneFile(){
+	private void parseSceneFile() throws IOException {
 		String line;
-		try (BufferedReader br = new BufferedReader(new FileReader(filepath))) {
+		try (BufferedReader br = Files.newBufferedReader(scene)) {
 			while ((line = br.readLine()) != null) {
 				// use comma as separator
 				String[] dmxLine = line.split(",");
@@ -92,8 +73,6 @@ public class SceneManager {
 				addScene(dmxVals);
 
 			}
-		} catch (IOException e) {
-
 		}
 	}
 	
@@ -108,6 +87,7 @@ public class SceneManager {
 	public void deleteScene() {
 		if(getCurrentIndex() != -1){
 			scenes.remove(currentIndex);
+			currentIndex = -1;
 		}
 	}
 	
@@ -131,9 +111,14 @@ public class SceneManager {
 	}
 	
 	public Scene getLastScene(){
-		if(--currentIndex <= 0 || scenes.size() == 0){
+		if(currentIndex == -1)
+		{
+			currentIndex = scenes.size() - 1;
+			return scenes.get(currentIndex);
+		}
+		if(--currentIndex < 0 || scenes.size() == 0){
 
-			currentIndex = scenes.size();
+			currentIndex = -1;
 			return currentScene;
 		}
 		
@@ -151,9 +136,6 @@ public class SceneManager {
 	}
 	
 	public int getCurrentIndex(){
-		if(currentIndex == -1 || currentIndex == scenes.size()){
-			return -1; //this means currentScene is on
-		}
 		
 		return currentIndex;
 		

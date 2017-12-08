@@ -3,9 +3,12 @@ package chuck;
 import java.awt.Color;
 import java.io.IOException;
 import java.util.Arrays;
+<<<<<<< HEAD
 import java.util.HashMap;
 import java.util.Map;
 import com.google.common.collect.BiMap;
+=======
+>>>>>>> 48b09309e5d2ddb45279cceb613ce902d114fb33
 
 import chuck.drivers.DMXDriver;
 
@@ -49,6 +52,37 @@ public class LightingProfile implements Comparable<LightingProfile> {
 	
 	private DMXDriver dmxDriver;
 
+<<<<<<< HEAD
+=======
+
+	/*
+	 * One int for each fixture "function"; the int represents the offset from the address
+	 * where you would find this function's byte in the DMX 512 byte array
+	 * 
+	 * Value is -1 if function does not exist
+	 * 
+	 * e.g., dimmer byte is at getAddress() + getDimmer()
+	 */
+	private int dimmerOffs;
+	private int redOffs;
+	private int greenOffs;
+	private int blueOffs;
+	private int amberOffs;
+	private int whiteOffs;
+	private int strobeOffs;
+	private int zoomOffs;
+	private int panOffs;
+	private int panFineOffs;
+	private int tiltOffs;
+	private int tiltFineOffs;
+	
+	private int defaultColorOffs;
+	
+	private boolean isSelected = false;
+	
+	private int[] dmxVals;
+
+>>>>>>> 48b09309e5d2ddb45279cceb613ce902d114fb33
 	/**
 	 * Constructor.
 	 * 
@@ -56,7 +90,12 @@ public class LightingProfile implements Comparable<LightingProfile> {
 	 * @param address
 	 * @param channels
 	 */
+<<<<<<< HEAD
 	public LightingProfile(DMXDriver dmx, String name, int address, int[] offsets) {
+=======
+	public LightingProfile(DMXDriver dmx, String name, int address, int channels) {
+		// check arguments
+>>>>>>> 48b09309e5d2ddb45279cceb613ce902d114fb33
 		if (name == null || name == "")
 			throw new IllegalArgumentException("empty name not allowed");
 		if (address < 1)
@@ -65,10 +104,35 @@ public class LightingProfile implements Comparable<LightingProfile> {
 			throw new IllegalArgumentException("must have at least one channel");
 		if (Arrays.stream(offsets)).max() + address > 513)
 			throw new IndexOutOfBoundsException("fixture tries to put channel outside of 512 bytes");
+<<<<<<< HEAD
 		
 		this.name = name;
 		this.address = address;
 		dmxVals = new int[channelOffsets.size()];
+=======
+
+		dmxDriver = dmx;
+		this.name = name;
+		this.address = address;
+		this.channels = channels;
+		
+		dimmerOffs = -1;
+		redOffs = -1;
+		greenOffs = -1;
+		blueOffs = -1;
+		amberOffs = -1;
+		whiteOffs = -1;
+		strobeOffs = -1;
+		zoomOffs = -1;
+		panOffs = -1;
+		panFineOffs = -1;
+		tiltOffs = -1;
+		tiltFineOffs = -1;
+		
+		defaultColorOffs = 0;
+		
+		dmxVals = new int[channels];
+>>>>>>> 48b09309e5d2ddb45279cceb613ce902d114fb33
 	}
 
 	public String getName() {
@@ -87,6 +151,7 @@ public class LightingProfile implements Comparable<LightingProfile> {
 		this.address = address;
 	}
 
+<<<<<<< HEAD
 	public int getNumChannels() {
 		return offsets.size();
 	}
@@ -100,6 +165,77 @@ public class LightingProfile implements Comparable<LightingProfile> {
 		return dmxVals.clone();
 	}
 
+=======
+	public int getChannels() {
+		return this.channels;
+	}
+
+	public void setChannels(int channels) {
+		this.channels = channels;
+	}
+
+	public void setDimmer(int dimmer) {
+		this.dimmerOffs = dimmer;
+	}
+
+	public void setRed(int red) {
+		this.redOffs = red;
+	}
+
+	public void setGreen(int green) {
+		this.greenOffs = green;
+	}
+
+	public void setBlue(int blue) {
+		this.blueOffs = blue;
+	}
+
+	public void setAmber(int amber) {
+		this.amberOffs = amber;
+	}
+
+	public void setWhite(int white) {
+		this.whiteOffs = white;
+	}
+
+	public void setStrobe(int strobe) {
+		this.strobeOffs = strobe;
+	}
+
+	public void setZoom(int zoom) {
+		this.zoomOffs = zoom;
+	}
+
+	public void setPan(int pan) {
+		this.panOffs = pan;
+	}
+
+	public void setPanFine(int pan_fine) {
+		this.panFineOffs = pan_fine;
+	}
+
+	public void setTilt(int tilt) {
+		this.tiltOffs = tilt;
+	}
+
+	public void setTiltFine(int tilt_fine) {
+		this.tiltFineOffs = tilt_fine;
+	}
+	
+	/**
+	 * Get the dmx values associated with this fixture
+	 * 
+	 * @return int array containing the dmx values set for this fixture (length == #channels)
+	 */
+	public int[] getDMXVals() {
+		return dmxVals.clone();
+	}
+	
+	public void setDMXVals(int[] dmxVals) {
+		this.dmxVals = dmxVals.clone();
+	}
+
+>>>>>>> 48b09309e5d2ddb45279cceb613ce902d114fb33
 	/**
 	 * Sets the rgb color of this fixture. Only touches red, green, blue addresses
 	 * in dmx module.
@@ -111,12 +247,25 @@ public class LightingProfile implements Comparable<LightingProfile> {
 	 */
 	public void setColor(Color color) throws IOException {
 		// make sure rgb addresses are set
+<<<<<<< HEAD
 		if (!(checkRange(offsets.redOffs) && checkRange(offsets.blueOffs) && checkRange(offsets.greenOffs)))
 			throw new IllegalStateException(
 					String.format("Called set color on fixture without rgb; (addr,r,g,b) = (%d,%d,%d)\n", address, offsets.redOffs,
 							offsets.greenOffs, offsets.blueOffs));
 		// check for default case for optimal write speed
 		if (offsets.redOffs == 1 && offsets.greenOffs == 2 && offsets.blueOffs == 3) {
+=======
+		if (!(checkRange(redOffs) && checkRange(blueOffs) && checkRange(greenOffs)))
+			throw new IllegalStateException(
+					String.format("Called set color on fixture without rgb; (addr,r,g,b) = (%d,%d,%d)\n", address, redOffs,
+							greenOffs, blueOffs));
+		dmxVals[redOffs] = color.getRed();
+		dmxVals[greenOffs] = color.getGreen();
+		dmxVals[blueOffs] = color.getBlue();
+		
+		// check for default case for optimal write speed
+		if (redOffs == 1 && greenOffs == 2 && blueOffs == 3) {
+>>>>>>> 48b09309e5d2ddb45279cceb613ce902d114fb33
 			dmxDriver.setDMX(address + redOffs, color.getRed(), color.getGreen(), color.getBlue());
 			return;
 		}
@@ -135,6 +284,10 @@ public class LightingProfile implements Comparable<LightingProfile> {
 	 *             if unable to access dmx driver files
 	 */
 	public void setDimmerValue(int dimmerVal) throws IOException {
+<<<<<<< HEAD
+=======
+		dmxVals[dimmerOffs] = dimmerVal;
+>>>>>>> 48b09309e5d2ddb45279cceb613ce902d114fb33
 		dmxDriver.setDMX(address + dimmerOffs, dimmerVal);
 	}
 
@@ -150,10 +303,82 @@ public class LightingProfile implements Comparable<LightingProfile> {
 	 *             if unable to access dmx driver files
 	 */
 	public void setChannelManual(int channel, int value) throws IOException {
+<<<<<<< HEAD
 		dmxDriver.setDMX(address + channel, value);
 	}
 
 	/**
+=======
+		dmxVals[channel] = value;
+		dmxDriver.setDMX(address + channel, value);
+	}
+
+	public boolean hasColor() {
+		
+		if(redOffs != -1)
+		{
+			if(dmxVals[redOffs] != 0)
+				return true;
+		}
+		if(greenOffs != -1)
+		{
+			if(dmxVals[greenOffs] != 0)
+				return true;
+		}
+		if(blueOffs != -1)
+		{
+			if(dmxVals[blueOffs] != 0)
+				return true;
+		}
+		if(amberOffs != -1)
+		{
+			if(dmxVals[amberOffs] != 0)
+				return true;
+		}
+		if(whiteOffs != -1)
+		{
+			if(dmxVals[whiteOffs] != 0)
+				return true;
+		}
+
+		
+		return false;
+		
+	}
+	
+	public void setDefaultColorOffest (){
+		if(whiteOffs != -1){
+			defaultColorOffs = whiteOffs;
+		}else if(redOffs != -1){
+			defaultColorOffs = redOffs;
+		} else if(greenOffs != -1){
+			defaultColorOffs = greenOffs;
+		}else if(blueOffs != -1){
+			defaultColorOffs = blueOffs;
+		}else if(amberOffs != -1){
+			defaultColorOffs = amberOffs;
+		}
+	}
+	
+	//reads DMX shadow array and updates lights DMX array
+	public void syncLight(){
+		System.arraycopy(this.dmxDriver.getDmx(), this.address, this.dmxVals, 0, this.channels);
+	}
+	
+	public int getDefaultColorOffest (){
+		return this.defaultColorOffs;
+	}
+	
+	public boolean isSelected() {
+		return this.isSelected;
+	}
+	
+	public void setSelected(boolean selected) {
+		this.isSelected = selected;
+	}
+	
+	/** 
+>>>>>>> 48b09309e5d2ddb45279cceb613ce902d114fb33
 	 * Comparison based on address; used for sorting in correct addressable order.
 	 * 
 	 * @see java.lang.Comparable#compareTo(java.lang.Object)
@@ -194,9 +419,16 @@ public class LightingProfile implements Comparable<LightingProfile> {
 	 * @return csv representation for this fixture
 	 */
 	public String getCSV() {
+<<<<<<< HEAD
 		return this.name + "," + this.address + "," + this.channels + "," + this.dimmerOffs + "," + this.redOffs + ","
 				+ this.greenOffs + "," + this.blueOffs + "," + this.amberOffs + "," + this.whiteOffs + "," + this.strobeOffs + ","
 				+ this.zoomOffs + "," + this.panOffs + "," + this.panFineOffs + "," + this.tiltOffs + "," + this.tiltFineOffs;
+=======
+		return this.name + "," + this.address + "," + this.channels + "," + this.dimmerOffs + ","
+				+ this.redOffs + "," + this.greenOffs + "," + this.blueOffs + "," + this.amberOffs + ","
+				+ this.whiteOffs + "," + this.strobeOffs + "," + this.zoomOffs + "," + this.panOffs + ","
+				+ this.panFineOffs + "," + this.tiltOffs + "," + this.tiltFineOffs;
+>>>>>>> 48b09309e5d2ddb45279cceb613ce902d114fb33
 	}
 
 	/**

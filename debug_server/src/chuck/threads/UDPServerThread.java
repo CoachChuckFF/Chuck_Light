@@ -44,7 +44,8 @@ public class UDPServerThread extends Thread {
 			DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
 			try {
 				server.receive(receivePacket);
-				
+				if(this.isInterrupted())
+					continue;
 			} catch (IOException ex) {
 				// treat ioexception as fatal for now;
 				ex.printStackTrace();

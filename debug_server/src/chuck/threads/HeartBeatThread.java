@@ -51,11 +51,9 @@ public class HeartBeatThread extends Thread {
 			sendHeartbeat();
 			
 			try {
-				Thread.sleep(7000);
+				Thread.sleep(Connection.HEARTBEAT_INTERVAL);
 			} catch (InterruptedException e) {
-				// treating interrupted exception as fatal error
-				e.printStackTrace();
-				System.exit(-1);
+				continue;
 			}
 		}
 	}

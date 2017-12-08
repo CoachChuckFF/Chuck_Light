@@ -52,11 +52,6 @@ public class XYConverter {
 				// calculate degree angle off zero
 				angle = (float) (Math.atan2(x, y) * (180 / Math.PI));
 
-				// ignore outside of radius (leave black)
-				if (distance > RADIUS) {
-					continue;
-				}
-
 				// create a pocket of white in center
 				if (distance < WHITE_RADIUS) {
 					red[adjustedX][adjustedY] = 255;
@@ -68,7 +63,8 @@ public class XYConverter {
 				// hue needs to be a fraction of 360 for the hsb method
 				hue = angle / 360;
 				// saturation is the distance from center as a fraction of radius
-				saturation = distance / RADIUS;
+				// take min of 1 so we can draw outside radius
+				saturation = Math.min(distance / RADIUS, 1);
 				// create a color from hue, saturation, value (needs floats)
 				currColor = Color.getHSBColor(hue, saturation, HSV_VALUE);
 

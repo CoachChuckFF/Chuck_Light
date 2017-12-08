@@ -10,13 +10,13 @@ import java.io.InputStreamReader;
  * @author Joseph Eichenhofer
  */
 public class DMXTester {
-	
+
 	public static void main(String[] args) {
 		DMXDriver driver = null;
 		int[] dmx = null;
 
 		try {
-			driver = new DMXDriver();
+			driver = new DefaultDMX();
 		} catch (IOException ex) {
 			ex.printStackTrace();
 			System.out.println("Make sure you ran insmod and started this program as root.");
@@ -93,6 +93,8 @@ public class DMXTester {
 				System.out.println("invalid command");
 			}
 		} while (!quit);
+
+		System.exit(0);
 	}
 
 	public static void printHelp() {
@@ -105,12 +107,12 @@ public class DMXTester {
 		System.out.println("\trestore");
 		System.out.println("\thelp");
 	}
-	
+
 	public static void printDMX(int[] dmxVals) {
 		if (dmxVals.length != 513)
 			throw new IllegalArgumentException("DMX array must be 513 ints long");
-		
-		for (int i = 1 ; i <= 512 ; i++) {
+
+		for (int i = 1; i <= 512; i++) {
 			if (i % 16 == 1) {
 				System.out.printf("\n");
 				System.out.printf("%4d:", i);
