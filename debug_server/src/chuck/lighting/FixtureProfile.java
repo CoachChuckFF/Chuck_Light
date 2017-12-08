@@ -2,6 +2,10 @@ package chuck.lighting;
 
 import java.awt.Color;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
 import chuck.dmx.DMXDriver;
 
@@ -14,93 +18,83 @@ import chuck.dmx.DMXDriver;
  */
 public class FixtureProfile implements Comparable<FixtureProfile> {
 
-	/**
-	 * name of this light fixture
-	 */
-	private String name;
-	/**
-	 * what address the fixture is set at
-	 */
-	private int address;
-	/**
-	 * how many channels the fixture has
-	 */
-	private int numChannels;
+	private static final String[] COLOR_NAMES = {"red", "green", "blue", "amber", "white"};
+	
 	private DMXDriver dmxDriver;
-
-	/*
-	 * One int for each fixture "function"; the int represents the offset from the
-	 * address where you would find this function's byte in the DMX 512 byte array
-	 * 
-	 * Value is -1 if function does not exist
-	 * 
-	 * e.g., dimmer byte is at getAddress() + getDimmer()
-	 */
-	private int dimmerOffs;
-	private int redOffs;
-	private int greenOffs;
-	private int blueOffs;
-	private int amberOffs;
-	private int whiteOffs;
-	private int strobeOffs;
-	private int zoomOffs;
-	private int panOffs;
-	private int panFineOffs;
-	private int tiltOffs;
-	private int tiltFineOffs;
-
+	private String name;
+	private int address;
 	private int defaultColorOffs;
 
 	private boolean isSelected = false;
 
+	/**
+	 * Map channel name (e.g., red) to channel offset. Address of red dmx value is
+	 * getAddress() + getOffset("red")
+	 */
+	private Map<String, Integer> channelMap;
+
+	/**
+	 * Mirror of dmx values for this fixture (for saving and resetting state)
+	 */
 	private int[] dmxVals;
 
 	/**
-	 * Constructor.
+	 * Constructor. Create this fixture profile with a reference to the dmx driver,
+	 * name, initial address, and channel settings. The channels array is a list of
+	 * channel names to set for this fixture. For example, for a default 11-channel
+	 * light, you can use LightingDefines.DEFAULT_CHANNELS.
 	 * 
-	 * @param name
-	 * @param address
-	 * @param numChannels
+	 * @param dmx
+	 *            reference to dmx driver (for changing this fixture's dmx values)
+	 * @param fixtureName
+	 *            name of this fixture (largely for debugging purposes)
+	 * @param dmxAddress
+	 *            dmx address for this fixture (must be within [1:512])
+	 * @param channels
+	 *            string containing the name for each channel (must be at least one
+	 *            value, none can be empty)
 	 */
-	public FixtureProfile(DMXDriver dmx, String name, int address, int numChannels) {
+	public FixtureProfile(DMXDriver dmx, String fixtureName, int dmxAddress, String[] channels) {
 		// check arguments
 		if (name == null || name == "")
 			throw new IllegalArgumentException("empty name not allowed");
+		// address must be within [1:512], check lower bound
 		if (address < 1)
 			throw new IllegalArgumentException("address must be at least 1");
-		if (numChannels < 1)
-			throw new IllegalArgumentException("must have at least one channel");
-		if (numChannels + address > 512)
+		// cannot have a zero channel fixture, or a fixture with more than 512 channels
+		if (channels.length < 1 || channels.length > 512)
+			throw new IllegalArgumentException("number of channels must be within [1:512]");
+		// check upper bound of address plus number of channels, can be at most 513
+		// (address = 512, channels = 1)
+		if (channels.length + address > 513)
 			throw new IndexOutOfBoundsException("fixture tries to put channel outside of 512 bytes");
 
 		dmxDriver = dmx;
-		this.name = name;
-		this.address = address;
-		this.numChannels = numChannels;
-
-		dimmerOffs = -1;
-		redOffs = -1;
-		greenOffs = -1;
-		blueOffs = -1;
-		amberOffs = -1;
-		whiteOffs = -1;
-		strobeOffs = -1;
-		zoomOffs = -1;
-		panOffs = -1;
-		panFineOffs = -1;
-		tiltOffs = -1;
-		tiltFineOffs = -1;
+		name = fixtureName;
+		address = dmxAddress;
 
 		defaultColorOffs = 0;
 
-		dmxVals = new int[numChannels];
+		// create the channel map
+		channelMap = new HashMap<String, Integer>();
+		for (int i = 0; i < channels.length; i++) {
+			// make sure string is not empty
+			if (channels[i] == null || channels[i].equals(""))
+				throw new IllegalArgumentException("channel names cannot be null or empty");
+			// add the value, and check return; put returns null when a new key is specified
+			if (channelMap.put(channels[i], i) != null)
+				throw new IllegalArgumentException("channels contains duplicate string");
+		}
+
+		// instantiate dmx mirror
+		dmxVals = new int[channels.length];
 	}
 
-	public String getName() {
-		return this.name;
+	public String getFixtureName() {
+		return name;
 	}
 
-	public void setName(String name) {
+	public void setFixtureName(String name) {
 		this.name = name;
 	}
 
@@ -112,86 +106,66 @@ public class FixtureProfile implements Comparable<FixtureProfile> {
 		this.address = address;
 	}
 
+	/**
+	 * Get the number of channels that this fixture occupies.
+	 * 
+	 * @return number of channels specified for this fixture
+	 */
 	public int getNumChannels() {
-		return this.numChannels;
-	}
-
-	public void setNumChannels(int channels) {
-		this.numChannels = channels;
-	}
-
-	public void setDimmer(int dimmer) {
-		this.dimmerOffs = dimmer;
-	}
-
-	public void setRed(int red) {
-		this.redOffs = red;
-	}
-
-	public void setGreen(int green) {
-		this.greenOffs = green;
-	}
-
-	public void setBlue(int blue) {
-		this.blueOffs = blue;
-	}
-
-	public void setAmber(int amber) {
-		this.amberOffs = amber;
-	}
-
-	public void setWhite(int white) {
-		this.whiteOffs = white;
-	}
-
-	public void setStrobe(int strobe) {
-		this.strobeOffs = strobe;
-	}
-
-	public void setZoom(int zoom) {
-		this.zoomOffs = zoom;
-	}
-
-	public void setPan(int pan) {
-		this.panOffs = pan;
-	}
-
-	public void setPanFine(int pan_fine) {
-		this.panFineOffs = pan_fine;
-	}
-
-	public void setTilt(int tilt) {
-		this.tiltOffs = tilt;
-	}
-
-	public void setTiltFine(int tilt_fine) {
-		this.tiltFineOffs = tilt_fine;
+		return channelMap.size();
 	}
 
 	/**
-	 * Get the dmx values associated with this fixture
+	 * Get the current dmx values associated with this fixture
 	 * 
-	 * @return int array containing the dmx values set for this fixture (length ==
-	 *         #channels)
+	 * @return int array containing the dmx values set for this fixture (the length
+	 *         of this array is equal to the number of channels for this fixture)
 	 */
 	public int[] getDMXVals() {
 		return dmxVals.clone();
 	}
 
-	public void setDMXVals(int[] dmxVals) {
-		this.dmxVals = dmxVals.clone();
+	/**
+	 * Set the dmx values for this fixture. Array specified must be same length as
+	 * this fixture's number of channels.
+	 * 
+	 * @param dmxValueArray
+	 *            array holding dmx values to set
+	 * @throws IOException
+	 *             if unable to access driver
+	 */
+	public void setDMXVals(int[] dmxValueArray) throws IOException {
+		// ensure arrays are same size
+		if (dmxValueArray.length != dmxVals.length)
+			throw new IllegalArgumentException("array must be same size as numchannels");
+		// ensure all dmx values are within range
+		for (int i = 0; i < dmxValueArray.length; i++) {
+			if (dmxValueArray[i] < 0 || dmxValueArray[i] > 255)
+				throw new IllegalArgumentException("all dmx values must be within [0:255]");
+		}
+		// write the dmx values to the shadow and driver
+		for (int i = 0; i < dmxValueArray.length; i++) {
+			dmxVals[i] = dmxValueArray[i];
+			dmxDriver.setDMX(address + i, dmxVals[i]);
+		}
 	}
 
 	/**
 	 * Sets the rgb color of this fixture. Only touches red, green, blue addresses
-	 * in dmx module.
+	 * in dmx module. Fails if red, green, and blue channels are not specified for
+	 * this fixture.
 	 * 
 	 * @param color
-	 *            this fixtures new color
+	 *            color to set this fixture
 	 * @throws IOException
-	 *             if unable to access dmx driver files
+	 *             if unable to access dmx driver
+	 * @throws UnsupportedOperationException
+	 *             if this fixture does not have red, green, and blue channels
 	 */
-	public void setColor(Color color) throws IOException {
+	public void setColor(Color color) throws IOException, UnsupportedOperationException {
+		if (channelMap.contains("red") &&)) {
+			
+		}
 		// make sure rgb addresses are set
 		if (!(checkRange(redOffs) && checkRange(blueOffs) && checkRange(greenOffs)))
 			throw new IllegalStateException(
@@ -221,8 +195,8 @@ public class FixtureProfile implements Comparable<FixtureProfile> {
 	 *             if unable to access dmx driver files
 	 */
 	public void setDimmerValue(int dimmerVal) throws IOException {
-		dmxVals[dimmerOffs] = dimmerVal;
-		dmxDriver.setDMX(address + dimmerOffs, dimmerVal);
+		dmxVals[channelMap.get("dimmer")] = dimmerVal;
+		dmxDriver.setDMX(address + channelMap.get("dimmer"), dimmerVal);
 	}
 
 	/**
@@ -237,66 +211,49 @@ public class FixtureProfile implements Comparable<FixtureProfile> {
 	 *             if unable to access dmx driver files
 	 */
 	public void setChannelManual(int channel, int value) throws IOException {
+		if (channel < 0 || channel >= dmxVals.length)
+			throw new IllegalArgumentException("channel must be between [0:numChannels]");
+		if (value < 0 || value >= 255)
+			throw new IllegalArgumentException("value must be within [0:255]");
+
 		dmxVals[channel] = value;
 		dmxDriver.setDMX(address + channel, value);
 	}
 
-	public boolean hasColor() {
-
-		if (redOffs != -1) {
-			if (dmxVals[redOffs] != 0)
+	/**
+	 * Get whether or not this light has at least one color channel (red, green,
+	 * blue, amber, white) and it is set to a non-zero dmx value.
+	 * 
+	 * @return true if and only if this fixture has a non-zero-valued color channel
+	 */
+	public boolean hasColor() {		
+		for (String color : COLOR_NAMES) {
+			if (channelMap.containsKey(color) && dmxVals[channelMap.get(color)] != 0) {
 				return true;
-		}
-		if (greenOffs != -1) {
-			if (dmxVals[greenOffs] != 0)
-				return true;
-		}
-		if (blueOffs != -1) {
-			if (dmxVals[blueOffs] != 0)
-				return true;
-		}
-		if (amberOffs != -1) {
-			if (dmxVals[amberOffs] != 0)
-				return true;
-		}
-		if (whiteOffs != -1) {
-			if (dmxVals[whiteOffs] != 0)
-				return true;
+			}
 		}
 
 		return false;
-
 	}
 
 	public void setDefaultColorOffest() {
-		if (whiteOffs != -1) {
-			defaultColorOffs = whiteOffs;
-		} else if (redOffs != -1) {
-			defaultColorOffs = redOffs;
-		} else if (greenOffs != -1) {
-			defaultColorOffs = greenOffs;
-		} else if (blueOffs != -1) {
-			defaultColorOffs = blueOffs;
-		} else if (amberOffs != -1) {
-			defaultColorOffs = amberOffs;
+		for (String color : COLOR_NAMES) {
+			if (channelMap.containsKey(color)) {
+				defaultColorOffs = channelMap.get(color);
+			}
 		}
 	}
 
-	// reads DMX shadow array and updates lights DMX array
-	public void syncLight() {
-		System.arraycopy(this.dmxDriver.getDmx(), this.address, this.dmxVals, 0, this.numChannels);
-	}
-
 	public int getDefaultColorOffest() {
-		return this.defaultColorOffs;
+		return defaultColorOffs;
 	}
 
 	public boolean isSelected() {
-		return this.isSelected;
+		return isSelected;
 	}
 
 	public void setSelected(boolean selected) {
-		this.isSelected = selected;
+		isSelected = selected;
 	}
 
 	/**
@@ -340,8 +297,8 @@ public class FixtureProfile implements Comparable<FixtureProfile> {
 	 * @return csv representation for this fixture
 	 */
 	public String getCSV() {
-		return this.name + "," + this.address + "," + this.numChannels + "," + this.dimmerOffs + "," + this.redOffs + ","
-				+ this.greenOffs + "," + this.blueOffs + "," + this.amberOffs + "," + this.whiteOffs + ","
+		return this.name + "," + this.address + "," + this.numChannels + "," + this.dimmerOffs + "," + this.redOffs
+				+ "," + this.greenOffs + "," + this.blueOffs + "," + this.amberOffs + "," + this.whiteOffs + ","
 				+ this.strobeOffs + "," + this.zoomOffs + "," + this.panOffs + "," + this.panFineOffs + ","
 				+ this.tiltOffs + "," + this.tiltFineOffs;
 	}

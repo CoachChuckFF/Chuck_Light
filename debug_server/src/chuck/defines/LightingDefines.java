@@ -15,6 +15,8 @@ public class LightingDefines {
 	public static final int HIGHLIGHT_DIMMER_STEP = 5;
 	public static final int HIGHLIGHT_DIMMER_HIGH_VAL = 255;
 	public static final int HIGHLIGHT_DIMMER_LOW_VAL = 190;
+	
+	public static final String[] DEFAULT_CHANNELS = {"dimmer", "red", "green", "blue", "amber", "white", "strobe", "zoom", "pan", "tilt"};
 
 	public static final Color[] PRESETS = {Color.WHITE, Color.RED, Color.YELLOW, Color.GREEN, Color.CYAN, Color.BLUE, Color.MAGENTA, Color.BLACK};
 }

@@ -407,7 +407,7 @@ public class FixtureManager {
 
 		// while loop
 		while (iterator.hasNext()) {
-			System.out.println(choice++ + ". " + iterator.next().getName());
+			System.out.println(choice++ + ". " + iterator.next().getFixtureName());
 		}
 
 		System.out.print("Edit> ");
@@ -426,7 +426,7 @@ public class FixtureManager {
 		System.out.println("'q' to quit");
 		do {
 			System.out.println(set.get(choice).toString());
-			System.out.print("Edit " + set.get(choice).getName() + ">");
+			System.out.print("Edit " + set.get(choice).getFixtureName() + ">");
 			input = reader.readLine();
 
 			if (input.equals("q"))
@@ -437,7 +437,7 @@ public class FixtureManager {
 			if (edit.length > 1) {
 				switch (Integer.parseInt(edit[0])) {
 				case 0:
-					set.get(choice).setName(edit[1]);
+					set.get(choice).setFixtureName(edit[1]);
 					break;
 				case 1:
 					set.get(choice).setAddress(Integer.parseInt(edit[1]));
@@ -511,7 +511,7 @@ public class FixtureManager {
 			iterator = set.iterator();
 			choice = 0;
 			while (iterator.hasNext()) {
-				System.out.println(choice++ + ". " + iterator.next().getName());
+				System.out.println(choice++ + ". " + iterator.next().getFixtureName());
 			}
 
 			System.out.print("Delete> ");
