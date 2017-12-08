@@ -3,12 +3,6 @@ package chuck;
 import java.awt.Color;
 import java.io.IOException;
 import java.util.Arrays;
-<<<<<<< HEAD
-import java.util.HashMap;
-import java.util.Map;
-import com.google.common.collect.BiMap;
-=======
->>>>>>> 48b09309e5d2ddb45279cceb613ce902d114fb33
 
 import chuck.drivers.DMXDriver;
 
@@ -132,7 +126,6 @@ public class LightingProfile implements Comparable<LightingProfile> {
 		defaultColorOffs = 0;
 		
 		dmxVals = new int[channels];
->>>>>>> 48b09309e5d2ddb45279cceb613ce902d114fb33
 	}
 
 	public String getName() {
@@ -235,7 +228,6 @@ public class LightingProfile implements Comparable<LightingProfile> {
 		this.dmxVals = dmxVals.clone();
 	}
 
->>>>>>> 48b09309e5d2ddb45279cceb613ce902d114fb33
 	/**
 	 * Sets the rgb color of this fixture. Only touches red, green, blue addresses
 	 * in dmx module.
@@ -247,14 +239,6 @@ public class LightingProfile implements Comparable<LightingProfile> {
 	 */
 	public void setColor(Color color) throws IOException {
 		// make sure rgb addresses are set
-<<<<<<< HEAD
-		if (!(checkRange(offsets.redOffs) && checkRange(offsets.blueOffs) && checkRange(offsets.greenOffs)))
-			throw new IllegalStateException(
-					String.format("Called set color on fixture without rgb; (addr,r,g,b) = (%d,%d,%d)\n", address, offsets.redOffs,
-							offsets.greenOffs, offsets.blueOffs));
-		// check for default case for optimal write speed
-		if (offsets.redOffs == 1 && offsets.greenOffs == 2 && offsets.blueOffs == 3) {
-=======
 		if (!(checkRange(redOffs) && checkRange(blueOffs) && checkRange(greenOffs)))
 			throw new IllegalStateException(
 					String.format("Called set color on fixture without rgb; (addr,r,g,b) = (%d,%d,%d)\n", address, redOffs,
@@ -265,7 +249,6 @@ public class LightingProfile implements Comparable<LightingProfile> {
 		
 		// check for default case for optimal write speed
 		if (redOffs == 1 && greenOffs == 2 && blueOffs == 3) {
->>>>>>> 48b09309e5d2ddb45279cceb613ce902d114fb33
 			dmxDriver.setDMX(address + redOffs, color.getRed(), color.getGreen(), color.getBlue());
 			return;
 		}
@@ -284,10 +267,7 @@ public class LightingProfile implements Comparable<LightingProfile> {
 	 *             if unable to access dmx driver files
 	 */
 	public void setDimmerValue(int dimmerVal) throws IOException {
-<<<<<<< HEAD
-=======
 		dmxVals[dimmerOffs] = dimmerVal;
->>>>>>> 48b09309e5d2ddb45279cceb613ce902d114fb33
 		dmxDriver.setDMX(address + dimmerOffs, dimmerVal);
 	}
 
@@ -303,12 +283,6 @@ public class LightingProfile implements Comparable<LightingProfile> {
 	 *             if unable to access dmx driver files
 	 */
 	public void setChannelManual(int channel, int value) throws IOException {
-<<<<<<< HEAD
-		dmxDriver.setDMX(address + channel, value);
-	}
-
-	/**
-=======
 		dmxVals[channel] = value;
 		dmxDriver.setDMX(address + channel, value);
 	}
@@ -419,16 +393,10 @@ public class LightingProfile implements Comparable<LightingProfile> {
 	 * @return csv representation for this fixture
 	 */
 	public String getCSV() {
-<<<<<<< HEAD
-		return this.name + "," + this.address + "," + this.channels + "," + this.dimmerOffs + "," + this.redOffs + ","
-				+ this.greenOffs + "," + this.blueOffs + "," + this.amberOffs + "," + this.whiteOffs + "," + this.strobeOffs + ","
-				+ this.zoomOffs + "," + this.panOffs + "," + this.panFineOffs + "," + this.tiltOffs + "," + this.tiltFineOffs;
-=======
 		return this.name + "," + this.address + "," + this.channels + "," + this.dimmerOffs + ","
 				+ this.redOffs + "," + this.greenOffs + "," + this.blueOffs + "," + this.amberOffs + ","
 				+ this.whiteOffs + "," + this.strobeOffs + "," + this.zoomOffs + "," + this.panOffs + ","
 				+ this.panFineOffs + "," + this.tiltOffs + "," + this.tiltFineOffs;
->>>>>>> 48b09309e5d2ddb45279cceb613ce902d114fb33
 	}
 
 	/**
