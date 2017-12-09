@@ -11,5 +11,7 @@ public class Filepaths {
 
 	public static final String SCENE_DIR = "./files/scenes/";
 	public static final String SET_DIR = "./files/sets/";
+	
+	public static final String DEFAULT_SET = "default.set";
 
 }

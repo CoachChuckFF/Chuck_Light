@@ -62,10 +62,12 @@ public class FixtureProfile implements Comparable<FixtureProfile>, Serializable 
 	 */
 	public FixtureProfile(DMXDriver dmx, String fixtureName, int dmxAddress, String[] channels) {
 		// check arguments
-		if (name == null || name == "")
+		if (dmx == null)
+			throw new IllegalArgumentException("no null dmxdrivers");
+		if (fixtureName == null || fixtureName == "")
 			throw new IllegalArgumentException("empty name not allowed");
 		// address must be within [1:512], check lower bound
-		if (address < 1)
+		if (dmxAddress < 1)
 			throw new IllegalArgumentException("address must be at least 1");
 		// cannot have a zero channel fixture, or a fixture with more than 512 channels
 		if (channels.length < 1 || channels.length > 512)
@@ -380,5 +382,22 @@ public class FixtureProfile implements Comparable<FixtureProfile>, Serializable 
 	@Override
 	public int compareTo(FixtureProfile light) {
 		return this.address - light.getAddress();
+	}
+	
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder("Fixture ");
+		sb.append('"').append(name).append('"').append(": ");
+		sb.append(getNumChannels()).append(" channels at address ").append(address);
+		// get channel names to list
+		sb.append(" (");
+		List<String> channelNames = channelMap.entrySet().stream().sorted(Map.Entry.comparingByValue())
+				.map(Map.Entry::getKey).collect(Collectors.toList());
+		for (String name : channelNames) {
+			sb.append(name).append(',');
+		}
+		sb.deleteCharAt(sb.length() - 1);
+		sb.append(")\n");
+		return sb.toString();
 	}
 }
