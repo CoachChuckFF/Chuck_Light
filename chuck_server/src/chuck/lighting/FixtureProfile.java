@@ -361,7 +361,7 @@ public class FixtureProfile implements Comparable<FixtureProfile>, Serializable 
 	public void setChannelManual(int channel, int value) throws IOException {
 		if (channel < 0 || channel >= dmxVals.length)
 			throw new IllegalArgumentException("channel must be between [0:numChannels]");
-		if (value < 0 || value >= 255)
+		if (value < 0 || value > 255)
 			throw new IllegalArgumentException("value must be within [0:255]");
 
 		dmxVals[channel] = value;

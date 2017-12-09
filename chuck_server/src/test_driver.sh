@@ -1,3 +1,3 @@
 ./delete.sh
-javac chuck/drivers/DMXTester.java
-sudo java chuck.drivers.DMXTester
+javac chuck/dmx/DMXTester.java
+sudo java chuck.dmx.DMXTester

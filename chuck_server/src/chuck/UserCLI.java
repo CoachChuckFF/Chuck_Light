@@ -12,8 +12,7 @@ import java.util.List;
 
 import chuck.defines.Filepaths;
 import chuck.dmx.DMXDriver;
-import chuck.dmx.DMXDummy;
-// import chuck.dmx.DefaultDMX;
+import chuck.dmx.DefaultDMX;
 import chuck.lighting.FixtureManager;
 import chuck.lighting.FixtureProfile;
 import chuck.threads.ServerAppThread;
@@ -28,7 +27,7 @@ public class UserCLI {
 	public UserCLI() {
 		try {
 			// instantiate dmx driver
-			dmx = new DMXDummy();
+			dmx = new DefaultDMX();
 			System.out.println("DMX Driver Initialized");
 			profiles = new FixtureManager(dmx, Filepaths.DEFAULT_SET);
 			System.out.println("default profile loaded");

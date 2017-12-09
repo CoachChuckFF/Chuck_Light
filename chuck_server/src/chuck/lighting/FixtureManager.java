@@ -61,7 +61,7 @@ public class FixtureManager {
 		// call basic constructor to instantiate members
 		this();
 		// don't allow sneaky filenames
-		Path setFile = set_dir.resolve(filename).toRealPath();
+		Path setFile = set_dir.resolve(filename).normalize();
 		if (!setFile.getParent().equals(set_dir))
 			throw new IllegalArgumentException("path traversal detected");
 
