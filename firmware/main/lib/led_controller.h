@@ -24,6 +24,14 @@
 
 void init_led_controller(void);
 
+void pre_connect_animation(void);
+
+uint8_t dot(void);
+uint8_t dash(void);
+uint8_t sub_letter_break(void);
+uint8_t letter_break(void);
+uint8_t word_break(void);
+
 void set_leds(uint8_t mode);
 void set_red(uint8_t level);
 void set_green(uint8_t level);

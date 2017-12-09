@@ -97,5 +97,7 @@ void send_poll_reply_packet(uint8_t mode,
                             uint8_t msg_len,
                             uint8_t *msg);
 
+uint8_t controller_connected(void);
+
 
 #endif

@@ -186,3 +186,11 @@ void send_poll_reply_packet(uint8_t mode,
     ESP_LOGI(TAG, "Send Poll Reply Packet Error %d", ret_val);
 
 }
+
+uint8_t controller_connected()
+{
+  if(DEST_IP == NULL)
+    return 0;
+    
+  return 3;
+}

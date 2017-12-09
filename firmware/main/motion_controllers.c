@@ -42,8 +42,9 @@ void init_motion_controllers()
   rx_buffer = heap_caps_malloc(32, MALLOC_CAP_DMA);
 
   //restart gyroscope + accelerometer
-  restart_motion_device();
-
+  write_motion_reg(0x0A, 0x56);
+  ESP_LOGI(TAG, "%02X", read_motion_reg(0x0A));
+  ESP_LOGI(TAG, "%02X", read_motion_reg(0x0F));
 }
 
 void restart_motion_device()
@@ -70,31 +71,51 @@ void read_motion(uint8_t *ret_val)
   esp_err_t ret;
   spi_transaction_t t;
 
-  memset(tx_buffer, 0, 4);
-  memset(rx_buffer, 0, 4);
+  memset(tx_buffer, 0, 6);
+  memset(rx_buffer, 0, 6);
   memset(&t, 0, sizeof(t));       //Zero out the transaction
 
-  t.length=8;                     //Command is 8 bits
-  t.rxlength=8;
+  t.length=48;                     //Command is 8 bits
+  t.rxlength=48;
   t.tx_buffer=NULL;               //No data
   t.rx_buffer=rx_buffer;
-  t.cmd=0x80 | 0x0F;
+  t.cmd=0x80 | 0x28;
 
+/*
   ret=spi_device_transmit(spi, &t);  //Transmit!
   assert(ret==ESP_OK);            //Should have had no issues.
   ret_val[0] = rx_buffer[0];
   ret_val[1] = rx_buffer[1];
   ret_val[2] = rx_buffer[2];
   ret_val[3] = rx_buffer[3];
+  ret_val[4] = rx_buffer[4];
+  ret_val[5] = rx_buffer[5];*/
+
+
+  ret_val[0] = read_motion_reg(0x22);
+  ret_val[1] = read_motion_reg(0x23);
+  ret_val[2] = read_motion_reg(0x24);
+  ret_val[3] = read_motion_reg(0x25);
+  ret_val[4] = read_motion_reg(0x26);
+  ret_val[5] = read_motion_reg(0x27);
+
+  ESP_LOGI(TAG, "\n X: %02X, %02X\n Y: %02X, %02X\n Z: %02X, %02X\n",
+                                                                ret_val[0],
+                                                                ret_val[1],
+                                                                ret_val[2],
+                                                                ret_val[3],
+                                                                ret_val[4],
+                                                                ret_val[5]);
+
 
 }
 
-void read_motion_reg(uint8_t reg)
+uint8_t read_motion_reg(uint8_t reg)
 {
   esp_err_t ret;
   spi_transaction_t t;
 
-  memset(rx_buffer, 0, 4);
+  memset(rx_buffer, 0, 1);
   memset(&t, 0, sizeof(t));       //Zero out the transaction
 
   t.length=8;                     //Command is 8 bits
@@ -104,12 +125,12 @@ void read_motion_reg(uint8_t reg)
   t.cmd=0x80 | reg;
 
   ret=spi_device_transmit(spi, &t);  //Transmit!
-  assert(ret==ESP_OK);            //Should have had no issues.
-  ESP_LOGI(TAG, "%02X, %02X, %02X, %02X", (uint8_t) rx_buffer[0]
-                                        , (uint8_t) rx_buffer[1]
-                                        , (uint8_t) rx_buffer[2]
-                                        , (uint8_t) rx_buffer[3]);
+  assert(ret==ESP_OK);              //Should have had no issues.
+
+  return rx_buffer[0];
 }
+
+
 void write_motion_reg(uint8_t reg, uint8_t val)
 {
   esp_err_t ret;

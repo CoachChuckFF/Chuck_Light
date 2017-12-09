@@ -4,6 +4,8 @@
 #define TAG "PS2 Controller"
 
 #define DEBOUNCE_COUNT 3
+#define LONG_HOLD_COUNT 300
+#define FAST_RATE_TICK 30
 #define ERROR_TOLERANCE 0.9
 
 #define X_LEFT 0.0
@@ -33,7 +35,10 @@ uint8_t read_direction(uint8_t continuous_read_enable)
   static int left_count = 0;
   static int right_count = 0;
   static int up_count = 0;
+  static int up_long_count = 0;
   static int down_count = 0;
+  static int down_long_count = 0;
+  static int accel = 0;
   uint8_t x_dir = 0;
   uint8_t y_dir = 0;
 
@@ -65,17 +70,17 @@ uint8_t read_direction(uint8_t continuous_read_enable)
     left_count = 0;
     right_count = 0;
     up_count = 0;
+    up_long_count = 0;
     down_count = 0;
+    down_long_count = 0;
+    accel = 0;
     return CENTER;
   }
-  //LEFT
+  //RIGHT
   else if(x_dir == LEFT && y_dir == CENTER)
   {
-    if(left_count == -1 && !continuous_read_enable)
+    if(left_count == -1)
       return CENTER;
-
-    if(left_count == -1 && continuous_read_enable)
-      left_count = 0;
 
     if(left_count++ > DEBOUNCE_COUNT)
     {
@@ -85,14 +90,11 @@ uint8_t read_direction(uint8_t continuous_read_enable)
 
     return CENTER;
   }
-  //RIGHT
+  //LEFT
   else if(x_dir == RIGHT && y_dir == CENTER)
   {
-    if(right_count == -1 && !continuous_read_enable)
+    if(right_count == -1)
       return CENTER;
-
-    if(right_count == -1 && continuous_read_enable)
-      right_count = 0;
 
     if(right_count++ > DEBOUNCE_COUNT)
     {
@@ -102,14 +104,38 @@ uint8_t read_direction(uint8_t continuous_read_enable)
 
     return CENTER;
   }
-  //UP
+
+  //DOWN
   else if(x_dir == CENTER && y_dir == UP)
   {
-    if(up_count == -1 && !continuous_read_enable)
+
+    if((up_count == -1 || up_count == -2) && !continuous_read_enable)
       return CENTER;
 
+    if(up_count == -2 && continuous_read_enable)
+    {
+      //ESP_LOGI(TAG, "here2");
+      if(up_long_count++ > FAST_RATE_TICK)
+      {
+        //ESP_LOGI(TAG, "here3");
+        up_long_count = 0;
+        return DOWN;
+      }
+
+      return CENTER;
+    }
+
     if(up_count == -1 && continuous_read_enable)
-      up_count = 0;
+    {
+      //ESP_LOGI(TAG, "here");
+      if(up_long_count++ > LONG_HOLD_COUNT)
+      {
+        up_count = -2;
+        up_long_count = 0;
+      }
+
+      return CENTER;
+    }
 
     if(up_count++ > DEBOUNCE_COUNT)
     {
@@ -119,14 +145,37 @@ uint8_t read_direction(uint8_t continuous_read_enable)
 
     return CENTER;
   }
-  //DOWN
+
+  //UP
   else if(x_dir == CENTER && y_dir == DOWN)
   {
-    if(down_count == -1 && !continuous_read_enable)
+
+    if((down_count == -1 || down_count == -2) && !continuous_read_enable)
       return CENTER;
 
+    if(down_count == -2 && continuous_read_enable)
+    {
+      //ESP_LOGI(TAG, "here2");
+      if(down_long_count++ > FAST_RATE_TICK)
+      {
+        //ESP_LOGI(TAG, "here3");
+        down_long_count = 0;
+        return UP;
+      }
+
+      return CENTER;
+    }
+
     if(down_count == -1 && continuous_read_enable)
-      down_count = 0;
+    {
+      //ESP_LOGI(TAG, "here");
+      if(down_long_count++ > LONG_HOLD_COUNT)
+      {
+        down_count = -2;
+        down_long_count = 0;
+      }
+      return CENTER;
+    }
 
     if(down_count++ > DEBOUNCE_COUNT)
     {
@@ -142,7 +191,10 @@ uint8_t read_direction(uint8_t continuous_read_enable)
     left_count = 0;
     right_count = 0;
     up_count = 0;
+    up_long_count = 0;
     down_count = 0;
+    down_long_count = 0;
+    accel = 0;
   }
 return CENTER;
 }

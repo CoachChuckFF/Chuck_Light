@@ -23,7 +23,9 @@
 #define TAG "Main"
 
 #define XY_REFRESH_RATE 30
+#define USER_FEEDBACK_RATE 13
 #define PARTY_REFRESH_RATE 10
+#define GYRO_REFRESH_RATE 70
 
 extern uint8_t DEBOUNCE_TICK;
 uint8_t MODE = IDLE_MODE;
@@ -33,13 +35,17 @@ uint8_t direction_event = 0;
 uint8_t motion_event = 0;
 
 int joystick_data[2];
-int gyro_data[3];
+int gyro_data[6];
 
 uint8_t buf[4];
 uint8_t tick = 0;
 uint8_t party_tick = 0;
 uint8_t xy_tick = 0;
+uint8_t gyro_tick = 0;
+uint8_t user_feedback_tick = 0;
+uint8_t user_feedback_enable = 0;
 uint8_t party_sub_mode = 0;
+uint8_t continuous_read_enable = 0;
 
 void app_main()
 {
@@ -53,7 +59,8 @@ void app_main()
     init_timer_controller();
     init_udp_controller();
 
-    //TODO UDP Listhener listens to modes
+    set_mode(SCARY_MODE);
+
 
     /* ------------- Main Loop -------------------*/
     ESP_LOGI(TAG, "-... . . .--.");
@@ -65,7 +72,7 @@ void app_main()
       if(DEBOUNCE_TICK)
       {
 
-        switch(read_direction(false)) //mode dependant
+        switch(read_direction(continuous_read_enable)) //mode dependant
         {
           case CENTER:
             //do nothing - no direction specified
@@ -119,19 +126,41 @@ void app_main()
           break;
         }
 
+        if(!controller_connected())
+          pre_connect_animation();
+
         DEBOUNCE_TICK = 0;
         konami_tick();
         party_tick++;
         xy_tick++;
+        gyro_tick++;
+        user_feedback_tick++;
       }
 
       switch(MODE)
       {
         case CHASE_MODE:
+          continuous_read_enable = 1;
+
+          if(direction_event)
+          {
+            user_feedback_enable = 1;
+            user_feedback_tick = 0;
+            set_red(HIGH);
+          }
+
+          if(user_feedback_enable)
+          {
+            if(user_feedback_tick > USER_FEEDBACK_RATE)
+            {
+              user_feedback_enable = 0;
+              set_red(LOW);
+            }
+          }
 
         break;
         case IDLE_MODE:
-
+          continuous_read_enable = 0;
           switch(check_konami(direction_event, button_event))
           {
             case 0:
@@ -151,32 +180,50 @@ void app_main()
           }
         break;
         case LIGHT_SELECTION_MODE:
-
+          continuous_read_enable = 0;
 
         break;
         case CONTROL_SELECTION_MODE:
-
+          continuous_read_enable = 0;
 
         break;
         case COLOR_WHEEL_MODE:
-        if(xy_tick > XY_REFRESH_RATE)
-        {
-          read_xy(joystick_data);
-          //print_xy();
-          send_data_packet(JOYSTICK_DATA, 0, joystick_data);
-          xy_tick = 0;
-        }
+          continuous_read_enable = 0;
+          if(xy_tick > XY_REFRESH_RATE)
+          {
+            read_xy(joystick_data);
+            //print_xy();
+            send_data_packet(JOYSTICK_DATA, 0, joystick_data);
+            xy_tick = 0;
+          }
 
         break;
         case DMX_MODE:
+          continuous_read_enable = 1;
 
+          if(direction_event)
+          {
+            user_feedback_enable = 1;
+            user_feedback_tick = 0;
+            set_blue(HIGH);
+          }
+
+          if(user_feedback_enable)
+          {
+            if(user_feedback_tick > USER_FEEDBACK_RATE)
+            {
+              user_feedback_enable = 0;
+              set_blue(LOW);
+            }
+          }
 
         break;
         case PRESET_MODE:
-
+          continuous_read_enable = 0;
 
         break;
         case PARTY_MODE:
+          continuous_read_enable = 0;
           //send gyro data
           if(party_tick > PARTY_REFRESH_RATE)
           {
@@ -212,7 +259,12 @@ void app_main()
 
         break;
         case SCARY_MODE:
-          //send gyro data
+        continuous_read_enable = 0;
+        if(gyro_tick > GYRO_REFRESH_RATE)
+        {
+          read_motion(gyro_data);
+          gyro_tick = 0;
+        }
 
         break;
       }
@@ -237,5 +289,6 @@ uint8_t get_mode()
 void set_mode(uint8_t mode)
 {
   MODE = mode;
+  user_feedback_enable = 0;
   set_leds(mode);
 }
