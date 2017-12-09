@@ -17,7 +17,7 @@ import chuck.dmx.DMXDriver;
  * 
  * Represents a single fixture in the lighting setup.
  *
- * @author Christian Krueger
+ * @author Joseph Eichenhofer and Christian Krueger
  */
 public class FixtureProfile implements Comparable<FixtureProfile>, Serializable {
 
@@ -39,7 +39,7 @@ public class FixtureProfile implements Comparable<FixtureProfile>, Serializable 
 	 * Map channel name (e.g., red) to channel offset. Address of red dmx value is
 	 * getAddress() + getOffset("red")
 	 */
-	private HashMap<String, Integer> channelMap;
+	private Map<String, Integer> channelMap;
 
 	/**
 	 * Mirror of dmx values for this fixture (for saving and resetting state)
@@ -147,13 +147,35 @@ public class FixtureProfile implements Comparable<FixtureProfile>, Serializable 
 		address = stream.readInt();
 		// get default color offset
 		defaultColorOffs = stream.readInt();
-		// get channel map
-		try {
-
-		} catch (ClassCastException ex) {
-
+		// get number of channels
+		int numChannels = stream.readInt();
+		// read each channel string
+		channelMap = new HashMap<String, Integer>();
+		for (int i = 0 ; i < numChannels ; i++) {
+			String s;
+			try {
+				// read the string object and put it into the channelmap
+				s = (String) stream.readObject();
+				if (s == null || s.equals(""))
+					throw new IOException("read empty channel string for channel #" + i);
+				if (channelMap.put(s, i) != null) {
+					throw new IOException("channels contains duplicate string: " + s);
+				}
+			} catch (ClassCastException ex) {
+				// throw an error if it's not a string
+				throw new IOException("bad serialized fixture; readobject returned non-string for channel #" + i);
+			} 
 		}
-		channelMap = (HashMap<String, Integer>) stream.readObject();
+		if (defaultColorOffs < 0 || defaultColorOffs >= numChannels) {
+			// offset cannot exceed channels
+			throw new IOException("read defaultColorOffs as " + defaultColorOffs + " with numChannels " + numChannels);
+		}
+		// check upper bound of address plus number of channels, can be at most 513
+		// (address = 512, channels = 1)
+		if (numChannels + address > 513)
+			throw new IOException("fixture deserialization tries to put channel outside of 512 bytes");
+		
+		// create dmx shadow array
 		dmxVals = new int[channelMap.size()];
 	}
 
