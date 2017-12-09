@@ -4,8 +4,6 @@ import java.awt.Color;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -123,10 +121,8 @@ public class FixtureProfile implements Comparable<FixtureProfile>, Serializable 
 		// write number of channels, then name of each channel
 		stream.writeInt(channelMap.size());
 		// sort channels by value (so we get them in order of channel number)
-		List<String> channelNames = channelMap.entrySet().stream()
-			.sorted(Map.Entry.comparingByValue())
-			.map(Map.Entry::getKey)
-			.collect(Collectors.toList());
+		List<String> channelNames = channelMap.entrySet().stream().sorted(Map.Entry.comparingByValue())
+				.map(Map.Entry::getKey).collect(Collectors.toList());
 		// write all strings in order
 		for (String channelName : channelNames) {
 			stream.writeObject(channelName);
@@ -151,7 +147,7 @@ public class FixtureProfile implements Comparable<FixtureProfile>, Serializable 
 		int numChannels = stream.readInt();
 		// read each channel string
 		channelMap = new HashMap<String, Integer>();
-		for (int i = 0 ; i < numChannels ; i++) {
+		for (int i = 0; i < numChannels; i++) {
 			String s;
 			try {
 				// read the string object and put it into the channelmap
@@ -164,7 +160,7 @@ public class FixtureProfile implements Comparable<FixtureProfile>, Serializable 
 			} catch (ClassCastException ex) {
 				// throw an error if it's not a string
 				throw new IOException("bad serialized fixture; readobject returned non-string for channel #" + i);
-			} 
+			}
 		}
 		if (defaultColorOffs < 0 || defaultColorOffs >= numChannels) {
 			// offset cannot exceed channels
@@ -174,7 +170,7 @@ public class FixtureProfile implements Comparable<FixtureProfile>, Serializable 
 		// (address = 512, channels = 1)
 		if (numChannels + address > 513)
 			throw new IOException("fixture deserialization tries to put channel outside of 512 bytes");
-		
+
 		// create dmx shadow array
 		dmxVals = new int[channelMap.size()];
 	}
@@ -366,6 +362,14 @@ public class FixtureProfile implements Comparable<FixtureProfile>, Serializable 
 		}
 
 		return false;
+	}
+
+	/**
+	 * Updates this fixture's shadow array with values from driver (call after
+	 * changing dmx values directly through driver)
+	 */
+	public void syncLight() {
+		System.arraycopy(dmxDriver.getDmx(), address, dmxVals, 0, channelMap.size());
 	}
 
 	/**

@@ -104,7 +104,13 @@ public class HighlightThread extends Thread {
 		if(lights.contains(light))
 		{
 			semaphore.acquireUninterruptibly();
-			light.setDMXVals(savedValues.remove(lights.indexOf(light)));
+			try {
+				light.setDMXVals(savedValues.remove(lights.indexOf(light)));
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				System.exit(-1);
+			}
 			lights.remove(light);
 			semaphore.release();
 

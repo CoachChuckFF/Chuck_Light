@@ -2,7 +2,12 @@ package chuck.lighting;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -23,124 +28,111 @@ import chuck.dmx.DMXDriver;
  */
 public class FixtureManager {
 
-	private static final String DEFAULT_SET = "default.set";
-	
-	Path profile;
-	
 	/**
 	 * driver to pass into fixtures for updating dmx values
 	 */
 	private DMXDriver driver;
 	
 	/**
+	 * path to directory containing set files
+	 */
+	private Path set_dir;
+
+	/**
 	 * Lighting profile set. Thread safe for updating.
 	 */
 	private CopyOnWriteArrayList<FixtureProfile> set;
-	
+
 	/**
 	 * Constructor. Create an empty profile set.
 	 * 
-	 * @throws IOException if unable to create default directories
+	 * @throws IOException
+	 *             if unable to create default directories
 	 */
 	public FixtureManager(DMXDriver dmx) throws IOException {
+		// set our driver reference
 		driver = dmx;
+		// get the path to our set directory
+		set_dir = Paths.get(Filepaths.SET_DIR).toRealPath();
+		// create the set directory if it doesn't exist
+		Files.createDirectories(set_dir);
+		// create the empty set
 		set = new CopyOnWriteArrayList<FixtureProfile>();
-		profile = Paths.get(Filepaths.SET_DIR, DEFAULT_SET);
-		Files.createDirectories(profile.getParent());
-		
-		FixtureProfile defaultLight = new FixtureProfile(dmx, "test", 1, 11);
-		defaultLight.setDimmer(0);
-		defaultLight.setRed(1);
-		defaultLight.setGreen(2);
-		defaultLight.setBlue(3);
-		defaultLight.setDefaultColorOffest();
-		
-		FixtureProfile defaultLight1 = new FixtureProfile(dmx, "test1", 12, 11);
-		defaultLight1.setDimmer(0);
-		defaultLight1.setRed(1);
-		defaultLight1.setGreen(2);
-		defaultLight1.setBlue(3);
-		defaultLight1.setDefaultColorOffest();
-		
-		FixtureProfile defaultLight2 = new FixtureProfile(dmx, "test2", 24, 11);
-		defaultLight2.setDimmer(0);
-		defaultLight2.setRed(1);
-		defaultLight2.setGreen(2);
-		defaultLight2.setBlue(3);
-		defaultLight2.setDefaultColorOffest();
-		
-		set.add(defaultLight);
-		set.add(defaultLight1);
-		set.add(defaultLight2);
+
+		set.add(new FixtureProfile(dmx, "colorize zoom", 1, LightingDefines.ZOOM_DEFAULT_CHANNELS));
+		set.add(new FixtureProfile(dmx, "snake-eye mini", 12, LightingDefines.SNAKEYE_DEFAULT_CHANNELS));
+		set.add(new FixtureProfile(dmx, "colorize exa", 26, LightingDefines.EXA_DEFAULT_CHANNELS));
 	}
 
 	/**
-	 * reads from set file and populates the set arraylist
+	 * Constructor. Try to open a file for creating this fixture set.
 	 * 
-	 * @param filepath
-	 *            "set file" to load into manager
-	 * @throws IOException
-	 *             if unable to read/parse file
+	 * @param dmx
+	 *            reference to dmx driver
+	 * @param filename
+	 *            name of set file that was created by this application (for opening)
 	 */
-	public void parseSetFile(Path filepath) throws IOException {
-		String line = "";
-		String cvsSplitBy = ",";
-		FixtureProfile light;
-		set = new CopyOnWriteArrayList<FixtureProfile>();
+	public FixtureManager(DMXDriver dmx, String filename) throws IOException {
+		// call basic constructor to instantiate members
+		this(dmx);
+		// don't allow sneaky filenames
+		Path setFile = set_dir.resolve(filename).toRealPath();
+		if (!setFile.getParent().equals(set_dir))
+			throw new IllegalArgumentException("path traversal detected");
 
-		try (BufferedReader br = Files.newBufferedReader(filepath)) {
-			while ((line = br.readLine()) != null) {
-				// use comma as separator
-				String[] lightLine = line.split(cvsSplitBy);
-				light = new FixtureProfile(driver, lightLine[0], Integer.parseInt(lightLine[1]),
-						Integer.parseInt(lightLine[2]));
-				light.setDimmer(Integer.parseInt(lightLine[3]));
-				light.setRed(Integer.parseInt(lightLine[4]));
-				light.setGreen(Integer.parseInt(lightLine[5]));
-				light.setBlue(Integer.parseInt(lightLine[6]));
-				light.setAmber(Integer.parseInt(lightLine[7]));
-				light.setWhite(Integer.parseInt(lightLine[8]));
-				light.setStrobe(Integer.parseInt(lightLine[9]));
-				light.setZoom(Integer.parseInt(lightLine[10]));
-				light.setPan(Integer.parseInt(lightLine[11]));
-				light.setPanFine(Integer.parseInt(lightLine[12]));
-				light.setTilt(Integer.parseInt(lightLine[13]));
-				light.setTiltFine(Integer.parseInt(lightLine[14]));
-
-				light.setDefaultColorOffest();
-				
-				set.add(light);
+		// get an object stream for reading file
+		ObjectInputStream ins = new ObjectInputStream(Files.newInputStream(setFile));
+		// get the number of fixtures in the set
+		int numFixtures = ins.readInt();
+		// read and add each fixture to set
+		FixtureProfile currFixture;
+		for (int i = 0 ; i < numFixtures ; i++) {
+			try {
+				// read the fixture object
+				currFixture = (FixtureProfile) ins.readObject();
+				currFixture.setDMXDriver(dmx);
+				set.add(currFixture);
+			} catch (ClassCastException | ClassNotFoundException ex) {
+				// error reading fixtures from file
+				throw new IOException("read non-fixture object from file (" + ex.getMessage() + ")");
 			}
-		} catch (IOException e) {
-			// error parsing file, ditch the unfinished arraylist and pass the exception
-			set = null;
-			throw e;
 		}
-
-		// sort via whos address comes first
+		// sort the fixture set (by address)
 		Collections.sort(set);
 	}
 
 	/**
-	 * writes current set to a set file
+	 * Save this fixture manager's set to a file in the set directory.
 	 * 
-	 * @param filepath
-	 *            destination file
+	 * @param filename
+	 * 	name of set file
 	 * @throws IOException
-	 *             if unable to write
+	 *  if unable to perform the operation
 	 */
-	public void writeSetFile(Path filepath) throws IOException {
-		if (Files.isDirectory(filepath))
-			throw new IllegalArgumentException("set file cannot be directory");
-		Files.deleteIfExists(filepath);
-		Files.createFile(filepath);
-		try (BufferedWriter writer = Files.newBufferedWriter(filepath)) {
-			writer.write(this.toString());
-		} catch (IOException e) {
-			// failed to write, try to cleanup
-			Files.delete(filepath);
-			throw e;
+	public void saveSetFile(String filename) throws IOException {
+		if (!filename.endsWith(".set")) {
+			// only save to .set files
+			filename = filename + ".set";
 		}
+		// don't allow sneaky traversals
+		Path setFile = set_dir.resolve(filename).toRealPath();
+		if (!setFile.getParent().equals(set_dir)) {
+			throw new IllegalArgumentException("path traversal detected");
+		}
+		
+		// delete the old version
+		Files.deleteIfExists(setFile);
+		// create a new empty file
+		Files.createFile(setFile);
+		// get the output stream
+		ObjectOutputStream stream = new ObjectOutputStream(Files.newOutputStream(setFile));
+		// write the number of fixtures
+		stream.writeInt(set.size());
+		// write each fixture
+		for (FixtureProfile f : set) {
+			stream.writeObject(f);
+		}
+		
 	}
 
 	/**
@@ -218,11 +210,11 @@ public class FixtureManager {
 	private void addProfileToSetCLI(BufferedReader reader) throws IOException {
 		String input;
 		FixtureProfile light;
-		
+
 		String name;
 		int address;
 		int channels;
-		
+
 		System.out.println("Enter light information");
 		System.out.println("To cancel enter 'q'");
 		System.out.print("Light Name: ");
@@ -248,7 +240,7 @@ public class FixtureManager {
 			return;
 
 		channels = Integer.parseInt(input);
-		
+
 		light = new FixtureProfile(driver, name, address, channels);
 
 		System.out.println("Enter in the channel number for the following functions");
@@ -383,13 +375,13 @@ public class FixtureManager {
 			light.setTiltFine(0);
 		else
 			light.setTiltFine(Integer.parseInt(input));
-		
+
 		light.setDefaultColorOffest();
 
 		set.add(light);
 		Collections.sort(set);
 	}
-	
+
 	private void editProfileInSetCLI(BufferedReader reader) throws IOException {
 		Iterator<FixtureProfile> iterator;
 		String input;
@@ -587,7 +579,7 @@ public class FixtureManager {
 			return;
 		}
 
-		parseSetFile(listOfFiles[Integer.parseInt(input)]);
+		openSetFile(listOfFiles[Integer.parseInt(input)]);
 
 	}
 
@@ -603,25 +595,25 @@ public class FixtureManager {
 		System.out.println("\tq: quit/back");
 	}
 
+	/**
+	 * Get the number of fixtures held in this manager's set.
+	 * 
+	 * @return
+	 * 	number of lights in current set
+	 */
 	public int getLightCount() {
 		return set.size();
 	}
-	
+
+	/**
+	 * Get a reference to one of the lights in this set.
+	 * 
+	 * @param index
+	 * 	zero-based index into address-sorted list of fixtures
+	 * @return
+	 * 	fixture profile representing light at that index
+	 */
 	public FixtureProfile getLight(int index) {
 		return set.get(index);
 	}
-
-	public String toString() {
-		String csv = "";
-		FixtureProfile temp;
-		Iterator<FixtureProfile> iterator = set.iterator();
-
-		while (iterator.hasNext()) {
-			temp = iterator.next();
-			csv += temp.getCSV() + "\n";
-
-		}
-		return csv;
-	}
-
 }
