@@ -125,49 +125,97 @@ public class LightingProfile implements Comparable<LightingProfile> {
 	public void setDimmer(int dimmer) {
 		this.dimmerOffs = dimmer;
 	}
+	
+	public int getDimmer() {
+		return dimmerOffs;
+	}
 
 	public void setRed(int red) {
 		this.redOffs = red;
+	}
+	
+	public int getRed() {
+		return redOffs;
 	}
 
 	public void setGreen(int green) {
 		this.greenOffs = green;
 	}
+	
+	public int getGreen() {
+		return greenOffs;
+	}
 
 	public void setBlue(int blue) {
 		this.blueOffs = blue;
+	}
+	
+	public int getDBlue() {
+		return blueOffs;
 	}
 
 	public void setAmber(int amber) {
 		this.amberOffs = amber;
 	}
+	
+	public int getAmber() {
+		return amberOffs;
+	}
 
 	public void setWhite(int white) {
 		this.whiteOffs = white;
+	}
+	
+	public int getWhite() {
+		return whiteOffs;
 	}
 
 	public void setStrobe(int strobe) {
 		this.strobeOffs = strobe;
 	}
+	
+	public int getStrobe() {
+		return strobeOffs;
+	}
 
 	public void setZoom(int zoom) {
 		this.zoomOffs = zoom;
+	}
+	
+	public int getZoom() {
+		return zoomOffs;
 	}
 
 	public void setPan(int pan) {
 		this.panOffs = pan;
 	}
+	
+	public int getPan() {
+		return panOffs;
+	}
 
 	public void setPanFine(int pan_fine) {
 		this.panFineOffs = pan_fine;
+	}
+	
+	public int getPanFine() {
+		return panFineOffs;
 	}
 
 	public void setTilt(int tilt) {
 		this.tiltOffs = tilt;
 	}
+	
+	public int getTilt() {
+		return tiltOffs;
+	}
 
 	public void setTiltFine(int tilt_fine) {
 		this.tiltFineOffs = tilt_fine;
+	}
+	
+	public int getTileFine() {
+		return tiltFineOffs;
 	}
 	
 	/**
@@ -293,6 +341,18 @@ public class LightingProfile implements Comparable<LightingProfile> {
 	public void syncLight(){
 		System.arraycopy(this.dmxDriver.getDmx(), this.address, this.dmxVals, 0, this.channels);
 	}
+	
+	//sets all DMX values to 0
+	public void clearLight() throws IOException {
+		
+		for(int i = 0; i < channels; i++)
+		{
+			dmxVals[i] = 0;
+			dmxDriver.setDMX(address + i, 0);
+		}
+	}
+	
+	
 	
 	public int getDefaultColorOffest (){
 		return this.defaultColorOffs;

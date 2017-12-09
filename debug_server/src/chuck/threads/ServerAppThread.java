@@ -18,6 +18,7 @@ import chuck.defines.Connection;
 import chuck.defines.LightingDefines;
 import chuck.defines.Modes;
 import chuck.drivers.DMXDriver;
+import chuck.lighting.XYConverter;
 
 /**
  * Chuck Light server application. Starts heartbeat thread and udp listener
@@ -37,16 +38,23 @@ public class ServerAppThread extends Thread {
 	private boolean serverRunning = false;
 	private DatagramSocket serverSocket;
 	private int chaseSceneDelay = 100;
-
+	
+	private XYConverter colorConverter = null;
+	
 	private HeartBeatThread heartbeat = null;
 	private UDPServerThread udpListen = null;
 	private ChaseThread chase = null;
 	private HighlightThread highlight = null;
 	private PresetVisualThread presetVisual = null;
 	private RainbowThread rainbowVisual = null;
+	private DMXVisualThread dmxVisual = null;
 	
 	private int currentLightIndex;
 	private int currentPresetIndex;
+	private int currentControlIndex;
+	private int currentChannelIndex;
+	
+	private boolean canChangeDMX;
 
 	/**
 	 * Shared synchronous queue of commands to process. Producer is UDPServerThread, consumer is main execution.
@@ -70,7 +78,13 @@ public class ServerAppThread extends Thread {
 		currentState = Modes.IDLE;
 		currentLightIndex = 0;
 		currentPresetIndex = 0;
+		currentControlIndex = 0;
+		currentChannelIndex = 0;
+		canChangeDMX = false;
 		boolean sendHeartbeat = false;
+		
+		int xVal = 0, yVal = 0;
+		int currentChannelVal = 0;
 		
 		try {
 			// instantiate server socket
@@ -114,6 +128,8 @@ public class ServerAppThread extends Thread {
 			e2.printStackTrace();
 			System.exit(-1);
 		}
+		
+		colorConverter = new XYConverter();
 				
 		WirelessCommand currCommand = null;
 		serverRunning = true;
@@ -269,6 +285,7 @@ public class ServerAppThread extends Thread {
 									System.exit(-1);
 								}
 							}
+
 							break;
 						case Connection.PS2_LONG:
 							if(sceneManager.getCurrentIndex() != -1)
@@ -284,6 +301,16 @@ public class ServerAppThread extends Thread {
 								}
 								
 								revertScene();
+							} else {
+								
+								sceneManager.deleteScene(sceneManager.getSceneCount()-1);
+								try {
+									dmx.clearDMX();
+								} catch (IOException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								}
+
 							}
 							break;
 						case Connection.KONAMI:
@@ -341,14 +368,27 @@ public class ServerAppThread extends Thread {
 							break;
 						case Connection.B1:
 							currentState = Modes.CONTROL_SELECTION;
-							//creates carbon copy of lights as is
-							//TODO start colorwheel visualization
 							
 							selectedLights = redrumHighlight();
+							
+							int temp = selectedLights.get(0).getChannels();
+							for (LightingProfile light : selectedLights) {
+								if(temp != light.getChannels())
+								{
+									
+									canChangeDMX = false;
+									break;
+								}
+
+								canChangeDMX = true;
+								temp = light.getChannels();
+
+							}
+							
 							clearSelected();
-							// TODO Auto-generated catch block
 							revertScene();
 							
+							currentControlIndex = 0;
 							startRainbow();
 							sendHeartbeat = true;
 							break;
@@ -371,24 +411,101 @@ public class ServerAppThread extends Thread {
 						}
 						switch(currCommand.getUserActionData()){
 						case Connection.LEFT:
-							//TODO Position Dependant
+							switch(currentControlIndex)
+							{
+							case -1:
+								redrumDMXVisual();
+								currentControlIndex = 1;
+								revertScene();
+								startPresetVisual();
+								break;
+							case 0:
+								redrumRainbow();
+								if(canChangeDMX) {
+									currentControlIndex = -1;
+									revertScene();
+									startDMXVisual();
+								}
+								else {
+									currentControlIndex = 1;
+									startPresetVisual();
+								}
+								break;
+							case 1:
+								redrumPresetVisual();
+								currentControlIndex = 0;
+								revertScene();
+								startRainbow();
+								break;
+							}
 							break;
 						case Connection.RIGHT:
-							//TODO Position Dependant
+							switch(currentControlIndex)
+							{
+							case -1:
+								redrumDMXVisual();
+								currentControlIndex = 0;
+								revertScene();
+								startRainbow();
+								break;
+							case 0:
+								redrumRainbow();
+								currentControlIndex = 1;
+								revertScene();
+								startPresetVisual();
+								break;
+							case 1:
+								redrumPresetVisual();
+								if(canChangeDMX) {
+									currentControlIndex = -1;
+									revertScene();
+									startDMXVisual();
+								}
+								else {
+									currentControlIndex = 0;
+									startRainbow();
+								}
+								break;
+							}
 							break;
 						case Connection.B1:
 							//TODO Position Dependant
-							currentState = Modes.PRESET;
-							//redrumPresetVisual();
-							redrumRainbow();
+							switch(currentControlIndex)
+							{
+							case -1:
+								redrumDMXVisual();
+								revertScene();
+								currentChannelIndex = 0;
+								currentState = Modes.DMX;
+								break;
+							case 0:
+								redrumRainbow();
+								currentState = Modes.COLOR_WHEEL;
+
+								break;
+							case 1:
+								redrumPresetVisual();
+								currentState = Modes.PRESET;
+
+								break;
+							}
 							
 							sendHeartbeat = true;
 							break;
 						case Connection.B2:
 							currentState = Modes.LIGHT_SELECTION;
-							//redrumPresetVisual();
-							redrumRainbow();
-							
+							switch(currentControlIndex)
+							{
+							case -1:
+								redrumDMXVisual();
+								break;
+							case 0:
+								redrumRainbow();
+								break;
+							case 1:
+								redrumPresetVisual();
+								break;
+							}
 							revertScene();
 							
 							startHighlight();
@@ -402,13 +519,18 @@ public class ServerAppThread extends Thread {
 						if(currCommand.getDataType() == Connection.USER_ACTION_DATA){
 							switch(currCommand.getUserActionData()){
 							case Connection.B1:
-								//TODO SaveChanges
+								sceneManager.setCurrentScene(dmx.getDmx());
+								
 								currentState = Modes.LIGHT_SELECTION;
+								
+								startHighlight();
 								sendHeartbeat = true;
 								break;
 							case Connection.B2:
 								currentState = Modes.CONTROL_SELECTION;
-								//TODO start Colorwheel visulization
+								
+								startRainbow();
+								
 								sendHeartbeat = true;
 								break;
 							}
@@ -417,10 +539,21 @@ public class ServerAppThread extends Thread {
 						{
 							System.out.println(Arrays.toString(currCommand.getJoystickData()));
 							//TODO RGB stuff with Joystick
+							xVal = currCommand.getJoystickData()[0];
+							yVal = currCommand.getJoystickData()[1];
+							
+							for (LightingProfile light : selectedLights) {
+								try {
+									light.setColor(colorConverter.getColor(xVal, yVal));
+								} catch (IOException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								}
+							}
 						}
 						else
 						{
-							//bad mode
+							System.out.println("Panic");
 							sendHeartbeat = true;
 							break;
 						}
@@ -432,27 +565,75 @@ public class ServerAppThread extends Thread {
 						}
 						switch(currCommand.getUserActionData()){
 						case Connection.LEFT:
-							//TODO Control Last DMX Channel
+							if(currentChannelIndex-- < 0)
+								currentChannelIndex = selectedLights.get(0).getChannels() - 1;
+							
 							break;
 						case Connection.RIGHT:
-							//TODO Control Next DMX Channel
+							if(currentChannelIndex++ >= selectedLights.get(0).getChannels())
+								currentChannelIndex = 0;
+							
 							break;
 						case Connection.UP:
-							//TODO Increase DMX value @ channel
+							for (LightingProfile light : selectedLights) {
+								
+								currentChannelVal = light.getDMXVals()[currentChannelIndex];
+								currentChannelVal += LightingDefines.DMX_STEP;
+								if(currentChannelVal > 255)
+									continue;
+								try {
+									light.setChannelManual(currentChannelIndex, currentChannelVal);
+								} catch (IOException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								}
+								
+							}
 							break;
 						case Connection.DOWN:
-							//TODO Decrease DMX value @ channel
+							for (LightingProfile light : selectedLights) {
+								
+								currentChannelVal = light.getDMXVals()[currentChannelIndex];
+								currentChannelVal -= LightingDefines.DMX_STEP;
+								if(currentChannelVal < 0)
+									continue;
+								try {
+									light.setChannelManual(currentChannelIndex, currentChannelVal);
+								} catch (IOException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								}
+								
+							}
 							break;
 						case Connection.B1:
-							//TODO Save Changes
+							sceneManager.setCurrentScene(dmx.getDmx());
+							
 							currentState = Modes.LIGHT_SELECTION;
+							
+							startHighlight();
 							sendHeartbeat = true;
 							break;
 						case Connection.B2:
 							currentState = Modes.CONTROL_SELECTION;
-							//start DMX mode visulization 
+							
+							revertScene();
+							
+							startDMXVisual();
+							
 							sendHeartbeat = true;
 							break;
+							
+						case Connection.PS2:
+							for (LightingProfile light : selectedLights) {
+								try {
+									light.clearLight();
+								} catch (IOException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								}
+							}
+					
 						}
 					break;
 					case Modes.PRESET:
@@ -576,13 +757,28 @@ public class ServerAppThread extends Thread {
 	
 	private void redrumRainbow() {
 		try {
-			rainbowVisual.kill();
+			rainbowVisual.redrum();
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			// e.printStackTrace();
 			// gonna die anyway
 		}
 		rainbowVisual = null;
+	}
+	
+	private void startDMXVisual() {
+		dmxVisual = new DMXVisualThread(selectedLights);
+		dmxVisual.start();
+	}
+	
+	private void redrumDMXVisual() {
+		try {
+			dmxVisual.redrum();
+		} catch (InterruptedException e) {
+			// gonna die anyway
+		}
+		
+		dmxVisual = null;
 	}
 	
 	private void startChase() {
@@ -647,6 +843,14 @@ public class ServerAppThread extends Thread {
 		
 		if(presetVisual != null){
 			redrumPresetVisual();
+		}
+		
+		if(rainbowVisual != null) {
+			redrumRainbow();
+		}
+		
+		if(dmxVisual != null) {
+			redrumDMXVisual();
 		}
 		
 		if(udpListen != null)

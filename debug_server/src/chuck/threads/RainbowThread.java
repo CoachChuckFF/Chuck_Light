@@ -88,7 +88,7 @@ public class RainbowThread extends Thread {
 	 * Stop the rainbow thread, resets fixture to the previous values, and joins the
 	 * thread. Should be called from the thread that started the rainbow thread.
 	 */
-	public void kill() throws InterruptedException {
+	public void redrum() throws InterruptedException {
 		running = false;
 		this.interrupt();
 		this.join();
