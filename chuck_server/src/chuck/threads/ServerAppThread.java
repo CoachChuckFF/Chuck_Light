@@ -52,6 +52,9 @@ public class ServerAppThread extends Thread {
 	private int currentControlIndex;
 	private int currentChannelIndex;
 	
+	private int min = Integer.MAX_VALUE;
+	private int max = Integer.MIN_VALUE;
+	
 	private boolean canChangeDMX;
 
 	/**
@@ -680,17 +683,73 @@ public class ServerAppThread extends Thread {
 						}
 					break;
 					case Modes.PARTY:
-						switch(currCommand.getUserActionData()){
-						case Connection.B12:
-							currentState = Modes.IDLE;
+						if(currCommand.getDataType() == Connection.USER_ACTION_DATA){
+							switch(currCommand.getUserActionData()){
+							case Connection.PS2_LONG:
+								System.out.println(min + " " + max );
+								currentState = Modes.IDLE;
+								sendHeartbeat = true;
+								break;
+							}
+						}
+						else if(currCommand.getDataType() == Connection.GYRO_DATA)
+						{
+							int gyroData = currCommand.getGyroData();
+							int dv = 0;
+							
+							if(gyroData > 10000)
+								dv = ((gyroData - 10000)/(40000)) * 255;
+							if(gyroData > 50000)
+								dv = 255;
+
+							if(gyroData < min)
+								min = gyroData;
+							
+							if(gyroData > max)
+								max = gyroData;
+							
+							for (int i = 0; i < profiles.getLightCount(); i++) {
+								try {
+									profiles.getLight(i).setDimmerValue(dv);
+								} catch (IOException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								}
+							}
+							
+						}
+						else
+						{
+							
 							sendHeartbeat = true;
 							break;
 						}
 					break;
 					case Modes.SCARY:
-						switch(currCommand.getUserActionData()){
-						case Connection.B12:
-							currentState = Modes.IDLE;
+						if(currCommand.getDataType() == Connection.USER_ACTION_DATA){
+							switch(currCommand.getUserActionData()){
+							case Connection.PS2_LONG:
+								currentState = Modes.IDLE;
+								sendHeartbeat = true;
+								break;
+							}
+						}
+						else if(currCommand.getDataType() == Connection.GYRO_DATA)
+						{
+							System.out.println(currCommand.getGyroData());
+							
+							/*for (FixtureProfile light : selectedLights) {
+								try {
+									light.setColor(colorConverter.getColor(xVal, yVal));
+								} catch (IOException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								}
+							}*/
+						}
+						else
+						{
+							System.out.println("Panic");
 							sendHeartbeat = true;
 							break;
 						}

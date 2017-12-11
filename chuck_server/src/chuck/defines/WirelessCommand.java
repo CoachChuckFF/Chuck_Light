@@ -69,7 +69,10 @@ public class WirelessCommand {
 				break;
 			case Connection.GYRO_DATA:
 
-				gyroData = receiveData[14]; //X
+				gyroData = (receiveData[23] & 0xFF) << 24 | 
+									(receiveData[22] & 0xFF) << 16 |
+									(receiveData[21] & 0xFF) << 8 |
+									(receiveData[20] & 0xFF); //Y
 
 				break;
 			default:
