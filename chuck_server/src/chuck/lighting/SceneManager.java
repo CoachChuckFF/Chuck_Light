@@ -110,7 +110,7 @@ public class SceneManager {
 	}
 	
 	public Scene getLastScene(){
-		if(currentIndex == -1)
+		if(currentIndex == -1 && scenes.size() != 0)
 		{
 			currentIndex = scenes.size() - 1;
 			return scenes.get(currentIndex);

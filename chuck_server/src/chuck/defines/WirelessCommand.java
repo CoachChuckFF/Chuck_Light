@@ -22,7 +22,7 @@ public class WirelessCommand {
 	private byte dataType;
 	private byte userActionData; //LRUD, Buttons
 	private int joystickData[];
-	private int gyroData[];
+	private int gyroData;
 	
 	
 	public WirelessCommand(byte[] rawData, InetAddress sender_ip) {
@@ -68,11 +68,9 @@ public class WirelessCommand {
 									(receiveData[16] & 0xFF); //Y
 				break;
 			case Connection.GYRO_DATA:
-				gyroData = new int[3];
-				//or just a byte of movement percentage?
-				gyroData[0] = receiveData[14]; //X
-				gyroData[1] = receiveData[15]; //Y
-				gyroData[2] = receiveData[16]; //Z
+
+				gyroData = receiveData[14]; //X
+
 				break;
 			default:
 				return parsed = false; //not a valid input packet
@@ -107,7 +105,7 @@ public class WirelessCommand {
 	}
 	
 	//returns null on error
-	public int[] getGyroData(){
+	public int getGyroData(){
 		return gyroData;
 	}
 
