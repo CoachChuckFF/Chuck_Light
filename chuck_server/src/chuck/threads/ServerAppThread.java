@@ -143,10 +143,10 @@ public class ServerAppThread extends Thread {
 				if (currCommand == null)
 					continue;
 				
-				if(!heartbeat.getConnected())
-				{
-					heartbeat.setAddress(currCommand.getSender_ip());
-				}
+//				if(!heartbeat.getConnected())
+//				{
+//					heartbeat.setAddress(currCommand.getSender_ip());
+//				}
 			} catch (InterruptedException ex) {
 				// for now, treat interruptedexception as fatal error
 				ex.printStackTrace();
@@ -839,7 +839,6 @@ public class ServerAppThread extends Thread {
 	
 	private void redrumChase() {
 		chase.redrum();
-		chase.interrupt();
 		try {
 			chase.join();
 		} catch (InterruptedException e1) {

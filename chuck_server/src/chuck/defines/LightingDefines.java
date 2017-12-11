@@ -8,10 +8,10 @@ public class LightingDefines {
 	public static final int MIN_CHASE_DELAY = 30;
 	public static final int CHASE_STEP = 10;
 
-	public static final int HIGHLIGHT_VISUAL_DELAY = 50;
-	public static final int HIGHLIGHT_DIMMER_STEP = 15;
+	public static final int HIGHLIGHT_VISUAL_DELAY = 30;
+	public static final int HIGHLIGHT_DIMMER_STEP = 5;
 	public static final int HIGHLIGHT_DIMMER_HIGH_VAL = 255;
-	public static final int HIGHLIGHT_DIMMER_LOW_VAL = 50;
+	public static final int HIGHLIGHT_DIMMER_LOW_VAL = 25;
 
 	public static final int DMX_STEP = 5;
 	

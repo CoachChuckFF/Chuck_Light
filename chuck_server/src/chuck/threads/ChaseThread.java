@@ -48,6 +48,7 @@ public class ChaseThread extends Thread {
 	
 	public void redrum()
 	{
+		this.interrupt();
 		running = false;
 	}
 	
