@@ -3,6 +3,8 @@
 
 #define TAG "Motion Controller"
 
+#define AVE_SAMPLE 13
+
 spi_device_handle_t spi;
 char* tx_buffer;
 char* rx_buffer;
@@ -42,9 +44,10 @@ void init_motion_controllers()
   rx_buffer = heap_caps_malloc(32, MALLOC_CAP_DMA);
 
   //restart gyroscope + accelerometer
-  write_motion_reg(0x0A, 0x56);
-  ESP_LOGI(TAG, "%02X", read_motion_reg(0x0A));
-  ESP_LOGI(TAG, "%02X", read_motion_reg(0x0F));
+  write_motion_reg(0x10, 0xA0);
+  write_motion_reg(0x17, 0b01100100);
+  write_motion_reg(0x58, 0b00010000);
+
 }
 
 void restart_motion_device()
@@ -66,48 +69,60 @@ void restart_motion_device()
   assert(ret==ESP_OK);            //Should have had no issues.
 }
 
-void read_motion(uint8_t *ret_val)
+int read_motion()
 {
-  esp_err_t ret;
-  spi_transaction_t t;
+  int x;
+  int y;
+  int z;
 
-  memset(tx_buffer, 0, 6);
-  memset(rx_buffer, 0, 6);
-  memset(&t, 0, sizeof(t));       //Zero out the transaction
+  x = (int) ((int16_t)(((int16_t)read_motion_reg(0x28)) | (((int16_t)read_motion_reg(0x29)) << 8)));
+  y = (int) ((int16_t)(((int16_t)read_motion_reg(0x2A)) | (((int16_t)read_motion_reg(0x2B)) << 8)));
+  z = (int) ((int16_t)(((int16_t)read_motion_reg(0x2C)) | (((int16_t)read_motion_reg(0x2D)) << 8)));
 
-  t.length=48;                     //Command is 8 bits
-  t.rxlength=48;
-  t.tx_buffer=NULL;               //No data
-  t.rx_buffer=rx_buffer;
-  t.cmd=0x80 | 0x28;
+  return get_movement_magnitude(x, y, z);
 
-/*
-  ret=spi_device_transmit(spi, &t);  //Transmit!
-  assert(ret==ESP_OK);            //Should have had no issues.
-  ret_val[0] = rx_buffer[0];
-  ret_val[1] = rx_buffer[1];
-  ret_val[2] = rx_buffer[2];
-  ret_val[3] = rx_buffer[3];
-  ret_val[4] = rx_buffer[4];
-  ret_val[5] = rx_buffer[5];*/
+}
 
+int get_movement_magnitude(int x, int y, int z)
+{
+  static int x_ave[AVE_SAMPLE];
+  static int y_ave[AVE_SAMPLE];
+  static int z_ave[AVE_SAMPLE];
+  static int count = -1;
 
-  ret_val[0] = read_motion_reg(0x22);
-  ret_val[1] = read_motion_reg(0x23);
-  ret_val[2] = read_motion_reg(0x24);
-  ret_val[3] = read_motion_reg(0x25);
-  ret_val[4] = read_motion_reg(0x26);
-  ret_val[5] = read_motion_reg(0x27);
+  int movement_magnitude = 0;
+  int x_mag = get_average(x_ave) - x;
+  int y_mag = get_average(y_ave) - y;
+  int z_mag = get_average(z_ave) - z;
 
-  ESP_LOGI(TAG, "\n X: %02X, %02X\n Y: %02X, %02X\n Z: %02X, %02X\n",
-                                                                ret_val[0],
-                                                                ret_val[1],
-                                                                ret_val[2],
-                                                                ret_val[3],
-                                                                ret_val[4],
-                                                                ret_val[5]);
+  movement_magnitude += (x_mag < 0) ? -1 * x_mag : x_mag;
+  movement_magnitude += (y_mag < 0) ? -1 * y_mag : y_mag;
+  movement_magnitude += (z_mag < 0) ? -1 * z_mag : z_mag;
 
+  if(++count >= AVE_SAMPLE)
+  {
+    count = 0;
+  }
 
+  x_ave[count] = x;
+  y_ave[count] = y;
+  z_ave[count] = z;
+
+  return movement_magnitude;
+
+}
+
+int get_average(int *buf)
+{
+  uint8_t i = 0;
+  int ave = 0;
+
+  for(i = 0; i < AVE_SAMPLE; i++)
+  {
+    ave += buf[i];
+  }
+
+  return ave/AVE_SAMPLE;
 }
 
 uint8_t read_motion_reg(uint8_t reg)
@@ -138,7 +153,7 @@ void write_motion_reg(uint8_t reg, uint8_t val)
 
   memset(&t, 0, sizeof(t));       //Zero out the transaction
 
-  t.length = 16;                  //Command is 8 bits + 8 tx bits
+  t.length = 8;                  //Command is 8 bits + 8 tx bits
   t.tx_buffer = tx_buffer;        //write buffer
   //t.rx_buffer=NULL;             //No read phase
   t.cmd = WRITE | reg;

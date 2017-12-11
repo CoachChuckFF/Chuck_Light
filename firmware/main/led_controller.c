@@ -22,6 +22,10 @@ void init_led_controller()
     io_conf.pull_up_en = 0;
     gpio_config(&io_conf);
 
+    gpio_set_level(RED_PIN, HIGH);
+    gpio_set_level(GREEN_PIN, HIGH);
+    gpio_set_level(BLUE_PIN, HIGH);
+
 }
 
 void pre_connect_animation()

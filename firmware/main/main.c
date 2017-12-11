@@ -25,7 +25,7 @@
 #define XY_REFRESH_RATE 30
 #define USER_FEEDBACK_RATE 13
 #define PARTY_REFRESH_RATE 10
-#define GYRO_REFRESH_RATE 70
+#define GYRO_REFRESH_RATE 30
 
 extern uint8_t DEBOUNCE_TICK;
 uint8_t MODE = IDLE_MODE;
@@ -35,7 +35,7 @@ uint8_t direction_event = 0;
 uint8_t motion_event = 0;
 
 int joystick_data[2];
-int gyro_data[6];
+int gyro_data;
 
 uint8_t buf[4];
 uint8_t tick = 0;
@@ -50,25 +50,20 @@ uint8_t continuous_read_enable = 0;
 void app_main()
 {
     /* ------------- Init Functions --------------*/
+    init_led_controller();
     ESP_ERROR_CHECK( nvs_flash_init() );
     init_connection_controller();
-    init_led_controller();
     init_ps2_controller();
-    init_motion_controllers();
     init_button_controllers();
     init_timer_controller();
     init_udp_controller();
-
-    set_mode(SCARY_MODE);
-
+    init_motion_controllers();
 
     /* ------------- Main Loop -------------------*/
     ESP_LOGI(TAG, "-... . . .--.");
     while(1)
     {
-      //TODO add a serial terminal
-      //printConnectionInfo();
-      //TODO if(TIMER){ the button read
+
       if(DEBOUNCE_TICK)
       {
 
@@ -257,12 +252,22 @@ void app_main()
             party_tick = 0;
           }
 
+          if(gyro_tick > GYRO_REFRESH_RATE)
+          {
+            gyro_data = read_motion();
+            send_data_packet(GYRO_DATA, 0, &gyro_data);
+            gyro_tick = 0;
+          }
+
         break;
         case SCARY_MODE:
         continuous_read_enable = 0;
+
         if(gyro_tick > GYRO_REFRESH_RATE)
         {
-          read_motion(gyro_data);
+          gyro_data = read_motion();
+          send_data_packet(GYRO_DATA, 0, &gyro_data);
+          ESP_LOGI(TAG, "%d", gyro_data);
           gyro_tick = 0;
         }
 

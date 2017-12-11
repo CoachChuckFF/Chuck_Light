@@ -53,7 +53,7 @@ typedef struct dataPacket {
   uint8_t _data_type; //user_action,joystick,gyro
   uint8_t _user_action; //up,down,left,right,b1,b2,b_ps2,konami,reverse_konami
   int _joystick[2]; //[0] x direction & [1] y direction
-  int _gyro[3]; //TODO finalize gyroscope length
+  int _gyro; 
 }__attribute__((packed)) dataPacket;
 
 //Basestation to Controller

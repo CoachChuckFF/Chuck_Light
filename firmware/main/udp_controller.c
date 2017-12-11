@@ -133,9 +133,7 @@ void send_data_packet(uint8_t data_type, uint8_t user_data, int *other_data)
     break;
     case GYRO_DATA:
       //TODO this
-      DATA_PACKET._gyro[0] = other_data[0];
-      DATA_PACKET._gyro[1] = other_data[1];
-      DATA_PACKET._gyro[2] = other_data[2];
+      DATA_PACKET._gyro = other_data[0];
     break;
   }
 
@@ -191,6 +189,6 @@ uint8_t controller_connected()
 {
   if(DEST_IP == NULL)
     return 0;
-    
+
   return 3;
 }

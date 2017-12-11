@@ -31,8 +31,9 @@
 #define REBOOT_MOTION 0x05;
 
 void init_motion_controllers(void);
-void restart_motion_device(void);
-void read_motion(uint8_t *ret_val);
+int read_motion();
+int get_movement_magnitude(int x, int y, int z);
+int get_average(int *buf);
 uint8_t read_motion_reg(uint8_t reg);
 void write_motion_reg(uint8_t reg, uint8_t val);
 
