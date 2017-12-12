@@ -1,5 +1,6 @@
 package chuck.threads;
 
+import java.awt.Color;
 import java.io.IOException;
 import java.net.DatagramSocket;
 import java.net.SocketException;
@@ -256,6 +257,16 @@ public class ServerAppThread extends Thread {
 							}
 							System.out.println(sceneManager.getCurrentIndex());
 							break;
+						case Connection.DOWN:
+							try {
+								dmx.setDMX(sceneManager.getCurrentScene().getDmxVals());
+								sceneManager.setCurrentScene(sceneManager.getCurrentScene().getDmxVals());
+							} catch (IOException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+							System.out.println(sceneManager.getCurrentIndex());
+							break;
 						case Connection.B1:
 							currentState = Modes.LIGHT_SELECTION;
 							sceneManager.setCurrentScene(dmx.getDmx());
@@ -387,8 +398,8 @@ public class ServerAppThread extends Thread {
 							clearSelected();
 							revertScene();
 							
-							currentControlIndex = 0;
-							startRainbow();
+							currentControlIndex = 1;
+							startPresetVisual();
 							sendHeartbeat = true;
 							break;
 						case Connection.B2:
@@ -562,12 +573,12 @@ public class ServerAppThread extends Thread {
 						}
 						switch(currCommand.getUserActionData()){
 						case Connection.LEFT:
-							if(currentChannelIndex-- < 0)
+							if(--currentChannelIndex < 0)
 								currentChannelIndex = selectedLights.get(0).getNumChannels() - 1;
 							
 							break;
 						case Connection.RIGHT:
-							if(currentChannelIndex++ >= selectedLights.get(0).getNumChannels())
+							if(++currentChannelIndex >= selectedLights.get(0).getNumChannels())
 								currentChannelIndex = 0;
 							
 							break;
@@ -696,21 +707,46 @@ public class ServerAppThread extends Thread {
 						{
 							int gyroData = currCommand.getGyroData();
 							int dv = 0;
+							int rR;
+							int rG;
+							int rB;
 							
-							if(gyroData > 10000)
-								dv = ((gyroData - 10000)/(40000)) * 255;
-							if(gyroData > 50000)
+							if(gyroData > 300)
+								dv = 10;
+							if(gyroData > 350)
+								dv = 30;
+							if(gyroData > 400)
+								dv = 45;
+							if(gyroData > 600)
+								dv = 90;
+							if(gyroData > 670)
+								dv = 100;
+							if(gyroData > 900)
+								dv = 120;
+							if(gyroData > 950)
+								dv = 175;
+							if(gyroData > 1000)
+								dv = 200;
+							if(gyroData > 1100)
+								dv = 225;
+							if(gyroData > 1400)
+								dv = 240;
+							if(gyroData > 1700)
+								dv = 250;
+							if(gyroData > 2000)
 								dv = 255;
 
-							if(gyroData < min)
-								min = gyroData;
 							
-							if(gyroData > max)
-								max = gyroData;
+							System.out.println(dv);
+							System.out.println(gyroData);
 							
 							for (int i = 0; i < profiles.getLightCount(); i++) {
 								try {
+									rR = (int) (Math.random()*256);
+									rG = (int) (Math.random()*256);
+									rB = (int) (Math.random()*256);
 									profiles.getLight(i).setDimmerValue(dv);
+									profiles.getLight(i).setColor(new Color(rR, rG, rB));
 								} catch (IOException e) {
 									// TODO Auto-generated catch block
 									e.printStackTrace();
@@ -736,16 +772,48 @@ public class ServerAppThread extends Thread {
 						}
 						else if(currCommand.getDataType() == Connection.GYRO_DATA)
 						{
-							System.out.println(currCommand.getGyroData());
+							int gyroData = currCommand.getGyroData();
+							int dv = 247;
 							
-							/*for (FixtureProfile light : selectedLights) {
+							if(gyroData > 300)
+								dv = 230;
+							if(gyroData > 320)
+								dv = 220;
+							if(gyroData > 340)
+								dv = 200;
+							if(gyroData > 360)
+								dv = 170;
+							if(gyroData > 370)
+								dv = 130;
+							if(gyroData > 390)
+								dv = 110;
+							if(gyroData > 410)
+								dv = 100;
+							if(gyroData > 420)
+								dv = 70;
+							if(gyroData > 450)
+								dv = 50;
+							if(gyroData > 460)
+								dv = 33;
+							if(gyroData > 465)
+								dv = 20;
+							if(gyroData > 477)
+								dv = 3;
+
+							
+							System.out.println(dv);
+							System.out.println(gyroData);
+							
+							for (int i = 0; i < profiles.getLightCount(); i++) {
 								try {
-									light.setColor(colorConverter.getColor(xVal, yVal));
+
+									profiles.getLight(i).setDimmerValue(dv);
+									profiles.getLight(i).setColor(Color.WHITE);
 								} catch (IOException e) {
 									// TODO Auto-generated catch block
 									e.printStackTrace();
 								}
-							}*/
+							}
 						}
 						else
 						{

@@ -255,7 +255,6 @@ void app_main()
           if(gyro_tick > GYRO_REFRESH_RATE)
           {
             gyro_data = read_motion();
-            ESP_LOGI(TAG, "%d", gyro_data);
             send_data_packet(GYRO_DATA, 0, &gyro_data);
             gyro_tick = 0;
           }
@@ -268,7 +267,6 @@ void app_main()
         {
           gyro_data = read_motion();
           send_data_packet(GYRO_DATA, 0, &gyro_data);
-          ESP_LOGI(TAG, "%d", gyro_data);
           gyro_tick = 0;
         }
 
